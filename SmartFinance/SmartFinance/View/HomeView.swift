@@ -11,7 +11,6 @@ import SwiftData
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    
     var body: some View {
         NavigationSplitView {
             List {
@@ -32,8 +31,9 @@ struct HomeView: View {
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
                     }
-                }
             }
+            
+        }
         } detail: {
             Text("Select an item")
         }
