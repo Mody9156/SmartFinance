@@ -25,7 +25,18 @@ struct SmartFinanceApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            TabView {
+                Tab("Tableau de bord", systemImage: "house") {
+                    HomeView()
+                }
+                Tab("Transaction", systemImage: "chart.bar.xaxis.ascending") {
+                    TransactionsView()
+                }
+                
+                Tab("Paramètre", systemImage: "gearshape.fill") {
+                    SettingView()
+                }
+            }
         }
         .modelContainer(sharedModelContainer)
     }

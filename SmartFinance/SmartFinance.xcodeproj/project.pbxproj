@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4F0640732ED61D4700E2DCA9 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 4F0640722ED61D4700E2DCA9 /* SwiftUICharts */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4F9AE4C22ED25B2300381904 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -22,6 +26,19 @@
 			remoteInfo = SmartFinance;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4F06406F2ED617A800E2DCA9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4F9AE4B22ED25B2100381904 /* SmartFinance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartFinance.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F0640732ED61D4700E2DCA9 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +90,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F06406A2ED617A800E2DCA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4F9AE4A92ED25B2100381904 = {
 			isa = PBXGroup;
 			children = (
 				4F9AE4B42ED25B2100381904 /* SmartFinance */,
 				4F9AE4C42ED25B2300381904 /* SmartFinanceTests */,
 				4F9AE4CE2ED25B2300381904 /* SmartFinanceUITests */,
+				4F06406A2ED617A800E2DCA9 /* Frameworks */,
 				4F9AE4B32ED25B2100381904 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,6 +128,7 @@
 				4F9AE4AE2ED25B2100381904 /* Sources */,
 				4F9AE4AF2ED25B2100381904 /* Frameworks */,
 				4F9AE4B02ED25B2100381904 /* Resources */,
+				4F06406F2ED617A800E2DCA9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -112,6 +139,7 @@
 			);
 			name = SmartFinance;
 			packageProductDependencies = (
+				4F0640722ED61D4700E2DCA9 /* SwiftUICharts */,
 			);
 			productName = SmartFinance;
 			productReference = 4F9AE4B22ED25B2100381904 /* SmartFinance.app */;
@@ -195,6 +223,9 @@
 			);
 			mainGroup = 4F9AE4A92ED25B2100381904;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4F0640712ED61AE400E2DCA9 /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4F9AE4B32ED25B2100381904 /* Products */;
 			projectDirPath = "";
@@ -400,6 +431,7 @@
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,6 +464,7 @@
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -578,6 +611,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4F0640712ED61AE400E2DCA9 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F0640722ED61D4700E2DCA9 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F0640712ED61AE400E2DCA9 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4F9AE4AA2ED25B2100381904 /* Project object */;
 }
