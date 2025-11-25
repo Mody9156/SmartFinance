@@ -26,11 +26,15 @@ struct SmartFinanceApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                Tab("Accueil", systemImage: "house") {
+                Tab("Tableau de bord", systemImage: "house") {
                     HomeView()
                 }
                 Tab("Transaction", systemImage: "chart.bar.xaxis.ascending") {
                     TransactionsView()
+                }
+                
+                Tab("Paramètre", systemImage: "gearshape.fill") {
+                    SettingView()
                 }
             }
         }
