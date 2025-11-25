@@ -25,7 +25,7 @@ struct SmartFinanceApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            TransactionsView()
         }
         .modelContainer(sharedModelContainer)
     }

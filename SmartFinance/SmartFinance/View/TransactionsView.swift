@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct HomeView: View {
+struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     var body: some View {
@@ -56,6 +56,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    TransactionsView()
         .modelContainer(for: Item.self, inMemory: true)
 }
