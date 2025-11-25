@@ -1,13 +1,13 @@
 {
-  "originHash" : "f168ba91fd7cfdb6b1f6ad1da3c4686104bd8fd76107359d2ad8c71cf8519c44",
+  "originHash" : "4fa034e453faafc0169cb98ce1b88bc4e38f64f1cc0a176127db6dd00618e302",
   "pins" : [
     {
-      "identity" : "charts",
+      "identity" : "chartview",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/danielgindi/Charts",
+      "location" : "https://github.com/AppPear/ChartView",
       "state" : {
-        "revision" : "dd9c72e3d7e751e769971092a6bd72d39198ae63",
-        "version" : "5.1.0"
+        "revision" : "9115a992c91fa19cbb4f2241084240d38654a1fc",
+        "version" : "1.5.5"
       }
     }
   ],

@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftUICharts
 
 struct HomeView: View {
     var body: some View {
         VStack {
             Text("SmartFinance")
+            
+       
         }
     }
 }
