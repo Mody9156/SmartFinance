@@ -28,9 +28,9 @@ struct TransactionsView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+//                    Button(action: addItem) {
+//                        Label("Add Item", systemImage: "plus")
+//                    }
             }
             
         }
