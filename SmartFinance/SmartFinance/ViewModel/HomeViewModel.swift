@@ -11,8 +11,14 @@ import UIKit
 
 @Observable
 class HomeViewModel {
+    var lastBalance : Double = 1110.10
+    var newBalance : Double = 1230.99
     
-    func updateDifferenceWithLastMonth(lastBalance:Int,newBalance:Int) -> UIImage{
+    func displayDifference() -> Double {
+        
+    }
+    
+    func updateDifferenceWithLastMonth() -> UIImage{
         if newBalance > lastBalance{
             UIImage(systemName: "arrow.up")!
         }else if newBalance < lastBalance{
