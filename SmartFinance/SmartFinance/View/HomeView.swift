@@ -47,6 +47,9 @@ struct HomeView: View {
                     Text("$\(total)")
                         .font(.title)
                         .foregroundStyle(.white)
+                    
+                    Text("Montant utilisé")
+                        .foregroundStyle(Color("textColor"))
                 }
             }
             
