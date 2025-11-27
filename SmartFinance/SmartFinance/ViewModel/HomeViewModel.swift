@@ -14,8 +14,16 @@ class HomeViewModel {
     var lastBalance : Double = 1110.10
     var newBalance : Double = 1230.99
     
-    func displayDifference() -> Double {
+    func displayDifference() -> String {
+       var division = lastBalance / newBalance
         
+        if division > 0 {
+            return "+ \(division) this mouth"
+        }else if division < 0{
+            return "+ \(division) this mouth"
+        }else {
+            return "\(division) this mouth"
+        }
     }
     
     func updateDifferenceWithLastMonth() -> UIImage{
