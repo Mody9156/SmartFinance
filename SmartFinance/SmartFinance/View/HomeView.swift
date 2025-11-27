@@ -39,6 +39,9 @@ struct HomeView: View {
                         )
                     )
                     .frame(height: 200)
+                
+                Text("Montant utilisé")
+                    
             }
             
             Spacer()
