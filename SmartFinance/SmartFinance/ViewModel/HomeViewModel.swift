@@ -16,23 +16,23 @@ class HomeViewModel {
     
     func displayDifference() -> String {
         let division = lastBalance / newBalance
-        
-        if division > 0 {
-            return "+ \(division) this mouth"
-        }else if division < 0{
-            return "+ \(division) this mouth"
+        let arround = division.rounded()
+        if arround > 0 {
+            return "+ \(arround) this mouth"
+        }else if arround < 0{
+            return "+ \(arround) this mouth"
         }else {
-            return "\(division) this mouth"
+            return "\(arround) this mouth"
         }
     }
     
-    func updateDifferenceWithLastMonth() -> UIImage{
+    func updateDifferenceWithLastMonth() -> String{
         if newBalance > lastBalance{
-            UIImage(systemName: "arrow.up")!
+            "arrow.up"
         }else if newBalance < lastBalance{
-            UIImage(systemName: "arrow.down")!
+            "arrow.down"
         }else {
-            UIImage(systemName: "arrow.2.circlepath.circle")!
+            "arrow.2.circlepath.circle"
         }
     }
 }

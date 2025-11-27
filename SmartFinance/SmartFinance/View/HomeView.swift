@@ -52,9 +52,8 @@ struct HomeView: View {
                     
                     let total = homeViewModel.updateDifferenceWithLastMonth()
                     let total_two = homeViewModel.displayDifference()
-                    
-                    Text("\(total) \(total_two)")
-                        .foregroundStyle(Color("textColor"))
+                   
+                    Label(total_two, systemImage: total)
                 }
             }
             
