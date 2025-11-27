@@ -14,19 +14,11 @@ struct HomeView: View {
         
         VStack(alignment: .leading){
             HStack {
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .frame(width: 30,height: 30)
-                    .foregroundStyle(Color("titleColor"))
-                    .padding()
+                CustomImageSystem(image: "person.crop.circle.fill")
                 
                 Spacer()
-                
-                Image(systemName: "gearshape")
-                    .resizable()
-                    .frame(width: 30,height: 30)
-                    .foregroundStyle(Color("titleColor"))
-                    .padding()
+            
+                CustomImageSystem(image: "gearshape")
             }
             Text("Tableau de bord")
                 .foregroundStyle(Color("titleColor"))
