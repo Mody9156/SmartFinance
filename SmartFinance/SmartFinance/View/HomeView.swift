@@ -20,11 +20,16 @@ struct HomeView: View {
                 Spacer()
                 
                 Image(systemName: "gearshape")
+                    .foregroundStyle(Color("titleColor"))
             }
             Text("Tableau de bord")
                 .foregroundStyle(Color("titleColor"))
                 .fontWeight(.bold)
+            
+            Spacer()
+            
         }
+        .padding()
     }
 }
 
