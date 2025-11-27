@@ -92,7 +92,13 @@ struct HomeView: View {
                     .frame(height: 300)
                     .foregroundStyle(.white)
                 
-                LineView(data: [8,23,54,32,12,37,7,23,43], title: "Line chart", legend: "Full screen") 
+                HStack {
+                    LineView(data: [8,23,54,32,12,37,7,23,43], title: "Fiance", legend: "Full screen")
+                    
+                    Toggle(isOn: <#T##Binding<Bool>#>) {
+                        Text("here")
+                    }
+                }
             }
 
             Spacer()
