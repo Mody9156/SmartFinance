@@ -87,9 +87,13 @@ struct HomeView: View {
                 }
             }
             
-            RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 300)
-                            .foregroundStyle(.white)
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .frame(height: 300)
+                    .foregroundStyle(.white)
+                
+                LineView(data: [8,23,54,32,12,37,7,23,43], title: "Line chart", legend: "Full screen") // legend is optional, use optional .padding()
+            }
 
             Spacer()
             
