@@ -50,10 +50,10 @@ struct HomeView: View {
                         .font(.title)
                         .foregroundStyle(.white)
                     
-                    let total = homeViewModel.updateDifferenceWithLastMonth()
-                    let total_two = homeViewModel.displayDifference()
+                    let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
+                    let displayDifference = homeViewModel.displayDifference()
                    
-                    Label(total_two, systemImage: total)
+                    Label(displayDifference, systemImage: updateDifference)
                 }
             }
             
