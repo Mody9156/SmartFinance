@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftUICharts
 
 struct HomeView: View {
-    @State var total: Double = 12.454
     @Bindable var homeViewModel : HomeViewModel
     
     var body: some View {
@@ -19,7 +18,7 @@ struct HomeView: View {
                 CustomImageSystem(image: "person.crop.circle.fill")
                 
                 Spacer()
-            
+                
                 CustomImageSystem(image: "gearshape")
             }
             Text("Tableau de bord")
@@ -29,66 +28,65 @@ struct HomeView: View {
                 .padding()
             
             ZStack(alignment: .bottom) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [
-                                        Color("containerColor_left"),
-                                        Color("containerColor_right")
-                                    ],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [
+                                    Color("containerColor_left"),
+                                    Color("containerColor_right")
+                                ],
+                                startPoint: .leading,
+                                endPoint: .trailing
                             )
-                            .frame(height: 200)
+                        )
+                        .frame(height: 200)
+                    
+                    VStack(alignment: .center) {
+                        Text("Montant utilisé")
+                            .foregroundStyle(Color("textColor"))
                         
-                        VStack(alignment: .center) {
-                            Text("Montant utilisé")
+                        Text("$\(homeViewModel.newBalance.rounded())")
+                            .font(.title)
+                            .foregroundStyle(.white)
+                        
+                        let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
+                        let displayDifference = homeViewModel.displayDifference()
+                        
+                        Label{
+                            Text(displayDifference)
                                 .foregroundStyle(Color("textColor"))
                             
-                            Text("$\(homeViewModel.newBalance.rounded())")
-                                .font(.title)
+                        } icon:{
+                            Image(systemName: updateDifference)
                                 .foregroundStyle(.white)
-                            
-                            let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
-                            let displayDifference = homeViewModel.displayDifference()
-                            
-                            Label{
-                                Text(displayDifference)
-                                    .foregroundStyle(Color("textColor"))
-                                
-                            } icon:{
-                                Image(systemName: updateDifference)
-                                    .foregroundStyle(.white)
-                            }
                         }
                     }
+                }
+                
+                ZStack {
+                    Rectangle()
+                        .frame(height: 50)
+                        .foregroundStyle(.green)
+                        .opacity(0.9)
+                        .clipShape(RoundedRectangleLetAndRight(radius: 12))
                     
-                    ZStack {
-                        Rectangle()
-                            .frame(height: 50)
-                            .foregroundStyle(.green)
-                            .opacity(0.9)
-                            .clipShape(RoundedRectangleLetAndRight(radius: 12))
+                    Button(action: {
                         
-                        Button(action: {
-                            
-                        }) {
-                            Label{
-                                Text("Nouvelle transaction")
-                                    .foregroundStyle(.white)
-                            }icon:{
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 25,height: 25)
-                                    .foregroundStyle(.white)
-                            }
-                            
+                    }) {
+                        Label{
+                            Text("Nouvelle transaction")
+                                .foregroundStyle(.white)
+                        }icon:{
+                            Image(systemName: "plus.circle.fill")
+                                .resizable()
+                                .frame(width: 25,height: 25)
+                                .foregroundStyle(.white)
                         }
                     }
+                }
             }
-           
+            
             Spacer()
             
         }
@@ -109,7 +107,7 @@ struct CustomImageSystem:View {
 
 struct RoundedRectangleLetAndRight: Shape {
     var radius: CGFloat = 20
-
+    
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(
             roundedRect: rect,
