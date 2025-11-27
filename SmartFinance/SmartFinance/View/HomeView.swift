@@ -9,45 +9,21 @@ import SwiftUI
 import SwiftUICharts
 
 struct HomeView: View {
-    var demoData: [Double] = [8,23,54,32,12,37,7,23,43]
-    @State var name : String = "Jimmy"
-    @State var total : Int = 12_111
+    
     var body: some View {
         
-        ZStack{
-            LinearGradient(
-                colors: [Color.white,Color.green],
-                startPoint: .bottom,
-                endPoint: .top
-            )
-            .ignoresSafeArea()
-            
-            VStack {
-                Text("Bienvenue \(name)")
-                    .foregroundStyle(.white)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding()
+        VStack(alignment: .leading){
+            HStack {
+                Image(systemName: "person.crop.circle.fill")
+                    .foregroundStyle(Color("titleColor"))
                 
-                Text("$\(total)")
-                    .foregroundStyle(.white)
-                    .font(.title2)
-                    .padding()
-                LineChartView(data: demoData, title: "Title", legend: "Legendary")
+                Spacer()
                 
-              
-                    
-                    Button(action:{
-                        
-                    },label:{
-                        Text("Explorer")
-                            .foregroundStyle(.white)
-                    })
-                    .padding()
-                    .background(.green)
-                    .clipShape(Capsule())
-                        
+                Image(systemName: "gearshape")
             }
+            Text("Tableau de bord")
+                .foregroundStyle(Color("titleColor"))
+                .fontWeight(.bold)
         }
     }
 }
