@@ -16,15 +16,18 @@ struct HomeView: View {
             HStack {
                 Image(systemName: "person.crop.circle.fill")
                     .foregroundStyle(Color("titleColor"))
+                    .padding()
                 
                 Spacer()
                 
                 Image(systemName: "gearshape")
                     .foregroundStyle(Color("titleColor"))
+                    .padding()
             }
             Text("Tableau de bord")
                 .foregroundStyle(Color("titleColor"))
                 .fontWeight(.bold)
+                .padding()
             
             Spacer()
             
