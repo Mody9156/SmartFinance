@@ -22,7 +22,7 @@ struct HomeView: View {
             }
             Text("Tableau de bord")
                 .foregroundStyle(Color("titleColor"))
-                .font(.title)
+                .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding()
             
@@ -45,7 +45,8 @@ struct HomeView: View {
                         .foregroundStyle(Color("textColor"))
                     
                     Text("$\(total)")
-                    
+                        .font(.title)
+                        .foregroundStyle(.white)
                 }
             }
             
