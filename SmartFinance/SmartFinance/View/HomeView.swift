@@ -26,6 +26,21 @@ struct HomeView: View {
                 .fontWeight(.bold)
                 .padding()
             
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [
+                                Color("containerColor_left"),
+                                Color("containerColor_right")
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .frame(height: 200)
+            }
+            
             Spacer()
             
         }
