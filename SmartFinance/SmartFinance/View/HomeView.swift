@@ -70,7 +70,7 @@ struct HomeView: View {
                             .frame(height: 50)
                             .foregroundStyle(.green)
                             .opacity(0.9)
-                            .clipShape(RoundedRectangleLetAndRight(radius: 20))
+                            .clipShape(RoundedRectangleLetAndRight(radius: 12))
                         
                         Button(action: {
                             
