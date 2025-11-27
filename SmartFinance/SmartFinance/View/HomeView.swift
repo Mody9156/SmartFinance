@@ -10,6 +10,8 @@ import SwiftUICharts
 
 struct HomeView: View {
     @State var total: Double = 12.454
+    @Bindable var homeViewModel : HomeViewModel
+    
     var body: some View {
         
         VStack(alignment: .leading){
