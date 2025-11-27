@@ -27,7 +27,7 @@ struct SmartFinanceApp: App {
         WindowGroup {
             TabView {
                 Tab("Tableau de bord", systemImage: "house") {
-                    HomeView()
+                    HomeView(homeViewModel: HomeViewModel())
                 }
                 Tab("Transaction", systemImage: "chart.bar.xaxis.ascending") {
                     TransactionsView()

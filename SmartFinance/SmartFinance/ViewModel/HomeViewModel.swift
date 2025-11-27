@@ -15,7 +15,7 @@ class HomeViewModel {
     var newBalance : Double = 1230.99
     
     func displayDifference() -> String {
-       var division = lastBalance / newBalance
+        let division = lastBalance / newBalance
         
         if division > 0 {
             return "+ \(division) this mouth"

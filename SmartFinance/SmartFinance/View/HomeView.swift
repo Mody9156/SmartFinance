@@ -50,7 +50,10 @@ struct HomeView: View {
                         .font(.title)
                         .foregroundStyle(.white)
                     
-                    Text("Montant utilisé")
+                    let total = homeViewModel.updateDifferenceWithLastMonth()
+                    let total_two = homeViewModel.displayDifference()
+                    
+                    Text("\(total) \(total_two)")
                         .foregroundStyle(Color("textColor"))
                 }
             }
@@ -61,8 +64,6 @@ struct HomeView: View {
         .padding()
     }
 }
-
-
 
 struct CustomImageSystem:View {
     var image : String
