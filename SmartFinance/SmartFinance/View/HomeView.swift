@@ -70,8 +70,7 @@ struct HomeView: View {
                             .frame(height: 50)
                             .foregroundStyle(.green)
                             .opacity(0.9)
-                            
-                            
+                            .clipShape(RoundedRectangleLetAndRight(radius: 20))
                         
                         Button(action: {
                             
@@ -107,6 +106,20 @@ struct CustomImageSystem:View {
             .padding()
     }
 }
+
+struct RoundedRectangleLetAndRight: Shape {
+    var radius: CGFloat = 20
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: [.bottomLeft, .bottomRight],
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        return Path(path.cgPath)
+    }
+}
+
 
 #Preview {
     HomeView(homeViewModel: HomeViewModel())
