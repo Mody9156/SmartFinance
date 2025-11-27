@@ -11,16 +11,25 @@ import UIKit
 
 @Observable
 class HomeViewModel {
-    var lastBalance : Double = 1110.10
-    var newBalance : Double = 1230.99
+    var lastBalance : Double = 55_000
+    var newBalance : Double = 10_000
+    
+    func selectedNumber() -> Double {
+        if lastBalance >= newBalance {
+            return lastBalance - newBalance
+        }else {
+            return newBalance - lastBalance
+        }
+    }
     
     func displayDifference() -> String {
-        let division = lastBalance / newBalance
+        
+        let division = selectedNumber()
         let arround = division.rounded()
         if arround > 0 {
-            return "+ \(arround) this mouth"
+            return "+$\(arround) this mouth"
         }else if arround < 0{
-            return "+ \(arround) this mouth"
+            return "-$\(arround) this mouth"
         }else {
             return "\(arround) this mouth"
         }
@@ -32,7 +41,7 @@ class HomeViewModel {
         }else if newBalance < lastBalance{
             "arrow.down"
         }else {
-            "arrow.2.circlepath.circle"
+            ""
         }
     }
 }
