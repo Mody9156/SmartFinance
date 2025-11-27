@@ -76,5 +76,5 @@ struct CustomImageSystem:View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(homeViewModel: HomeViewModel())
 }
