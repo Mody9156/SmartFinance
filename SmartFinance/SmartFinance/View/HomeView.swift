@@ -41,7 +41,7 @@ struct HomeView: View {
                     .frame(height: 200)
                 
                 Text("Montant utilisé")
-                    
+                    .foregroundStyle(Color("textColor"))
             }
             
             Spacer()
