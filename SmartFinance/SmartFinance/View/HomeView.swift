@@ -87,7 +87,13 @@ struct HomeView: View {
                 }
             }
             
+            RoundedRectangle(cornerRadius: 12)
+                            .frame(height: 300)
+                            .foregroundStyle(.white)
+
             Spacer()
+            
+            
             
         }
         .padding()
