@@ -112,7 +112,7 @@ struct HomeView: View {
                         .shadow(radius: 12)
                     
                     ScrollView {
-                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.000)
+                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
                     }
                     
                 }
@@ -150,7 +150,7 @@ struct HistoryCustoms:View {
                     HStack {
                         Text("Salaray - Jun 1")
                         Spacer()
-                        Text("+ \(price)€")
+                        Text("+ \(String(format: "%.2f",price))€")
                     }
                 }
             }
