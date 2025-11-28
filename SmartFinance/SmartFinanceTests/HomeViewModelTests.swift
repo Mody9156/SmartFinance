@@ -6,7 +6,11 @@
 //
 
 import Testing
+@testable import SmartFinance
 
 @Test func displayDifference() throws {
-    
+    let viewModel = HomeViewModel()
+    let newElement = viewModel.newBalance
+    let lastElement = viewModel.lastBalance
+   
 }
