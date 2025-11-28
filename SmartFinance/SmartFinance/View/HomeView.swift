@@ -7,10 +7,13 @@
 
 import SwiftUI
 import SwiftUICharts
+import _SwiftData_SwiftUI
 
 struct HomeView: View {
     @Bindable var homeViewModel : HomeViewModel
     @State var activeToggle: Bool = false
+    @Query var transaction : [Transaction]
+    
     var body: some View {
         
         ScrollView {
