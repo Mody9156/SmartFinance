@@ -103,10 +103,10 @@ struct HomeView: View {
                     .padding()
                 }
                 ZStack{
-                    Rectangle()
+                    RoundedRectangle(cornerRadius: 12)
                         .frame(height: 200)
                         .foregroundStyle(.white)
-                    
+                        .shadow(radius: 12)
                 }
                 
                 Spacer()
