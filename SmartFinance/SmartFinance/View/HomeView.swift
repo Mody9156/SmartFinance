@@ -99,8 +99,6 @@ struct HomeView: View {
                     
                     HStack {
                         Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
-                        
-                        //                        Text(activeToggle ? "Semaine" : "Mois")
                     }
                     .padding()
                 }
