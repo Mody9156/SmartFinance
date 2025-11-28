@@ -11,7 +11,7 @@ import SwiftData
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
-    
+    @State var activeNavigationLink: Bool = false
     var body: some View {
         NavigationSplitView {
             List {
@@ -24,29 +24,34 @@ struct TransactionsView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+            .navigationDestination(isPresented: $activeNavigationLink) {
+                AddTransactionView()
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button {
+                        activeNavigationLink.toggle()
+                    } label: {
                         Label("Add Item", systemImage: "plus")
                     }
+                }
+                
             }
-            
-        }
         } detail: {
             Text("Select an item")
         }
     }
-
+    
     private func addItem() {
         withAnimation {
             let newItem = Item(timestamp: Date())
             modelContext.insert(newItem)
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
