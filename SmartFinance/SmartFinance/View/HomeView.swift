@@ -47,7 +47,7 @@ struct HomeView: View {
                             Text("Montant utilisé")
                                 .foregroundStyle(Color("textColor"))
                             
-                            Text("$\(homeViewModel.newBalance.rounded())")
+                            Text("$\(String(format: "%.2f",homeViewModel.newBalance))")
                                 .font(.title)
                                 .foregroundStyle(.white)
                             
