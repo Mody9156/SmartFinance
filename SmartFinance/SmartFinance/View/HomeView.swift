@@ -7,10 +7,13 @@
 
 import SwiftUI
 import SwiftUICharts
+import _SwiftData_SwiftUI
 
 struct HomeView: View {
     @Bindable var homeViewModel : HomeViewModel
     @State var activeToggle: Bool = false
+    @Query var transaction : [Transaction]
+    
     var body: some View {
         
         ScrollView {
@@ -47,7 +50,7 @@ struct HomeView: View {
                             Text("Montant utilisé")
                                 .foregroundStyle(Color("textColor"))
                             
-                            Text("$\(homeViewModel.newBalance.rounded())")
+                            Text("$\(String(format: "%.2f",homeViewModel.newBalance))")
                                 .font(.title)
                                 .foregroundStyle(.white)
                             
@@ -94,19 +97,78 @@ struct HomeView: View {
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
                     
-                    LineView(data: [8,23,500,32,12,37,7,23,43], title: "Fiance", legend: "Totalité des dépenses")
+                    LineView(data: [8,23,500,32,12,37,7,23,43], title: "", legend: "Totalité des dépenses")
                         .padding()
                     
                     HStack {
-                        Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
+                        Text("Finance")
+                            .fontWeight(.bold)
                         
-                        //                        Text(activeToggle ? "Semaine" : "Mois")
+                        Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
                     }
                     .padding()
                 }
+               
+                VStack {
+                    ScrollView {
+                        VStack {
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 12)
+                                    .frame(height: 200)
+                                    .foregroundStyle(.white)
+                                    .shadow(radius: 12)
+                                    VStack {
+                                        HistoryCustoms(systemName: "cart.fill", name: "Auchant", price: 160.88)
+                                        HistoryCustoms(systemName: "bag.fill", name: "Adidas", price: 90.77)
+                                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
+                                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
+                                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
+                                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
+                                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
+                                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
+                                    }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+struct HistoryCustoms:View {
+    var systemName: String
+    var name: String
+    var price: Double
+    
+    var body: some View {
+        VStack {
+            HStack{
+                Circle()
+                    .foregroundStyle(.green.opacity(0.4))
+                    .frame(height: 50)
+                    .overlay(content: {
+
+                        Image(systemName: systemName)
+                            .resizable()
+                            .foregroundStyle(.green)
+                            .frame(width: 25,height: 25)
+                    })
                 
-                Spacer()
-                
+                VStack {
+                    HStack {
+                        Text(name)
+                        Spacer()
+                        Text("Jun 1")
+                    }
+                    HStack {
+                        Text("Salaray - Jun 1")
+                        Spacer()
+                        Text("+ \(String(format: "%.2f",price))€")
+                    }
+                }
             }
             .padding()
         }

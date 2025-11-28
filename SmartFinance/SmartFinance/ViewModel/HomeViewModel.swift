@@ -7,12 +7,16 @@
 
 import Foundation
 import Observation
-import UIKit
 
 @Observable
 class HomeViewModel {
-    var lastBalance : Double = 55_000
-    var newBalance : Double = 10_000
+    var lastBalance : Double 
+    var newBalance : Double
+    
+    init(lastBalance: Double = 55_000, newBalance: Double = 10_000) {
+        self.lastBalance = lastBalance
+        self.newBalance = newBalance
+    }
     
     func selectedNumber() -> Double {
         if lastBalance >= newBalance {
