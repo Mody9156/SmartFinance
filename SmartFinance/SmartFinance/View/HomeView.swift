@@ -102,10 +102,12 @@ struct HomeView: View {
                     }
                     .padding()
                 }
-                
-                Rectangle()
-                    .frame(height: 200)
-                    .foregroundStyle(.white)
+                ZStack{
+                    Rectangle()
+                        .frame(height: 200)
+                        .foregroundStyle(.white)
+                    
+                }
                 
                 Spacer()
                 
