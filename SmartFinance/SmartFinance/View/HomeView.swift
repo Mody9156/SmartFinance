@@ -107,6 +107,10 @@ struct HomeView: View {
                         .frame(height: 200)
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
+
+                    HStack{
+                        
+                    }
                 }
                 
                 Spacer()
