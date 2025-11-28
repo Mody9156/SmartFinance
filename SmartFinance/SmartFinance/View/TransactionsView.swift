@@ -10,15 +10,16 @@ import SwiftData
 
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query var transaction : [Transaction]
+    
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(transaction) { transaction in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -28,9 +29,9 @@ struct TransactionsView: View {
                     EditButton()
                 }
                 ToolbarItem {
-//                    Button(action: addItem) {
-//                        Label("Add Item", systemImage: "plus")
-//                    }
+                    Button(action: addItem) {
+                        Label("Add Item", systemImage: "plus")
+                    }
             }
             
         }
@@ -49,7 +50,7 @@ struct TransactionsView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+                modelContext.delete(transaction[index])
             }
         }
     }
