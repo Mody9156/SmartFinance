@@ -112,38 +112,42 @@ struct HomeView: View {
                         .shadow(radius: 12)
 
                     ScrollView {
-                        VStack {
-                            HStack{
-                                
-                                Circle()
-                                    .foregroundStyle(.green.opacity(0.4))
-                                    .frame(height: 50)
-                                    .overlay(content: {
-                                        
-                                        Image(systemName: "cart.fill")
-                                            .resizable()
-                                            .foregroundStyle(.green)
-                                            .frame(width: 25,height: 25)
-                                    })
-                                
-                                VStack {
-                                    HStack {
-                                        Text("Adidas")
-                                        Spacer()
-                                        Text("Jun 1")
-                                    }
-                                    HStack {
-                                        Text("Salaray - Jun 1")
-                                        Spacer()
-                                        Text("+ 3000€")
-                                    }
-                                }
-                            }
-                            .padding()
-                        }
+                        HistoryCustoms()
                     }
                     
-                    
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+struct HistoryCustoms:View {
+    var body: some View {
+        VStack {
+            HStack{
+                Circle()
+                    .foregroundStyle(.green.opacity(0.4))
+                    .frame(height: 50)
+                    .overlay(content: {
+                        
+                        Image(systemName: "cart.fill")
+                            .resizable()
+                            .foregroundStyle(.green)
+                            .frame(width: 25,height: 25)
+                    })
+                
+                VStack {
+                    HStack {
+                        Text("Adidas")
+                        Spacer()
+                        Text("Jun 1")
+                    }
+                    HStack {
+                        Text("Salaray - Jun 1")
+                        Spacer()
+                        Text("+ 3000€")
+                    }
                 }
             }
             .padding()
