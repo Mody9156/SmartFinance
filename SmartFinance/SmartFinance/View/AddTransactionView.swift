@@ -51,9 +51,13 @@ struct AddTransactionView: View {
                         Text("To")
                     }
                     .pickerStyle(.navigationLink)
-                    
-                    
                 }
+                
+                Button(action: {
+                    
+                },label:{
+                    Text("Valider")
+                })
             }
         }
     }
