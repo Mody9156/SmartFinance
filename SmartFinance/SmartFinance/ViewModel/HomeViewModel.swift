@@ -7,7 +7,6 @@
 
 import Foundation
 import Observation
-import UIKit
 
 @Observable
 class HomeViewModel {
