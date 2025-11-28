@@ -100,7 +100,7 @@ struct HomeView: View {
                     HStack {
                         Text("Finance")
                             .fontWeight(.bold)
-                    
+                        
                         Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
                     }
                     .padding()
@@ -110,9 +110,9 @@ struct HomeView: View {
                         .frame(height: 200)
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
-
+                    
                     ScrollView {
-                        HistoryCustoms()
+                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.000)
                     }
                     
                 }
@@ -123,6 +123,10 @@ struct HomeView: View {
 }
 
 struct HistoryCustoms:View {
+    var systemName: String
+    var name: String
+    var price: Double
+    
     var body: some View {
         VStack {
             HStack{
@@ -130,8 +134,8 @@ struct HistoryCustoms:View {
                     .foregroundStyle(.green.opacity(0.4))
                     .frame(height: 50)
                     .overlay(content: {
-                        
-                        Image(systemName: "cart.fill")
+
+                        Image(systemName: systemName)
                             .resizable()
                             .foregroundStyle(.green)
                             .frame(width: 25,height: 25)
@@ -139,14 +143,14 @@ struct HistoryCustoms:View {
                 
                 VStack {
                     HStack {
-                        Text("Adidas")
+                        Text(name)
                         Spacer()
                         Text("Jun 1")
                     }
                     HStack {
                         Text("Salaray - Jun 1")
                         Spacer()
-                        Text("+ 3000€")
+                        Text("+ \(price)€")
                     }
                 }
             }
