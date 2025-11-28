@@ -94,10 +94,13 @@ struct HomeView: View {
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
                     
-                    LineView(data: [8,23,500,32,12,37,7,23,43], title: "Fiance", legend: "Totalité des dépenses")
+                    LineView(data: [8,23,500,32,12,37,7,23,43], title: "", legend: "Totalité des dépenses")
                         .padding()
                     
                     HStack {
+                        Text("Finance")
+                            .fontWeight(.bold)
+                    
                         Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
                     }
                     .padding()
