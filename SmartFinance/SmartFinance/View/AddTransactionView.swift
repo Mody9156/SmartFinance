@@ -12,7 +12,7 @@ struct AddTransactionView: View {
     @State var amount: Double = 0.0
     @State var conversion: [String] = ["$","€"]
     @State var selectElement = 1
-    @State var selectConversion = 1
+    @State var selectElment_2 = 1
     @State var selectCategory = 0
     @State var catagory: String = ""
     @State var note: String = ""
@@ -88,7 +88,7 @@ struct AddTransactionView: View {
                             }
                             .pickerStyle(.navigationLink)
                             
-                            Picker(selection: $selectConversion) {
+                            Picker(selection: $selectElment_2) {
                                 ForEach(0..<conversion.count,id: \.self){ from in
                                     Text(self.conversion[from])
                                 }
