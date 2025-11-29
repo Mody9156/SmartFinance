@@ -13,7 +13,7 @@ struct AddTransactionView: View {
     @State var from: [String] = ["$","€"]
     @State var selectElement = 1
     @State var selectElement_2 = 1
-    @State var selectElement_3 = 0
+    @State var selectCategory = 0
     @State var catagory: String = ""
     @State var note: String = ""
     @State var date : Date = Date()
@@ -62,7 +62,7 @@ struct AddTransactionView: View {
                         
                         DatePicker("Date", selection: $date)
                         
-                        Picker(selection: $selectElement_3) {
+                        Picker(selection: $selectCategory) {
                             ForEach(0..<showCategory.count,id: \.self){ items in
                                 Text(self.showCategory[items])
                             }
