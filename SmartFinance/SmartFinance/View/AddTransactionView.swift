@@ -13,6 +13,7 @@ struct AddTransactionView: View {
     @State var from: [String] = ["$","€"]
     @State var selectElement = 1
     @State var selectElement_2 = 1
+    @State var date : Date = Date()
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -22,15 +23,24 @@ struct AddTransactionView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(header:Text("Informations de l'achat")) {
-                    TextField("Veuillez entrez le nom du de l'achat",
-                              text: $name)
-                    TextField(
-                        "Veuillez entrez le montant de l'achat",
-                        value:$amount,
-                        formatter:formatter
-                    )
+                Section(header: Text("Nom et montant")) {
+                    TextField("Nom de l'achat", text: $name)
+                        .textContentType(.name)
+                    if name.isEmpty {
+                        Text("Le nom est requis").foregroundStyle(.red)
+                    }
+
+                    TextField("Montant de l'achat", value: $amount, format: .number)
+                        .keyboardType(.decimalPad)
+                    if amount <= 0 {
+                        Text("Le montant doit être supérieur à 0").foregroundStyle(.red)
+                    }
+                    
+                    
                 }
+                
+                
+                
                 
                 Section(header:Text("Conversion")) {
                   
