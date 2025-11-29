@@ -26,22 +26,13 @@ struct AddTransactionView: View {
                 Section(header: Text("Nom et montant")) {
                     TextField("Nom de l'achat", text: $name)
                         .textContentType(.name)
-                    if name.isEmpty {
-                        Text("Le nom est requis").foregroundStyle(.red)
-                    }
 
                     TextField("Montant de l'achat", value: $amount, format: .number)
                         .keyboardType(.decimalPad)
-                    if amount <= 0 {
-                        Text("Le montant doit être supérieur à 0").foregroundStyle(.red)
-                    }
                     
                     DatePicker("Date", selection: $date)
                     
                 }
-                
-                
-                
                 
                 Section(header:Text("Conversion")) {
                   
