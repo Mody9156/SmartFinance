@@ -13,6 +13,7 @@ struct AddTransactionView: View {
     @State var from: [String] = ["$","€"]
     @State var selectElement = 1
     @State var selectElement_2 = 1
+    @State var selectElement_3 = 0
     @State var catagory: String = ""
     @State var note: String = ""
     @State var date : Date = Date()
@@ -21,6 +22,18 @@ struct AddTransactionView: View {
         formatter.numberStyle = .decimal
         return formatter
     }()
+    @State var showCategory: [String] = [
+        "Alimentation",
+        "Logement",
+        "Transport",
+        "Santé",
+        "Divertissement",
+        "Éducation",
+        "Shopping",
+        "Voyages",
+        "Services",
+        "Autre"
+    ]
     
     var body: some View {
         NavigationStack {
@@ -35,7 +48,17 @@ struct AddTransactionView: View {
                         
                         DatePicker("Date", selection: $date)
                         
+                        Picker(selection: $selectElement_3) {
+                            ForEach(0..<showCategory.count,id: \.self){ items in
+                                Text(self.showCategory[items])
+                            }
+                        } label: {
+                            Text("Catgories")
+                        }
+                        .pickerStyle(.navigationLink)
                         
+                        
+                       
                     }
                     
                     Section(header:Text("Conversion")) {
