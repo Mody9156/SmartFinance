@@ -36,6 +36,7 @@ struct AddTransactionView: View {
                         Text("Le montant doit être supérieur à 0").foregroundStyle(.red)
                     }
                     
+                    DatePicker("Date", selection: $date)
                     
                 }
                 
@@ -66,7 +67,10 @@ struct AddTransactionView: View {
                 Button(action: {
                     
                 },label:{
-                    Text("Valider")
+                    VStack(alignment: .center) {
+                        Text("Valider")
+                            
+                    }
                 })
             }
         }
