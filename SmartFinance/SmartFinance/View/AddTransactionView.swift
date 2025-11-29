@@ -13,6 +13,8 @@ struct AddTransactionView: View {
     @State var from: [String] = ["$","€"]
     @State var selectElement = 1
     @State var selectElement_2 = 1
+    @State var catagory: String = ""
+    @State var note: String = ""
     @State var date : Date = Date()
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -32,6 +34,7 @@ struct AddTransactionView: View {
                             .keyboardType(.decimalPad)
                         
                         DatePicker("Date", selection: $date)
+                        
                         
                     }
                     
