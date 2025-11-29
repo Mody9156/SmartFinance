@@ -22,20 +22,21 @@ struct AddTransactionView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section(header: Text("Nom et montant")) {
-                    TextField("Nom de l'achat", text: $name)
-                        .textContentType(.name)
-
-                    TextField("Montant de l'achat", value: $amount, format: .number)
-                        .keyboardType(.decimalPad)
+            VStack {
+                Form {
+                    Section(header: Text("Nom et montant")) {
+                        TextField("Nom de l'achat", text: $name)
+                            .textContentType(.name)
+                        
+                        TextField("Montant de l'achat", value: $amount, format: .number)
+                            .keyboardType(.decimalPad)
+                        
+                        DatePicker("Date", selection: $date)
+                        
+                    }
                     
-                    DatePicker("Date", selection: $date)
-                    
-                }
-                
-                Section(header:Text("Conversion")) {
-                  
+                    Section(header:Text("Conversion")) {
+                        
                         Picker(selection: $selectElement) {
                             ForEach(0..<from.count,id: \.self){ from in
                                 Text(self.from[from])
@@ -45,25 +46,33 @@ struct AddTransactionView: View {
                         }
                         .pickerStyle(.navigationLink)
                         
-                    Picker(selection: $selectElement_2) {
-                        ForEach(0..<from.count,id: \.self){ from in
-                            Text(self.from[from])
+                        Picker(selection: $selectElement_2) {
+                            ForEach(0..<from.count,id: \.self){ from in
+                                Text(self.from[from])
+                            }
+                        } label: {
+                            Text("To")
                         }
-                    } label: {
-                        Text("To")
+                        .pickerStyle(.navigationLink)
                     }
-                    .pickerStyle(.navigationLink)
+                    
+                    
                 }
                 
                 Button(action: {
                     
                 },label:{
                     VStack(alignment: .center) {
-                        Text("Valider")
+                        ZStack {
+                            Text("Valider")
+                              
+                            
+                        }
                             
                     }
                 })
             }
+         
         }
     }
 }
