@@ -45,20 +45,20 @@ struct AddTransactionView: View {
                         
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Nom")
-
+                            
                             TextField("Nom de l'achat", text: $name)
                                 .textContentType(.name)
                         }
-
+                        
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Montant")
-
+                            
                             TextField("Entrez le montant",
                                       value: $amount,
                                       format: .number.precision(.fractionLength(2)))
-                                .keyboardType(.decimalPad)
+                            .keyboardType(.decimalPad)
                         }
-
+                        
                         
                         DatePicker("Date", selection: $date)
                         
