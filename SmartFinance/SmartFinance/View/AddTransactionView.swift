@@ -62,6 +62,8 @@ struct AddTransactionView: View {
                     Toggle(isOn: $activeToggle) {
                         Text("Activation de la conversion")
                     }
+                    
+                    if activeToggle {
                     Section(header:Text("Conversion")) {
                         
                         Picker(selection: $selectElement) {
@@ -82,6 +84,7 @@ struct AddTransactionView: View {
                         }
                         .pickerStyle(.navigationLink)
                     }
+                }
                 }
                 
                 Button(action: {
