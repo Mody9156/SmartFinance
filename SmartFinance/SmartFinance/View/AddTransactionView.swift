@@ -55,8 +55,6 @@ struct AddTransactionView: View {
                         }
                         .pickerStyle(.navigationLink)
                     }
-                    
-                    
                 }
                 
                 Button(action: {
@@ -66,11 +64,14 @@ struct AddTransactionView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
                                 .frame(height: 50)
+                                .foregroundStyle(Color("containerColor_right"))
+                            
                             Text("Valider")
                                 .foregroundStyle(.white)
                         }
                     }
                 })
+                .padding()
             }
         }
     }
