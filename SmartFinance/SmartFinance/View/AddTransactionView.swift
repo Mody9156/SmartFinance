@@ -10,7 +10,7 @@ import SwiftUI
 struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
-    @State var from: [String] = ["$","€"]
+    @State var conversion: [String] = ["$","€"]
     @State var selectElement = 1
     @State var selectElement_2 = 1
     @State var selectCategory = 0
@@ -80,8 +80,8 @@ struct AddTransactionView: View {
                         Section(header:Text("Conversion")) {
                             
                             Picker(selection: $selectElement) {
-                                ForEach(0..<from.count,id: \.self){ from in
-                                    Text(self.from[from])
+                                ForEach(0..<conversion.count,id: \.self){ from in
+                                    Text(self.conversion[from])
                                 }
                             } label: {
                                 Text("De")
@@ -89,8 +89,8 @@ struct AddTransactionView: View {
                             .pickerStyle(.navigationLink)
                             
                             Picker(selection: $selectElement_2) {
-                                ForEach(0..<from.count,id: \.self){ from in
-                                    Text(self.from[from])
+                                ForEach(0..<conversion.count,id: \.self){ from in
+                                    Text(self.conversion[from])
                                 }
                             } label: {
                                 Text("À")
