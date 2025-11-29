@@ -64,15 +64,14 @@ struct AddTransactionView: View {
                 },label:{
                     VStack(alignment: .center) {
                         ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(height: 50)
                             Text("Valider")
-                              
-                            
+                                .foregroundStyle(.white)
                         }
-                            
                     }
                 })
             }
-         
         }
     }
 }
