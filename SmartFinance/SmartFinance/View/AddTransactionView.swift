@@ -17,6 +17,7 @@ struct AddTransactionView: View {
     @State var catagory: String = ""
     @State var note: String = ""
     @State var date : Date = Date()
+    @State var activeToggle: Bool = false
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -39,7 +40,7 @@ struct AddTransactionView: View {
         NavigationStack {
             VStack {
                 Form {
-                    Section(header: Text("Nom et montant")) {
+                    Section(header: Text("Informations")) {
                         TextField("Nom de l'achat", text: $name)
                             .textContentType(.name)
                         
@@ -56,11 +57,11 @@ struct AddTransactionView: View {
                             Text("Catgories")
                         }
                         .pickerStyle(.navigationLink)
-                        
-                        
-                       
                     }
                     
+                    Toggle(isOn: $activeToggle) {
+                        Text("Activation de la conversion")
+                    }
                     Section(header:Text("Conversion")) {
                         
                         Picker(selection: $selectElement) {
