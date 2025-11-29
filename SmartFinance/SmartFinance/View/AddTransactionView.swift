@@ -40,12 +40,17 @@ struct AddTransactionView: View {
         NavigationStack {
             VStack {
                 Form {
-                    Section(header: Text("Informations")) {
+                    Section(header: Text("Nouvelle transaction"),
+                            footer: Text("Veuillez remplir tous les champs pour ajouter une transaction.")) {
                         TextField("Nom de l'achat", text: $name)
                             .textContentType(.name)
                         
-                        TextField("Montant de l'achat", value: $amount, format: .number)
-                            .keyboardType(.decimalPad)
+                        HStack {
+                            Text("Montant :")
+                            TextField("Entrez le montant", value: $amount, format: .number)
+                                .keyboardType(.decimalPad)
+                                
+                        }
                         
                         DatePicker("Date", selection: $date)
                         
@@ -64,27 +69,27 @@ struct AddTransactionView: View {
                     }
                     
                     if activeToggle {
-                    Section(header:Text("Conversion")) {
-                        
-                        Picker(selection: $selectElement) {
-                            ForEach(0..<from.count,id: \.self){ from in
-                                Text(self.from[from])
+                        Section(header:Text("Conversion")) {
+                            
+                            Picker(selection: $selectElement) {
+                                ForEach(0..<from.count,id: \.self){ from in
+                                    Text(self.from[from])
+                                }
+                            } label: {
+                                Text("De")
                             }
-                        } label: {
-                            Text("From")
-                        }
-                        .pickerStyle(.navigationLink)
-                        
-                        Picker(selection: $selectElement_2) {
-                            ForEach(0..<from.count,id: \.self){ from in
-                                Text(self.from[from])
+                            .pickerStyle(.navigationLink)
+                            
+                            Picker(selection: $selectElement_2) {
+                                ForEach(0..<from.count,id: \.self){ from in
+                                    Text(self.from[from])
+                                }
+                            } label: {
+                                Text("À")
                             }
-                        } label: {
-                            Text("To")
+                            .pickerStyle(.navigationLink)
                         }
-                        .pickerStyle(.navigationLink)
                     }
-                }
                 }
                 
                 Button(action: {
@@ -110,3 +115,4 @@ struct AddTransactionView: View {
 #Preview {
     AddTransactionView()
 }
+
