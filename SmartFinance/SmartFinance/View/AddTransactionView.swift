@@ -15,7 +15,7 @@ struct AddTransactionView: View {
     @State var selectElment_2 = 1
     @State var selectCategory = 0
     @State var catagory: String = ""
-    @State var note: String? = nil
+    @State var note: String = ""
     @State var date : Date = Date()
     @State var activeToggle: Bool = false
     let formatter: NumberFormatter = {
@@ -58,10 +58,7 @@ struct AddTransactionView: View {
                                       format: .number.precision(.fractionLength(2)))
                             .keyboardType(.decimalPad)
                             
-                            TextEditor(text: <#T##Binding<AttributedString>#>)
-                            
                         }
-                        
                         
                         DatePicker("Date", selection: $date)
                         
@@ -73,6 +70,24 @@ struct AddTransactionView: View {
                             Text("Catgories")
                         }
                         .pickerStyle(.navigationLink)
+                        
+                        HStack {
+                            Text("Note")
+                            
+                            TextEditor(text: $note)
+                                .font(.system(size: 16, weight: .regular, design: .rounded))
+                                .foregroundStyle(.primary)
+                                .padding(8)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color(.systemGray6))
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.secondary.opacity(0.2), lineWidth: 1)
+                                )
+                                .padding(.horizontal)
+                        }
                     }
                     
                     Toggle(isOn: $activeToggle) {
@@ -126,4 +141,3 @@ struct AddTransactionView: View {
 #Preview {
     AddTransactionView()
 }
-
