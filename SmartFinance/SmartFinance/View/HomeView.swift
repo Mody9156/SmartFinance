@@ -111,15 +111,17 @@ struct HomeView: View {
                
                 VStack {
                     ScrollView {
-                        VStack {
-                            ZStack{
+                        VStack(alignment: .leading) {
+                            Text("Transaction récente")
+                                .foregroundStyle(.secondary)
+                                .padding()
                                 VStack {
+                                   
                                     HistoryCustoms(systemName: "cart.fill", name: "Auchant", price: 160.88)
                                     HistoryCustoms(systemName: "bag.fill", name: "Adidas", price: 90.77)
                                     HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
                                     
                                 }
-                            }
                         }
                     }
                 }
