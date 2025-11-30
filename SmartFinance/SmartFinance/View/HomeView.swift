@@ -113,15 +113,12 @@ struct HomeView: View {
                     ScrollView {
                         VStack {
                             ZStack{
-                                RoundedRectangle(cornerRadius: 12)
-                                    .frame(height: 200)
-                                    .foregroundStyle(.white)
-                                    .shadow(radius: 12)
-                                    VStack {
-                                        HistoryCustoms(systemName: "cart.fill", name: "Auchant", price: 160.88)
-                                        HistoryCustoms(systemName: "bag.fill", name: "Adidas", price: 90.77)
-                                        HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
-                                
+                                VStack {
+                                    HistoryCustoms(systemName: "cart.fill", name: "Auchant", price: 160.88)
+                                    HistoryCustoms(systemName: "bag.fill", name: "Adidas", price: 90.77)
+                                    HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
+                                    
+                                }
                             }
                         }
                     }
