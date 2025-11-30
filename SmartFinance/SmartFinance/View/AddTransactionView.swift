@@ -15,7 +15,7 @@ struct AddTransactionView: View {
     @State var selectElment_2 = 1
     @State var selectCategory = 0
     @State var catagory: String = ""
-    @State var note: String = ""
+    @State var note: String? = nil
     @State var date : Date = Date()
     @State var activeToggle: Bool = false
     let formatter: NumberFormatter = {
@@ -57,6 +57,9 @@ struct AddTransactionView: View {
                                       value: $amount,
                                       format: .number.precision(.fractionLength(2)))
                             .keyboardType(.decimalPad)
+                            
+                            TextEditor(text: <#T##Binding<AttributedString>#>)
+                            
                         }
                         
                         
