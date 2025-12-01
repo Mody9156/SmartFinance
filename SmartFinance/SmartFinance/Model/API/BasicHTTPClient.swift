@@ -6,6 +6,7 @@
 //
 
 import Foundation
-class BasicHTTPClient {
+class BasicHTTPClient : HTTPService {
+
     
 }
