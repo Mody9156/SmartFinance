@@ -22,16 +22,19 @@ class AddTransactionViewModel {
     
     
     @MainActor
-    func getConversions() async throws -> [Convert] {
+    func getConversions() async throws -> Convert {
         do {
             let result = try await converterManager.showConverter()
-            self.conversion = result
+//            self.conversion = result
             print("il y a \(conversion.count) conversions\(conversion)")
-            print("oooooo")
+            print("félicitations")
             return result
         } catch {
+            print("errrrrrro ")
+            print("\(error.localizedDescription)")
             throw ConversionError.emptyArray
         }
+      
     }
     
 }

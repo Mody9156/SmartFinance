@@ -15,8 +15,8 @@ class ConverterManager : ConverterService  {
         self.session = session
     }
     
-    enum httpError : Error {
-        case invalidResponse
+    enum fetchError : Error {
+        case invalidResponse,invalidDecoder
     }
     
     func fetchData() -> URLRequest {
@@ -26,20 +26,20 @@ class ConverterManager : ConverterService  {
         return request
     }
     
-    func showConverter() async throws -> [Convert] {
+    func showConverter() async throws -> Convert {
         let request = fetchData()
         let (data,response) = try await session.fetchRequest(request)
         
         guard let htppResponse = response as? HTTPURLResponse, htppResponse.statusCode == 200 else {
-            throw httpError.invalidResponse
+            throw fetchError.invalidResponse
         }
-        print("data:\(data)")
-        print("response\(response)")
         let decoder = JSONDecoder()
-//        decoder.keyDecodingStrategy = .convertFromSnakeCase // utilisation de camelCase
-     
-        let result = try decoder.decode([Convert].self, from: data)
-        print("result:\(result)")
+        decoder.keyDecodingStrategy = .convertFromSnakeCase // utilisation de camelCase
+        
+        guard let result = try? decoder.decode(Convert.self, from: data) else {
+            throw fetchError.invalidDecoder
+        }
+        
         return result
     }
 }
