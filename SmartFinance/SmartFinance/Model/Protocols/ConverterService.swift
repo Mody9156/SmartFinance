@@ -9,5 +9,6 @@ import Foundation
 
 
 protocol ConverterService {
-    func getConversions() -> [Convert]
+    func fetchData() -> URLRequest
+    func showConverter() async throws -> [Convert]
 }

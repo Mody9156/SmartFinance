@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ConverterManager {
+class ConverterManager : ConverterService  {
     
     var session : HTTPService
     

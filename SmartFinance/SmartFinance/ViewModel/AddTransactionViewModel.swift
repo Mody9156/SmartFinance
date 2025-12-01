@@ -10,5 +10,23 @@ import Observation
 
 @Observable
 class AddTransactionViewModel {
+    var converterManager : ConverterService
+    
+    init(converterManager: ConverterService = ConverterManager()) {
+        self.converterManager = converterManager
+    }
+    
+    enum ConversionError: Error {
+        case emptyArray
+    }
+    
+    
+    func getConversions() async throws -> [Convert] {
+        do {
+            return try await converterManager.showConverter()
+        } catch {
+            throw ConversionError.emptyArray
+        }
+    }
     
 }
