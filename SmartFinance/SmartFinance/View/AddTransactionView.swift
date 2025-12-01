@@ -118,7 +118,16 @@ struct AddTransactionView: View {
 //                                Text("De")
 //                            }
 
-                            
+                            Picker(selection:  $selectElement) {
+                                ForEach(
+                                    addTransactionViewModel.conversion,
+                                    id: \.self
+                                ){ from in
+                                    Text("")
+                                }
+                            } label: {
+                                Text("De")
+                            }
                             Picker(selection: $selectElment_2) {
                                 ForEach(0..<conversion.count,id: \.self){ from in
                                     Text(self.conversion[from])

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Convert : Decodable {
+struct Convert : Decodable,Hashable {
        let result: String
        let documentation, termsOfUse: String
        let timeLastUpdateUnix: Int
