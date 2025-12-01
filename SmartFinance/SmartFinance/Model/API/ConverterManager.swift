@@ -26,16 +26,16 @@ class ConverterManager {
         return request
     }
     
-    func showConverter() async throws -> [Transaction] {
+    func showConverter() async throws -> [convert] {
         let request = fetchData()
         let (data,response) = try await session.fetchRequest(request)
         
         guard let htppResponse = response as? HTTPURLResponse, htppResponse.statusCode == 200 else {
             throw httpError.invalidResponse
         }
-        
+       
         let decoder = JSONDecoder()
-        let result = try? decoder.decode([Transaction.self], from: data)
+        let result = try! decoder.decode([convert].self, from: data)
         
         return result
     }

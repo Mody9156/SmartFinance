@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct convert : Codable {
+struct convert : Decodable {
     let result: String
        let documentation, termsOfUse: String
        let timeLastUpdateUnix: Int
