@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol HTTPService {
+    func fetchRequest(_ request:URLRequest) -> (Data,URLResponse)
+}
