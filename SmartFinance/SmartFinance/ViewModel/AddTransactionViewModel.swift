@@ -20,7 +20,6 @@ class AddTransactionViewModel {
         case emptyArray
     }
     
-    
     func getConversions() async throws -> [Convert] {
         do {
             return try await converterManager.showConverter()

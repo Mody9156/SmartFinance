@@ -36,6 +36,8 @@ struct AddTransactionView: View {
         "Autre"
     ]
     
+    @Bindable var addTransactionViewModel : AddTransactionViewModel
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -139,5 +141,5 @@ struct AddTransactionView: View {
 }
 
 #Preview {
-    AddTransactionView()
+    AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
 }
