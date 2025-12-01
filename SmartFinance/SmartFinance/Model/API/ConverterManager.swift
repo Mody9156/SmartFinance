@@ -17,5 +17,7 @@ class ConverterManager {
         return request
     }
     
-    
+    func showConverter() -> [Transaction] {
+        
+    }
 }
