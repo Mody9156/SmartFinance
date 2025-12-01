@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class ConverterManager {
+    
+    
+    func fetchData() -> URLRequest {
+        
+    }
+}
