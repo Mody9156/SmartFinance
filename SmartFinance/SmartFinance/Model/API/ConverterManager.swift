@@ -29,8 +29,7 @@ class ConverterManager : ConverterService  {
     func showConverter() async throws -> Convert {
         let request = fetchData()
         let (data,response) = try await session.fetchRequest(request)
-        print("data : \(data)")
-        print("response : \(response)")
+
         guard let htppResponse = response as? HTTPURLResponse, htppResponse.statusCode == 200 else {
             throw fetchError.invalidResponse
         }

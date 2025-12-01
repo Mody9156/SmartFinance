@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Convert : Decodable,Hashable {
+struct Convert : Decodable,Hashable, Identifiable {
+    let id = UUID()
     let result: String
     let documentation, termsOfUse: String
     let timeLastUpdateUnix: Int

@@ -30,8 +30,6 @@ class AddTransactionViewModel {
             print("félicitations")
             return result
         } catch {
-            print("errrrrrro ")
-            print("\(error.localizedDescription)")
             throw ConversionError.emptyArray
         }
       

@@ -36,7 +36,7 @@ struct AddTransactionView: View {
         "Autre"
     ]
     
-    @State var conversionItems: [Convert] = []
+    @State var conversionElements: [String: Double] = [:]
     
    var addTransactionViewModel : AddTransactionViewModel
     
@@ -103,46 +103,24 @@ struct AddTransactionView: View {
                         
                         Section(header:Text("Conversion")) {
                             
-                            //                            Picker(selection: $selectElement) {
-                            //                                ForEach(
-                            //                                    addTransactionViewModel.convert,
-                            //                                    id: \.conversionRates
-                            //                                ){ from in
-                            //                                    Text("")
-                            //                            } label: {
-                            //                                Text("De")
-                            //                            }
-                            //                            .pickerStyle(.navigationLink)
-                            
-                            //                            Picker(selection: $selectElement) {
-                            //                                
-                            //                            } label: {
-                            //                                Text("De")
-                            //                            }
-                            
-                            Picker(selection:  $selectElement) {
-                                ForEach(conversionItems,
-                                        id: \.self
-                                ){ from in
-                                    Text(Array(from.conversionRates.values).map { String(describing: $0) }.joined(separator: ", "))
-                                    
+                            if let firstConvert = addTransactionViewModel.conversion.first {
+                                let codes = Array(firstConvert.conversionRates.keys)
+                                Picker("De", selection: $selectElement) {
+                                    ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
+                                        Text(code).tag(index)
+                                    }
                                 }
-                            } label: {
-                                Text("De")
-                            }
-                            .pickerStyle(.navigationLink)
-                            
-                            Picker(selection: $selectElment_2) {
-                                ForEach(0..<conversion.count,id: \.self){ from in
-                                    Text(self.conversion[from])
+                                .pickerStyle(.navigationLink)
+                                
+                                
+                                Picker("À", selection: $selectElment_2) {
+                                    ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
+                                        Text(code).tag(index)
+                                    }
                                 }
-                            } label: {
-                                Text("À")
+                                .pickerStyle(.navigationLink)
                             }
-                            .pickerStyle(.navigationLink)
                         }
-                        
-                        
                     }
                 }
                 
