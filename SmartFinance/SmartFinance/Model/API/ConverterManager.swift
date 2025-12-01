@@ -35,10 +35,10 @@ class ConverterManager : ConverterService  {
         }
        
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase // utilisation de camelCase
-       
+//        decoder.keyDecodingStrategy = .convertFromSnakeCase // utilisation de camelCase
+     
         let result = try decoder.decode([Convert].self, from: data)
-      
+        print("result:\(result)")
         return result
     }
 }

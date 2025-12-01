@@ -26,6 +26,7 @@ class AddTransactionViewModel {
         do {
             let result = try await converterManager.showConverter()
             self.conversion = result
+            print("il y a \(conversion.count) conversions\(conversion)")
             return result
         } catch {
             throw ConversionError.emptyArray

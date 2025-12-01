@@ -36,10 +36,11 @@ struct AddTransactionView: View {
         "Autre"
     ]
     
+    @State var conversionItems: [Convert] = []
+    
    var addTransactionViewModel : AddTransactionViewModel
     
     var body: some View {
-        NavigationStack {
             VStack {
                 Form {
                     Section(header: Text("Nouvelle transaction"),
@@ -119,15 +120,17 @@ struct AddTransactionView: View {
 //                            }
 
                             Picker(selection:  $selectElement) {
-                                ForEach(
-                                    addTransactionViewModel.conversion,
+                                ForEach(conversionItems,
                                     id: \.self
                                 ){ from in
-                                    Text("")
+                                    Text(Array(from.conversionRates.values).map { String(describing: $0) }.joined(separator: ", "))
+                                   
                                 }
                             } label: {
                                 Text("De")
                             }
+                            .pickerStyle(.navigationLink)
+                            
                             Picker(selection: $selectElment_2) {
                                 ForEach(0..<conversion.count,id: \.self){ from in
                                     Text(self.conversion[from])
@@ -163,7 +166,7 @@ struct AddTransactionView: View {
                     try? await addTransactionViewModel.getConversions()
                 }
             }
-        }
+        
     }
 }
 
