@@ -36,7 +36,7 @@ struct AddTransactionView: View {
         "Autre"
     ]
     
-    @Bindable var addTransactionViewModel : AddTransactionViewModel
+   var addTransactionViewModel : AddTransactionViewModel
     
     var body: some View {
         NavigationStack {
