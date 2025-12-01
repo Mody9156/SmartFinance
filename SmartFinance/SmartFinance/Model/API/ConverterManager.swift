@@ -26,7 +26,7 @@ class ConverterManager {
         return request
     }
     
-    func showConverter() async throws -> [convert] {
+    func showConverter() async throws -> [Convert] {
         let request = fetchData()
         let (data,response) = try await session.fetchRequest(request)
         
@@ -35,7 +35,7 @@ class ConverterManager {
         }
        
         let decoder = JSONDecoder()
-        let result = try! decoder.decode([convert].self, from: data)
+        let result = try! decoder.decode([Convert].self, from: data)
         
         return result
     }

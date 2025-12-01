@@ -9,5 +9,5 @@ import Foundation
 
 
 protocol ConverterService {
-    
+    func getConversions() -> [Convert]
 }
