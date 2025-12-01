@@ -97,6 +97,8 @@ struct AddTransactionView: View {
                     }
                     
                     if activeToggle {
+                        //Ajouter l'instance
+                        
                         Section(header:Text("Conversion")) {
                             
                             Picker(selection: $selectElement) {
@@ -117,6 +119,8 @@ struct AddTransactionView: View {
                             }
                             .pickerStyle(.navigationLink)
                         }
+                        
+                        
                     }
                 }
                 
@@ -135,6 +139,11 @@ struct AddTransactionView: View {
                     }
                 })
                 .padding()
+            }
+            .onAppear{
+                Task{
+                    try await addTransactionViewModel.getConversions()
+                }
             }
         }
     }
