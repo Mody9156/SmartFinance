@@ -25,7 +25,7 @@ struct TransactionsView: View {
                 .onDelete(perform: deleteItems)
             }
             .navigationDestination(isPresented: $activeNavigationLink) {
-                AddTransactionView()
+                AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
