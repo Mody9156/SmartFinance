@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import Observation
 
-class AddTransactionView {
+@Observable
+class AddTransactionViewModel {
     
 }
