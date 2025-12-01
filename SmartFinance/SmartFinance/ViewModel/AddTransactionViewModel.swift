@@ -25,7 +25,7 @@ class AddTransactionViewModel {
     func getConversions() async throws -> Convert {
         do {
             let result = try await converterManager.showConverter()
-//            self.conversion = result
+            self.conversion = [result]
             print("il y a \(conversion.count) conversions\(conversion)")
             print("félicitations")
             return result

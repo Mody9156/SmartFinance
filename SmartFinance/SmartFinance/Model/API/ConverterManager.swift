@@ -29,12 +29,13 @@ class ConverterManager : ConverterService  {
     func showConverter() async throws -> Convert {
         let request = fetchData()
         let (data,response) = try await session.fetchRequest(request)
-        
+        print("data : \(data)")
+        print("response : \(response)")
         guard let htppResponse = response as? HTTPURLResponse, htppResponse.statusCode == 200 else {
             throw fetchError.invalidResponse
         }
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase // utilisation de camelCase
+//        decoder.keyDecodingStrategy = .convertFromSnakeCase // utilisation de camelCase
         
         guard let result = try? decoder.decode(Convert.self, from: data) else {
             throw fetchError.invalidDecoder

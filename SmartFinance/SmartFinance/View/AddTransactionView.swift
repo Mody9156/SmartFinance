@@ -120,17 +120,17 @@ struct AddTransactionView: View {
                             //                                Text("De")
                             //                            }
                             
-//                            Picker(selection:  $selectElement) {
-//                                ForEach(conversionItems,
-//                                        id: \.self
-//                                ){ from in
-//                                    Text(Array(from.conversionRates.values).map { String(describing: $0) }.joined(separator: ", "))
-//                                    
-//                                }
-//                            } label: {
-//                                Text("De")
-//                            }
-//                            .pickerStyle(.navigationLink)
+                            Picker(selection:  $selectElement) {
+                                ForEach(conversionItems,
+                                        id: \.self
+                                ){ from in
+                                    Text(Array(from.conversionRates.values).map { String(describing: $0) }.joined(separator: ", "))
+                                    
+                                }
+                            } label: {
+                                Text("De")
+                            }
+                            .pickerStyle(.navigationLink)
                             
                             Picker(selection: $selectElment_2) {
                                 ForEach(0..<conversion.count,id: \.self){ from in
