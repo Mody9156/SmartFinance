@@ -35,9 +35,7 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-    
-    @State var conversionElements: [String: Double] = [:]
-    
+        
    var addTransactionViewModel : AddTransactionViewModel
     
     var body: some View {
