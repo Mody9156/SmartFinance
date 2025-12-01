@@ -101,14 +101,23 @@ struct AddTransactionView: View {
                         
                         Section(header:Text("Conversion")) {
                             
-                            Picker(selection: $selectElement) {
-                                ForEach(0..<conversion.count,id: \.self){ from in
-                                    Text(self.conversion[from])
-                                }
-                            } label: {
-                                Text("De")
-                            }
-                            .pickerStyle(.navigationLink)
+//                            Picker(selection: $selectElement) {
+//                                ForEach(
+//                                    addTransactionViewModel.convert,
+//                                    id: \.conversionRates
+//                                ){ from in
+//                                    Text("")
+//                            } label: {
+//                                Text("De")
+//                            }
+//                            .pickerStyle(.navigationLink)
+                            
+//                            Picker(selection: $selectElement) {
+//                                
+//                            } label: {
+//                                Text("De")
+//                            }
+
                             
                             Picker(selection: $selectElment_2) {
                                 ForEach(0..<conversion.count,id: \.self){ from in
@@ -142,7 +151,7 @@ struct AddTransactionView: View {
             }
             .onAppear{
                 Task{
-                    try await addTransactionViewModel.getConversions()
+                    try? await addTransactionViewModel.getConversions()
                 }
             }
         }
