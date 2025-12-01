@@ -33,7 +33,8 @@ class ConverterManager : ConverterService  {
         guard let htppResponse = response as? HTTPURLResponse, htppResponse.statusCode == 200 else {
             throw httpError.invalidResponse
         }
-       
+        print("data:\(data)")
+        print("response\(response)")
         let decoder = JSONDecoder()
 //        decoder.keyDecodingStrategy = .convertFromSnakeCase // utilisation de camelCase
      
