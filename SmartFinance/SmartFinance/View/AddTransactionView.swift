@@ -109,10 +109,11 @@ struct AddTransactionView: View {
                     if activeToggle {
                         Section(header:Text("Conversion")) {
                             if let firstConvert = addTransactionViewModel.conversion.first {
-                                let codes = Array(firstConvert.conversionRates.keys)
+                                let codes = Array(firstConvert.conversionRates)
+                                
                                 Picker("De", selection: $selectElement) {
                                     ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
-                                        Text(code).tag(index)
+                                        Text(code.key).tag(index)
                                     }
                                 }
                                 .pickerStyle(.navigationLink)
