@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingView: View {
+    @AppStorage("baseCurrency") var baseCurrency : String = ""
     var body: some View {
         Text("Setting")
     }
