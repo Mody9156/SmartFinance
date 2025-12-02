@@ -19,9 +19,9 @@ struct SettingView: View {
                 Picker("Exchange Rate", selection: $selectedCurrency) {
                     
                     if let firstCurrency = addTransactionViewModel.conversion.first {
-                        let currency = Array(firstCurrency.conversionRates.keys)
+                        let currencyKeys = Array(firstCurrency.conversionRates.keys)
                         
-                        ForEach(currency.enumerated(), id: \.offset) { values , keys in
+                        ForEach(currencyKeys.enumerated(), id: \.offset) { values , keys in
                             Text(keys).tag(values)
                                 .onChange(of:keys ){
                                     baseCurrency = keys
@@ -30,6 +30,9 @@ struct SettingView: View {
                     }
                 }
                 .pickerStyle(.navigationLink)
+                
+                
+                    Text(baseCurrency)
             }
             .onAppear{
                 Task{
