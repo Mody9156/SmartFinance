@@ -32,6 +32,7 @@ struct SettingView: View {
                 .pickerStyle(.navigationLink)
             
             }
+            .padding()
             .onAppear{
                 Task{
                     try? await addTransactionViewModel.getConversions()
