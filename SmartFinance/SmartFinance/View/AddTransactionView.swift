@@ -146,7 +146,6 @@ struct AddTransactionView: View {
                             }
                         }
                     }
-
                 }
                 
                 Button(action: {
