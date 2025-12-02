@@ -10,6 +10,8 @@ import SwiftUI
 struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = ""
     @State var selectedCurrency : String = ""
+    var addTransactionViewModel : AddTransactionViewModel
+    
     var body: some View {
         Text("Setting")
         
@@ -20,5 +22,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView()
+    SettingView(addTransactionViewModel: AddTransactionViewModel())
 }
