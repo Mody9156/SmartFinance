@@ -23,6 +23,7 @@ struct AddTransactionView: View {
         formatter.numberStyle = .decimal
         return formatter
     }()
+    @State var currency : String = ""
     @State var showCategory: [String] = [
         "Alimentation",
         "Logement",
