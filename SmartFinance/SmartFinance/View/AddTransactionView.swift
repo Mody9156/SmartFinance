@@ -35,6 +35,7 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
+    
     @AppStorage("baseCurrency") var baseCurrency : String = ""
     
     var addTransactionViewModel : AddTransactionViewModel
