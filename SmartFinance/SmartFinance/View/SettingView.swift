@@ -13,24 +13,26 @@ struct SettingView: View {
     var addTransactionViewModel : AddTransactionViewModel
     
     var body: some View {
-        VStack {
-            Text("Setting")
-            Picker("Exchange Rate", selection: $selectedCurrency) {
-                
-                if let firstCurrency = addTransactionViewModel.conversion.first {
-                    let currency = Array(firstCurrency.conversionRates.keys)
-                      
-                    ForEach(currency.enumerated(), id: \.offset) { values , keys in
-                        Text(keys).tag(values)
+        NavigationStack {
+            VStack {
+                Text("Setting")
+                Picker("Exchange Rate", selection: $selectedCurrency) {
+                    
+                    if let firstCurrency = addTransactionViewModel.conversion.first {
+                        let currency = Array(firstCurrency.conversionRates.keys)
+                        
+                        ForEach(currency.enumerated(), id: \.offset) { values , keys in
+                            Text(keys).tag(values)
+                        }
+                        
                     }
                     
                 }
-
             }
-        }
-        .onAppear{
-            Task{
-                try? await addTransactionViewModel.getConversions()
+            .onAppear{
+                Task{
+                    try? await addTransactionViewModel.getConversions()
+                }
             }
         }
     }
