@@ -30,7 +30,7 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-    @AppStorage("baseCurrency") var baseCurrency : String = ""
+    @AppStorage("baseCurrency") var baseCurrency : Double = 0.0
     var addTransactionViewModel : AddTransactionViewModel
     
     let formatter: NumberFormatter = {
@@ -40,9 +40,8 @@ struct AddTransactionView: View {
     }()
     
     func exchangeRate(amount:Double,to targetCurrency:Double) -> Double {
-        let conversion = addTransactionViewModel.conversion
        
-         let amountInBase = amount / baseRate
+         let amountInBase = amount / baseCurrency
          let convertedAmount = amountInBase * baseCurrency
         
          return convertedAmount

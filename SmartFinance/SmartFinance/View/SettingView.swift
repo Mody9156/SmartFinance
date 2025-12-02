@@ -15,13 +15,10 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             VStack {
-              
+                
                 Picker("Exchange Rate", selection: $selectedCurrency) {
-                    
                     if let firstCurrency = addTransactionViewModel.conversion.first {
                         let currencyKeys = Array(firstCurrency.conversionRates)
-                        let currencyValues = Array(firstCurrency.conversionRates.values)
-                       
                         
                         ForEach(currencyKeys.enumerated(), id: \.offset) { values , keys in
                             Text(keys.key).tag(values)
@@ -32,7 +29,7 @@ struct SettingView: View {
                     }
                 }
                 .pickerStyle(.navigationLink)
-            
+                
             }
             .padding()
             .onAppear{
