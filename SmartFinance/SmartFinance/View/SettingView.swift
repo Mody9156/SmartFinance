@@ -21,7 +21,7 @@ struct SettingView: View {
         }
         .onAppear{
             Task{
-                
+                try? await addTransactionViewModel.getConversions()
             }
         }
     }
