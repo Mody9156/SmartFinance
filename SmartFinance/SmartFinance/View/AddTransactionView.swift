@@ -107,21 +107,12 @@ struct AddTransactionView: View {
                     }
                     
                     if activeToggle {
-                        //Ajouter l'instance
                         
                         Section(header:Text("Conversion")) {
                             
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys)
                                 Picker("De", selection: $selectElement) {
-                                    ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
-                                        Text(code).tag(index)
-                                    }
-                                }
-                                .pickerStyle(.navigationLink)
-                                
-                                
-                                Picker("À", selection: $selectElment_2) {
                                     ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
                                         Text(code).tag(index)
                                     }
