@@ -17,6 +17,15 @@ struct SettingView: View {
             Text("Setting")
             Picker("Exchange Rate", selection: $selectedCurrency) {
                 
+                if let firstCurrency = addTransactionViewModel.conversion.first {
+                    let currency = Array(firstCurrency.conversionRates.keys)
+                      
+                    ForEach(currency.enumerated(), id: \.offset) { values , keys in
+                        Text(keys).tag(values)
+                    }
+                    
+                }
+
             }
         }
         .onAppear{
