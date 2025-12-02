@@ -11,7 +11,7 @@ struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
     @State var conversion: [String] = ["$","€"]
-    @State var selectElement = 1
+    @State var selectElement = 0
     @State var selectElment_2 = 1
     @State var selectCategory = 0
     @State var catagory: String = ""
@@ -30,7 +30,8 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-    @AppStorage("baseCurrency") var baseCurrency : Double = 0.0
+    @AppStorage("baseCurrency") var baseCurrency : Double = 1.0
+    @AppStorage("baseCurrency") var baseCurrency_1: String = "USD"
     var addTransactionViewModel : AddTransactionViewModel
     
     let formatter: NumberFormatter = {
@@ -38,15 +39,20 @@ struct AddTransactionView: View {
         formatter.numberStyle = .decimal
         return formatter
     }()
-    @State var currency : Double = 0.0
+    @State var currency : String = ""
     
-    func exchangeRate(amount:Double,to targetCurrency:Double) -> Double {
-       
-         let amountInBase = amount / baseCurrency
-         let convertedAmount = amountInBase * baseCurrency
+    func exchangeRate(amount:Double, to targetCurrency:String) -> Double {
+        guard let firstConvert = addTransactionViewModel.conversion.first else { return 0 }
         
-         return convertedAmount
+        let rates = firstConvert.conversionRates
         
+        guard let baseRate = rates[baseCurrency_1],
+              let targetRate = rates[targetCurrency] else { return 0 }
+        
+        let amountInBase = amount / baseRate
+        let convertedAmount = amountInBase * targetRate
+        
+        return convertedAmount
     }
     
     var body: some View {
@@ -70,6 +76,9 @@ struct AddTransactionView: View {
                                       value: $amount,
                                       format: .number.precision(.fractionLength(2)))
                             .keyboardType(.decimalPad)
+                            .onChange(of: amount){
+                                
+                            }
                             
                         }
                         
@@ -110,14 +119,19 @@ struct AddTransactionView: View {
                     if activeToggle {
                         Section(header:Text("Conversion")) {
                             if let firstConvert = addTransactionViewModel.conversion.first {
-                                let codes = Array(firstConvert.conversionRates)
+                                let codes = Array(
+                                    firstConvert.conversionRates.keys.sorted()
+                                )
                                 
                                 Picker("De", selection: $selectElement) {
-                                    ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
-                                        Text(code.key)
+                                    ForEach(
+                                        Array(codes.enumerated()),
+                                        id: \.offset
+                                    ) { index, code in
+                                        Text(code)
                                             .tag(index)
-                                            .onChange(of: code.value){
-                                                currency = code.value
+                                            .onChange(of: code){
+                                                currency = code
                                             }
                                     }
                                 }
@@ -128,7 +142,9 @@ struct AddTransactionView: View {
                 }
                 
                 Button(action: {
-                    
+                    if activeToggle{
+                        amount = exchangeRate(amount: amount, to: currency)
+                    }
                 },label:{
                     VStack(alignment: .center) {
                         ZStack {
