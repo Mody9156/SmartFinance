@@ -38,6 +38,7 @@ struct AddTransactionView: View {
         formatter.numberStyle = .decimal
         return formatter
     }()
+    @State var currency : Double = 0.0
     
     func exchangeRate(amount:Double,to targetCurrency:Double) -> Double {
        
@@ -113,7 +114,11 @@ struct AddTransactionView: View {
                                 
                                 Picker("De", selection: $selectElement) {
                                     ForEach(Array(codes.enumerated()), id: \.offset) { index, code in
-                                        Text(code.key).tag(index)
+                                        Text(code.key)
+                                            .tag(index)
+                                            .onChange(of: code.value){
+                                                currency = code.value
+                                            }
                                     }
                                 }
                                 .pickerStyle(.navigationLink)
