@@ -19,6 +19,9 @@ struct SettingView: View {
                 
             }
         }
+        .onAppear{
+            
+        }
     }
 }
 
