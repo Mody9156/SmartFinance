@@ -140,6 +140,7 @@ struct AddTransactionView: View {
                                 }
                                 .onChange(of: selectElment_2) {
                                     currency = codes[selectElment_2]
+                                    amount = exchangeRate(amount: amount, to: currency)
                                 }
                                 .pickerStyle(.navigationLink)
                             }
@@ -164,9 +165,7 @@ struct AddTransactionView: View {
                 })
                 .padding()
             }
-            .onChange(of: activeToggle){
-                amount = exchangeRate(amount: amount, to: currency)
-            }.onAppear{
+            .onAppear{
                 Task{
                     try? await addTransactionViewModel.getConversions()
                 }
