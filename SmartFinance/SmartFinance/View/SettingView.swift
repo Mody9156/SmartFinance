@@ -13,10 +13,11 @@ struct SettingView: View {
     var addTransactionViewModel : AddTransactionViewModel
     
     var body: some View {
-        Text("Setting")
-        
-        Picker("Exchange Rate", selection: $selectedCurrency) {
-            
+        VStack {
+            Text("Setting")
+            Picker("Exchange Rate", selection: $selectedCurrency) {
+                
+            }
         }
     }
 }
