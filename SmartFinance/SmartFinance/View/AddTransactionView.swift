@@ -35,8 +35,9 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-        
-   var addTransactionViewModel : AddTransactionViewModel
+    @AppStorage("baseCurrency") var baseCurrency : String = ""
+    
+    var addTransactionViewModel : AddTransactionViewModel
     
     func exchangeRate(amount:Double,from:Double,to:Double) -> Double {
         //Convertir en monnaie de base (€)
@@ -61,15 +62,15 @@ struct AddTransactionView: View {
                                 .textContentType(.name)
                         }
                         
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("Montant")
-                                
-                                TextField("Entrez le montant",
-                                          value: $amount,
-                                          format: .number.precision(.fractionLength(2)))
-                                .keyboardType(.decimalPad)
-                                
-                            }
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Montant")
+                            
+                            TextField("Entrez le montant",
+                                      value: $amount,
+                                      format: .number.precision(.fractionLength(2)))
+                            .keyboardType(.decimalPad)
+                            
+                        }
                         
                         DatePicker("Date", selection: $date)
                         
