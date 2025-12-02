@@ -38,6 +38,13 @@ struct AddTransactionView: View {
         
    var addTransactionViewModel : AddTransactionViewModel
     
+    func exchangeRate(total:Double,from:String,to:String) -> Double {
+        //EUR
+        
+        
+        return 00
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
