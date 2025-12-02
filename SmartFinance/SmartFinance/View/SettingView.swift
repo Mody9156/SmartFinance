@@ -28,6 +28,7 @@ struct SettingView: View {
                     }
                     
                 }
+                .pickerStyle(.navigationLink)
             }
             .onAppear{
                 Task{
