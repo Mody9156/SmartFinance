@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = ""
-    @State var selectedCurrency : String = ""
+    @State var selectedCurrency : Int = 0
     var addTransactionViewModel : AddTransactionViewModel
     
     var body: some View {
@@ -23,6 +23,9 @@ struct SettingView: View {
                         
                         ForEach(currency.enumerated(), id: \.offset) { values , keys in
                             Text(keys).tag(values)
+                                .onChange(of:keys ){
+                                    baseCurrency = keys
+                                }
                         }
                         
                     }
