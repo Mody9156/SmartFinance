@@ -38,11 +38,13 @@ struct AddTransactionView: View {
         
    var addTransactionViewModel : AddTransactionViewModel
     
-    func exchangeRate(total:Double,from:String,to:String) -> Double {
-        //EUR
+    func exchangeRate(amount:Double,from:Double,to:Double) -> Double {
+        //Convertir en monnaie de base (€)
+        let amountInBaser = amount / from
+        //Convertir en monnaie cible
+        let convertedAmount = amountInBaser * to
         
-        
-        return 00
+        return convertedAmount
     }
     
     var body: some View {
