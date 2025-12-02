@@ -107,9 +107,7 @@ struct AddTransactionView: View {
                     }
                     
                     if activeToggle {
-                        
                         Section(header:Text("Conversion")) {
-                            
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys)
                                 Picker("De", selection: $selectElement) {
