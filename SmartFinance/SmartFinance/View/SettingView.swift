@@ -20,7 +20,9 @@ struct SettingView: View {
             }
         }
         .onAppear{
-            
+            Task{
+                
+            }
         }
     }
 }
