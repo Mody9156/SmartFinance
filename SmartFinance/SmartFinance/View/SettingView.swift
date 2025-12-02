@@ -27,9 +27,7 @@ struct SettingView: View {
                                     baseCurrency = keys
                                 }
                         }
-                        
                     }
-                    
                 }
                 .pickerStyle(.navigationLink)
             }
