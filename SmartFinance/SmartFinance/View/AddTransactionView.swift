@@ -62,7 +62,6 @@ struct AddTransactionView: View {
                                 .textContentType(.name)
                         }
                         
-                        HStack {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Montant")
                                 
@@ -72,8 +71,6 @@ struct AddTransactionView: View {
                                 .keyboardType(.decimalPad)
                                 
                             }
-                            Text("o")
-                        }
                         
                         DatePicker("Date", selection: $date)
                         
