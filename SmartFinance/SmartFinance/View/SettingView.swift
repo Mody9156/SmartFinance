@@ -30,9 +30,7 @@ struct SettingView: View {
                     }
                 }
                 .pickerStyle(.navigationLink)
-                
-                
-                    Text(baseCurrency)
+            
             }
             .onAppear{
                 Task{
