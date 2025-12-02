@@ -47,7 +47,7 @@ struct AddTransactionView: View {
         let rates = firstConvert.conversionRates
         
         guard let baseRate = rates[baseCurrency_1],
-              let targetRate = rates[targetCurrency] else { return 0 }
+              let targetRate = rates[targetCurrency] else { return 5 }
         
         let amountInBase = amount / baseRate
         let convertedAmount = amountInBase * targetRate
@@ -117,34 +117,39 @@ struct AddTransactionView: View {
                     }
                     
                     if activeToggle {
-                        Section(header:Text("Conversion")) {
+                        Section(header: Text("Conversion")) {
                             if let firstConvert = addTransactionViewModel.conversion.first {
-                                let codes = Array(
-                                    firstConvert.conversionRates.keys.sorted()
-                                )
-                                
+                                let codes = Array(firstConvert.conversionRates.keys.sorted())
+
+                                // Picker FROM
                                 Picker("De", selection: $selectElement) {
-                                    ForEach(
-                                        Array(codes.enumerated()),
-                                        id: \.offset
-                                    ) { index, code in
-                                        Text(code)
-                                            .tag(index)
-                                            .onChange(of: code){
-                                                currency = code
-                                            }
+                                    ForEach(0..<codes.count, id: \.self) { index in
+                                        Text(codes[index]).tag(index)
                                     }
+                                }
+                                .onChange(of: selectElement) {
+                                    baseCurrency_1 = codes[selectElement]
+                                }
+                                .pickerStyle(.navigationLink)
+
+                                // Picker TO
+                                Picker("Vers", selection: $selectElment_2) {
+                                    ForEach(0..<codes.count, id: \.self) { index in
+                                        Text(codes[index]).tag(index)
+                                    }
+                                }
+                                .onChange(of: selectElment_2) {
+                                    currency = codes[selectElment_2]
                                 }
                                 .pickerStyle(.navigationLink)
                             }
                         }
                     }
+
                 }
                 
                 Button(action: {
-                    if activeToggle{
-                        amount = exchangeRate(amount: amount, to: currency)
-                    }
+                    
                 },label:{
                     VStack(alignment: .center) {
                         ZStack {
@@ -159,7 +164,9 @@ struct AddTransactionView: View {
                 })
                 .padding()
             }
-            .onAppear{
+            .onChange(of: activeToggle){
+                amount = exchangeRate(amount: amount, to: currency)
+            }.onAppear{
                 Task{
                     try? await addTransactionViewModel.getConversions()
                 }
