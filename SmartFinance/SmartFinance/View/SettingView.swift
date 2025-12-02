@@ -15,7 +15,7 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Setting")
+              
                 Picker("Exchange Rate", selection: $selectedCurrency) {
                     
                     if let firstCurrency = addTransactionViewModel.conversion.first {
