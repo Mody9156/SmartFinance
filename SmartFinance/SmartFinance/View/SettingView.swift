@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingView: View {
-    @AppStorage("baseCurrency") var baseCurrency : String = ""
+    @AppStorage("baseCurrency") var baseCurrency : Double = 0.0
     @State var selectedCurrency : Int = 0
     var addTransactionViewModel : AddTransactionViewModel
     
@@ -19,12 +19,14 @@ struct SettingView: View {
                 Picker("Exchange Rate", selection: $selectedCurrency) {
                     
                     if let firstCurrency = addTransactionViewModel.conversion.first {
-                        let currencyKeys = Array(firstCurrency.conversionRates.keys)
+                        let currencyKeys = Array(firstCurrency.conversionRates)
+                        let currencyValues = Array(firstCurrency.conversionRates.values)
+                       
                         
                         ForEach(currencyKeys.enumerated(), id: \.offset) { values , keys in
-                            Text(keys).tag(values)
-                                .onChange(of:keys ){
-                                    baseCurrency = keys
+                            Text(keys.key).tag(values)
+                                .onChange(of:keys.value ){
+                                    baseCurrency = keys.value
                                 }
                         }
                     }

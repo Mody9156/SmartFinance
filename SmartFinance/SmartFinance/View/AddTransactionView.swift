@@ -18,11 +18,6 @@ struct AddTransactionView: View {
     @State var note: String = ""
     @State var date : Date = Date()
     @State var activeToggle: Bool = false
-    let formatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }()
     @State var showCategory: [String] = [
         "Alimentation",
         "Logement",
@@ -35,18 +30,23 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-    
     @AppStorage("baseCurrency") var baseCurrency : String = ""
-    
     var addTransactionViewModel : AddTransactionViewModel
     
-    func exchangeRate(amount:Double,from:Double,to:Double) -> Double {
-        //Convertir en monnaie de base (€)
-        let amountInBaser = amount / from
-        //Convertir en monnaie cible
-        let convertedAmount = amountInBaser * to
+    let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    
+    func exchangeRate(amount:Double,to targetCurrency:Double) -> Double {
+        let conversion = addTransactionViewModel.conversion
+       
+         let amountInBase = amount / baseRate
+         let convertedAmount = amountInBase * baseCurrency
         
-        return convertedAmount
+         return convertedAmount
+        
     }
     
     var body: some View {
