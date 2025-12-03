@@ -12,6 +12,8 @@ import Observation
 class AddTransactionViewModel {
     var converterManager : ConverterService
     var conversion : [Convert] = []
+    var currentError : ConversionError? = nil
+    
     init(converterManager: ConverterService = ConverterManager()) {
         self.converterManager = converterManager
     }
@@ -32,17 +34,13 @@ class AddTransactionViewModel {
     
     
     @MainActor
-    func getConversions() async  -> Convert {
+    func getConversions() async {
         do {
             let result = try await converterManager.showConverter()
             self.conversion = [result]
-            print("il y a \(conversion.count) conversions\(conversion)")
-            print("félicitations")
-            return result
+            self.currentError = nil
         } catch {
-             ConversionError.emptyArray
+            self.currentError = .network
         }
-      
     }
-    
 }
