@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import SwiftData
 
 struct AddTransactionView: View {
     @State var name: String = ""
