@@ -30,8 +30,8 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-    @AppStorage("baseCurrency") var baseCurrency : Double = 1.0
-    @AppStorage("baseCurrency") var baseCurrency_1: String = "USD"
+    @AppStorage("baseCurrency") var baseCurrency: String = ""
+    
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
      
@@ -105,7 +105,7 @@ struct AddTransactionView: View {
                                     }
                                 }
                                 .onChange(of: selectElement) {
-                                    baseCurrency_1 = codes[selectElement]
+                                    baseCurrency = codes[selectElement]
                                 }
                                 .pickerStyle(.navigationLink)
                                 
