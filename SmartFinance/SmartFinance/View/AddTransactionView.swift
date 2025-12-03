@@ -96,21 +96,13 @@ struct AddTransactionView: View {
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys.sorted())
                                 
-                                var filtezr : [String] {
-                                    if search.isEmpty {
-                                        return codes
-                                    }else {
-                                       return codes.filter{
-                                            $0.contains(search)
-                                        }
-                                    }
-                                }
+                               
                                 
                                 
                                 // Picker FROM
                                 Picker("De", selection: $selectElement) {
                                     ForEach(
-                                        0..<filtezr.count,
+                                        0..<codes.count,
                                         id: \.self
                                     ) { index in
                                         Text(codes[index]).tag(index)
@@ -127,9 +119,10 @@ struct AddTransactionView: View {
                                 
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
-                                    ForEach(0..<codes.count, id: \.self) { index in
-                                        Text(codes[index]).tag(index)
-                                    }
+                                    PickerCustomConverter(
+                                        search: $search,
+                                        addTransactionViewModel: addTransactionViewModel
+                                    )
                                 }
                                 .onChange(of: selectElment_2) {
                                     currency = codes[selectElment_2]
@@ -170,12 +163,43 @@ struct AddTransactionView: View {
 
 
 struct PickerCustomConverter:View {
+    @Binding var search : String
+    var addTransactionViewModel : AddTransactionViewModel
     var body: some View {
-       Text("ici")
+        
+        if let firstConvert = addTransactionViewModel.conversion.first {
+            let codes = Array(firstConvert.conversionRates.keys.sorted())
+            
+            var filtezr : [String] {
+                if search.isEmpty {
+                    return codes
+                }else {
+                   return codes.filter{
+                        $0.contains(search)
+                    }
+                }
+            }
+            
+        VStack {
+            
+            ForEach(0..<filtezr.count, id: \.self) { index in
+                Text(codes[index])
+                    .tag(index)
+                    .onChange(of: index){
+                        search = codes[index]
+                    }
+            }
+        }
+        .searchable(text: $search)
     }
+        
+}
+    
+    
 }
 
 
 #Preview {
     AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
 }
+
