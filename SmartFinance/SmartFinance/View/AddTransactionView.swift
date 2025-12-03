@@ -163,7 +163,7 @@ struct AddTransactionView: View {
             }
             .onAppear{
                 Task{
-                    try? await addTransactionViewModel.getConversions()
+                    await addTransactionViewModel.getConversions()
                 }
             }
         }
