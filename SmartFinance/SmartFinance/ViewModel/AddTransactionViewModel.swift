@@ -43,4 +43,18 @@ class AddTransactionViewModel {
             self.currentError = .network
         }
     }
+    
+    func exchangeRate(amount:Double, to targetCurrency:String,baseCurrency:String) -> Double {
+        guard let firstConvert = conversion.first else { return 0 }
+        
+        let rates = firstConvert.conversionRates
+        
+        guard let baseRate = rates[baseCurrency],
+              let targetRate = rates[targetCurrency] else { return 5 }
+        
+        let amountInBase = amount / baseRate
+        let convertedAmount = amountInBase * targetRate
+        
+        return convertedAmount
+    }
 }

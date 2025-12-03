@@ -33,24 +33,8 @@ struct AddTransactionView: View {
     @AppStorage("baseCurrency") var baseCurrency : Double = 1.0
     @AppStorage("baseCurrency") var baseCurrency_1: String = "USD"
     var addTransactionViewModel : AddTransactionViewModel
-    
-    
     @State var currency : String = ""
-    
-    func exchangeRate(amount:Double, to targetCurrency:String) -> Double {
-        guard let firstConvert = addTransactionViewModel.conversion.first else { return 0 }
-        
-        let rates = firstConvert.conversionRates
-        
-        guard let baseRate = rates[baseCurrency_1],
-              let targetRate = rates[targetCurrency] else { return 5 }
-        
-        let amountInBase = amount / baseRate
-        let convertedAmount = amountInBase * targetRate
-        
-        return convertedAmount
-    }
-    
+     
     var body: some View {
         NavigationStack {
             VStack {
@@ -133,7 +117,12 @@ struct AddTransactionView: View {
                                 }
                                 .onChange(of: selectElment_2) {
                                     currency = codes[selectElment_2]
-                                    amount = exchangeRate(amount: amount, to: currency)
+                                    amount = addTransactionViewModel
+                                        .exchangeRate(
+                                            amount: amount,
+                                            to: currency,
+                                            baseCurrency: currency
+                                        )
                                 }
                                 .pickerStyle(.navigationLink)
                             }
