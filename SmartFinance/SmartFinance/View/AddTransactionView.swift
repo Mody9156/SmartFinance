@@ -29,7 +29,7 @@ struct AddTransactionView: View {
         "Autre"
     ]
     @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
-    
+    @State var search : String = ""
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
      
@@ -96,11 +96,29 @@ struct AddTransactionView: View {
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys.sorted())
                                 
+                                var filtezr : [String] {
+                                    if search.isEmpty {
+                                        return codes
+                                    }else {
+                                       return codes.filter{
+                                            $0.contains(search)
+                                        }
+                                    }
+                                }
+                                
+                                
                                 // Picker FROM
                                 Picker("De", selection: $selectElement) {
-                                    ForEach(0..<codes.count, id: \.self) { index in
+                                    ForEach(
+                                        0..<filtezr.count,
+                                        id: \.self
+                                    ) { index in
                                         Text(codes[index]).tag(index)
+                                            .onChange(of: index){
+                                                search = codes[index]
+                                            }
                                     }
+                                    
                                 }
                                 .onChange(of: selectElement) {
                                     baseCurrency = codes[selectElement]
@@ -149,6 +167,14 @@ struct AddTransactionView: View {
         }
     }
 }
+
+
+struct PickerCustomConverter:View {
+    var body: some View {
+       Text("ici")
+    }
+}
+
 
 #Preview {
     AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
