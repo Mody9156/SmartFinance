@@ -34,11 +34,7 @@ struct AddTransactionView: View {
     @AppStorage("baseCurrency") var baseCurrency_1: String = "USD"
     var addTransactionViewModel : AddTransactionViewModel
     
-    let formatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }()
+    
     @State var currency : String = ""
     
     func exchangeRate(amount:Double, to targetCurrency:String) -> Double {
@@ -164,7 +160,6 @@ struct AddTransactionView: View {
                 await addTransactionViewModel.getConversions()
             }
         }
-        
     }
 }
 
