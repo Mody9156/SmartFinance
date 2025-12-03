@@ -32,10 +32,8 @@ struct SettingView: View {
                 
             }
             .padding()
-            .onAppear{
-                Task{
-                    try? await addTransactionViewModel.getConversions()
-                }
+            .task{
+                await addTransactionViewModel.getConversions()
             }
         }
     }
