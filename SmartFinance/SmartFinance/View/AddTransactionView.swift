@@ -117,7 +117,7 @@ struct AddTransactionView: View {
                         Section(header: Text("Conversion")) {
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys.sorted())
-
+                                
                                 // Picker FROM
                                 Picker("De", selection: $selectElement) {
                                     ForEach(0..<codes.count, id: \.self) { index in
@@ -128,7 +128,7 @@ struct AddTransactionView: View {
                                     baseCurrency_1 = codes[selectElement]
                                 }
                                 .pickerStyle(.navigationLink)
-
+                                
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
                                     ForEach(0..<codes.count, id: \.self) { index in
@@ -160,11 +160,8 @@ struct AddTransactionView: View {
                     }
                 })
                 .padding()
-            }
-            .onAppear{
-                Task{
-                    await addTransactionViewModel.getConversions()
-                }
+            }.task{
+                await addTransactionViewModel.getConversions()
             }
         }
         
