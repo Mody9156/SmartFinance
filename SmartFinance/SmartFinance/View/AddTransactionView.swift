@@ -11,8 +11,8 @@ import UIKit
 struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
-    @State var selectElement = 0
-    @State var selectElment_2 = 1
+    @State var selectElement = ""
+    @State var selectElment_2 = ""
     @State var selectCategory = 0
     @State var note: String = ""
     @State var date : Date = Date()
@@ -32,7 +32,7 @@ struct AddTransactionView: View {
     @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
-    
+    @State var category: String = ""
     var body: some View {
         NavigationStack {
             VStack {
@@ -59,9 +59,10 @@ struct AddTransactionView: View {
                         
                         DatePicker("Date", selection: $date)
                         
-                        Picker(selection: $selectCategory) {
+                        Picker(selection: $category) {
                             ForEach(0..<showCategory.count,id: \.self){ items in
                                 Text(self.showCategory[items])
+                                    
                             }
                         } label: {
                             Text("Catgories")
@@ -108,7 +109,7 @@ struct AddTransactionView: View {
                                     
                                 }
                                 .onChange(of: selectElement) {
-                                    baseCurrency = codes[selectElement]
+                                    baseCurrency = selectElement
                                 }
                                 .pickerStyle(.navigationLink)
                                 
@@ -123,7 +124,7 @@ struct AddTransactionView: View {
                                     }
                                 }
                                 .onChange(of: selectElment_2) {
-                                    currency = codes[selectElment_2]
+                                    currency = selectElment_2
                                     amount = addTransactionViewModel
                                         .exchangeRate(
                                             amount: amount,
@@ -137,20 +138,28 @@ struct AddTransactionView: View {
                     }
                 }
                 
-                Button(action: {
-                    
-                },label:{
-                    VStack(alignment: .center) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(height: 50)
-                                .foregroundStyle(Color("containerColor_right"))
-                            
-                            Text("Valider")
-                                .foregroundStyle(.white)
+                Button(
+                    action: {
+                        let newTransaction = Transaction(
+                            name: name,
+                            amount: amount,
+                            date: date,
+                            category: category,
+                            description: note
+                        )
+                    },
+                    label:{
+                        VStack(alignment: .center) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .frame(height: 50)
+                                    .foregroundStyle(Color("containerColor_right"))
+                                
+                                Text("Valider")
+                                    .foregroundStyle(.white)
+                            }
                         }
-                    }
-                })
+                    })
                 .padding()
             }.task{
                 await addTransactionViewModel.getConversions()
