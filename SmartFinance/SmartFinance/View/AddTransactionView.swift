@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
+import UIKit
+import SwiftData
 
 struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
-    @State var conversion: [String] = ["$","€"]
-    @State var selectElement = 0
-    @State var selectElment_2 = 1
+    @State var selectElement = ""
+    @State var selectElment_2 = ""
     @State var selectCategory = 0
-    @State var catagory: String = ""
     @State var note: String = ""
     @State var date : Date = Date()
     @State var activeToggle: Bool = false
@@ -30,30 +30,11 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-    @AppStorage("baseCurrency") var baseCurrency : Double = 1.0
-    @AppStorage("baseCurrency") var baseCurrency_1: String = "USD"
+    @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
     var addTransactionViewModel : AddTransactionViewModel
-    
-    let formatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }()
     @State var currency : String = ""
-    
-    func exchangeRate(amount:Double, to targetCurrency:String) -> Double {
-        guard let firstConvert = addTransactionViewModel.conversion.first else { return 0 }
-        
-        let rates = firstConvert.conversionRates
-        
-        guard let baseRate = rates[baseCurrency_1],
-              let targetRate = rates[targetCurrency] else { return 5 }
-        
-        let amountInBase = amount / baseRate
-        let convertedAmount = amountInBase * targetRate
-        
-        return convertedAmount
-    }
+    @State var category: String = ""
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         NavigationStack {
@@ -76,9 +57,6 @@ struct AddTransactionView: View {
                                       value: $amount,
                                       format: .number.precision(.fractionLength(2)))
                             .keyboardType(.decimalPad)
-                            .onChange(of: amount){
-                                
-                            }
                             
                         }
                         
@@ -87,6 +65,10 @@ struct AddTransactionView: View {
                         Picker(selection: $selectCategory) {
                             ForEach(0..<showCategory.count,id: \.self){ items in
                                 Text(self.showCategory[items])
+                                    .onChange(of:selectCategory ){
+                                        category = showCategory[items]
+                                    }
+                                    
                             }
                         } label: {
                             Text("Catgories")
@@ -120,27 +102,41 @@ struct AddTransactionView: View {
                         Section(header: Text("Conversion")) {
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys.sorted())
-
+                                
                                 // Picker FROM
                                 Picker("De", selection: $selectElement) {
-                                    ForEach(0..<codes.count, id: \.self) { index in
+                                    ForEach(
+                                        0..<codes.count,
+                                        id: \.self
+                                    ) { index in
                                         Text(codes[index]).tag(index)
+                                        
                                     }
+                                    
                                 }
                                 .onChange(of: selectElement) {
-                                    baseCurrency_1 = codes[selectElement]
+                                    baseCurrency = selectElement
                                 }
                                 .pickerStyle(.navigationLink)
-
+                                
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
                                     ForEach(0..<codes.count, id: \.self) { index in
-                                        Text(codes[index]).tag(index)
+                                        VStack {
+                                            
+                                            Text(codes[index]).tag(index)
+                                            
+                                        }
                                     }
                                 }
                                 .onChange(of: selectElment_2) {
-                                    currency = codes[selectElment_2]
-                                    amount = exchangeRate(amount: amount, to: currency)
+                                    currency = selectElment_2
+                                    amount = addTransactionViewModel
+                                        .exchangeRate(
+                                            amount: amount,
+                                            to: currency,
+                                            baseCurrency: baseCurrency
+                                        )
                                 }
                                 .pickerStyle(.navigationLink)
                             }
@@ -148,31 +144,39 @@ struct AddTransactionView: View {
                     }
                 }
                 
-                Button(action: {
-                    
-                },label:{
-                    VStack(alignment: .center) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(height: 50)
-                                .foregroundStyle(Color("containerColor_right"))
-                            
-                            Text("Valider")
-                                .foregroundStyle(.white)
+                Button(
+                    action: {
+                        let newTransaction = Transaction(
+                            name: name,
+                            amount: amount,
+                            date: date,
+                            category: category,
+                            description: note
+                        )
+                        
+                        modelContext.insert(newTransaction)
+                        
+                    },
+                    label:{
+                        VStack(alignment: .center) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .frame(height: 50)
+                                    .foregroundStyle(Color("containerColor_right"))
+                                
+                                Text("Valider")
+                                    .foregroundStyle(.white)
+                            }
                         }
-                    }
-                })
+                    })
                 .padding()
-            }
-            .onAppear{
-                Task{
-                    try? await addTransactionViewModel.getConversions()
-                }
+            }.task{
+                await addTransactionViewModel.getConversions()
             }
         }
-        
     }
 }
+
 
 #Preview {
     AddTransactionView(addTransactionViewModel: AddTransactionViewModel())

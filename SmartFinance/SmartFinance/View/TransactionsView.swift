@@ -13,7 +13,7 @@ struct TransactionsView: View {
     @Query var transaction : [Transaction]
     @State var activeNavigationLink: Bool = false
     var body: some View {
-        NavigationSplitView {
+        NavigationStack{
             List {
                 ForEach(transaction) { transaction in
                     NavigationLink {
@@ -38,10 +38,7 @@ struct TransactionsView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
-                
             }
-        } detail: {
-            Text("Select an item")
         }
     }
     

@@ -8,39 +8,35 @@
 import SwiftUI
 
 struct SettingView: View {
-    @AppStorage("baseCurrency") var baseCurrency : Double = 0.0
+    @AppStorage("baseCurrency") var baseCurrency : String = "USA"
     @State var selectedCurrency : Int = 0
     var addTransactionViewModel : AddTransactionViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                
-                Picker("Exchange Rate", selection: $selectedCurrency) {
-                    if let firstCurrency = addTransactionViewModel.conversion.first {
-                        let currencyKeys = Array(firstCurrency.conversionRates)
-                        
-                        ForEach(currencyKeys.enumerated(), id: \.offset) { values , keys in
-                            Text(keys.key).tag(values)
-                                .onChange(of:keys.value ){
-                                    baseCurrency = keys.value
-                                }
+                Section(header: Text("Paramètre")) {
+                    Picker("Devise", selection: $selectedCurrency) {
+                        if let firstCurrency = addTransactionViewModel.conversion.first {
+                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
+                            
+                            ForEach(0..<currencyKeys.count, id: \.self) { values in
+                                Text(currencyKeys[values]).tag(values)
+                                    .onChange(of:values){
+                                        baseCurrency = currencyKeys[values]
+                                    }
+                            }
                         }
-                    }
+                    }.pickerStyle(.navigationLink)
                 }
-                .pickerStyle(.navigationLink)
-                
             }
             .padding()
-            .onAppear{
-                Task{
-                    try? await addTransactionViewModel.getConversions()
-                }
+            .task{
+                await addTransactionViewModel.getConversions()
             }
         }
     }
 }
-
 #Preview {
     SettingView(addTransactionViewModel: AddTransactionViewModel())
 }
