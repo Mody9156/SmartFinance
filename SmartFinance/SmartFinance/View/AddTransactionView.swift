@@ -62,9 +62,12 @@ struct AddTransactionView: View {
                         
                         DatePicker("Date", selection: $date)
                         
-                        Picker(selection: $category) {
+                        Picker(selection: $selectCategory) {
                             ForEach(0..<showCategory.count,id: \.self){ items in
                                 Text(self.showCategory[items])
+                                    .onChange(of:selectCategory ){
+                                        category = showCategory[items]
+                                    }
                                     
                             }
                         } label: {
