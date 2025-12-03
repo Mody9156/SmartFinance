@@ -13,7 +13,6 @@ struct AddTransactionView: View {
     @State var selectElement = 0
     @State var selectElment_2 = 1
     @State var selectCategory = 0
-    @State var catagory: String = ""
     @State var note: String = ""
     @State var date : Date = Date()
     @State var activeToggle: Bool = false
