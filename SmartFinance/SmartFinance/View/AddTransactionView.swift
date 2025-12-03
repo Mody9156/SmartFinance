@@ -28,7 +28,7 @@ struct AddTransactionView: View {
         "Services",
         "Autre"
     ]
-    @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
+    @AppStorage("baseCurrency") var baseCurrency: String = ""
     
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
