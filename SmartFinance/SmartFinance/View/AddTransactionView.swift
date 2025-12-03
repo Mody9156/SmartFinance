@@ -10,7 +10,6 @@ import SwiftUI
 struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
-    @State var conversion: [String] = ["$","€"]
     @State var selectElement = 0
     @State var selectElment_2 = 1
     @State var selectCategory = 0
