@@ -119,7 +119,7 @@ struct AddTransactionView: View {
                                         .exchangeRate(
                                             amount: amount,
                                             to: currency,
-                                            baseCurrency: currency
+                                            baseCurrency: baseCurrency
                                         )
                                 }
                                 .pickerStyle(.navigationLink)
