@@ -38,9 +38,8 @@ struct TransactionsView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
-                
             }
-        } 
+        }
     }
     
     private func addItem() {
