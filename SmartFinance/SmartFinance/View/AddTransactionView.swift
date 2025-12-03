@@ -33,6 +33,8 @@ struct AddTransactionView: View {
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
     @State var category: String = ""
+    @Environment(\.modelContext) private var modelContext
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -147,6 +149,9 @@ struct AddTransactionView: View {
                             category: category,
                             description: note
                         )
+                        
+                        modelContext.insert(newTransaction)
+                        
                     },
                     label:{
                         VStack(alignment: .center) {
