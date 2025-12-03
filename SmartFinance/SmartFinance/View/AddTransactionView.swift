@@ -76,9 +76,6 @@ struct AddTransactionView: View {
                                       value: $amount,
                                       format: .number.precision(.fractionLength(2)))
                             .keyboardType(.decimalPad)
-                            .onChange(of: amount){
-                                
-                            }
                             
                         }
                         
