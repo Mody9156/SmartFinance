@@ -30,10 +30,9 @@ struct AddTransactionView: View {
         "Autre"
     ]
     @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
-    @State var search : String = ""
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
-     
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -97,17 +96,6 @@ struct AddTransactionView: View {
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys.sorted())
                                 
-                                var filtezr : [String] {
-                                    if search.isEmpty {
-                                        return codes
-                                    }else {
-                                       return codes.filter{
-                                            $0.contains(search)
-                                        }
-                                    }
-                                }
-                                
-                                
                                 // Picker FROM
                                 Picker("De", selection: $selectElement) {
                                     ForEach(
@@ -115,9 +103,7 @@ struct AddTransactionView: View {
                                         id: \.self
                                     ) { index in
                                         Text(codes[index]).tag(index)
-                                            .onChange(of: index){
-                                                search = codes[index]
-                                            }
+                                        
                                     }
                                     
                                 }
@@ -128,12 +114,12 @@ struct AddTransactionView: View {
                                 
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
-                                    UISearchBar().searchTextField.text = search
                                     ForEach(0..<codes.count, id: \.self) { index in
-                                        Text(codes[index]).tag(index)
-                                            .onChange(of: index){
-                                                search = codes[index]
-                                            }
+                                        VStack {
+                                            
+                                            Text(codes[index]).tag(index)
+                                            
+                                        }
                                     }
                                 }
                                 .onChange(of: selectElment_2) {
@@ -174,8 +160,6 @@ struct AddTransactionView: View {
 }
 
 
-
 #Preview {
     AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
 }
-
