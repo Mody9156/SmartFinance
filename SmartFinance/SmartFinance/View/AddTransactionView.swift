@@ -122,18 +122,20 @@ struct AddTransactionView: View {
                                     guard !search.isEmpty else {
                                         return codes
                                     }
-                                   
                                     
                                     return codesFilter
                                 }
                             
                                 // Picker FROM
-                                Picker("De", selection: $currentConversion) {
+                                Picker("De", selection: $selectElment) {
                                     ForEach(
                                         0..<codes.count,
                                         id: \.self
                                     ) { index in
                                         Text(codes[index]).tag(index)
+                                            .onChange(of: codes[index]) {
+                                                currentConversion = codes[index]
+                                            }
                                     }
                                     
                                 }
@@ -144,17 +146,19 @@ struct AddTransactionView: View {
                                 
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
-                                    
+                                    searchable(
+                                        text: $search
+                                    )
                                     ForEach(
-                                        0..<codes.count,
+                                        0..<seachableCode.count,
                                         id: \.self
                                     ) { index in
                                             Text(codes[index]).tag(index)
                                             .onChange(of:codes[index]){
                                                 currentConversion_2 = codes[index]
                                             }
+                                            
                                     }
-                                   
                                 }
                                 .onChange(of: selectElment_2) {
                                     currency = currentConversion_2
