@@ -42,7 +42,7 @@ struct AddTransactionView: View {
         "Retrait",
         "Dépôt"
     ]
-
+    
     @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
@@ -81,7 +81,7 @@ struct AddTransactionView: View {
                                     .onChange(of:selectCategory ){
                                         category = showCategory[items]
                                     }
-                                    
+                                
                             }
                         } label: {
                             Text("Catgories")
@@ -112,73 +112,7 @@ struct AddTransactionView: View {
                     }
                     
                     if activeToggle {
-                        Section(header: Text("Conversion")) {
-                            if let firstConvert = addTransactionViewModel.conversion.first {
-                                let codes = Array(firstConvert.conversionRates.keys).sorted()
-                                
-//                                let convert = addTransactionViewModel.conversion
-//                                
-//                                var seachableCode : [Convert] {
-//
-//                                    let codesFilter = convert.filter{
-//                                        $0.conversionRates.contains(search)
-//                                    }
-//                                    
-//                                    if search.isEmpty {
-//                                        return convert
-//                                    }else {
-//                                        return codesFilter
-//                                    }
-//                                }
-                            
-                                // Picker FROM
-                                Picker("De", selection: $selectElment) {
-                                    ForEach(
-                                        0..<codes.count,
-                                        id: \.self
-                                    ) { index in
-                                        Text(codes[index]).tag(index)
-                                            .onChange(of: codes[index]) {
-                                                currentConversion = codes[index]
-                                            }
-                                    }
-                                    
-                                }
-                                .onChange(of: currentConversion) {
-                                    baseCurrency = currentConversion
-                                }
-                                .pickerStyle(.navigationLink)
-                                
-                                // Picker TO
-                                Picker("Vers", selection: $selectElment_2) {
-//                                   
-//                                    VStack {
-//                                        
-//                                    }
-//                                    .searchable(text: $search)
-                                    ForEach(
-                                        0..<codes.count,
-                                       id: \.self
-                                    ) { index in
-                                        Text(codes[index])
-                                            .onChange(of:codes[index]){
-                                                currentConversion_2 = codes[index]
-                                            }
-                                            
-                                    }
-                                }
-                                .onChange(of: selectElment_2) {
-                                    currency = currentConversion_2
-                                    amount = addTransactionViewModel
-                                        .exchangeRate(
-                                            amount: amount,
-                                            to: currency,
-                                            baseCurrency: baseCurrency
-                                        )
-                                }
-                                .pickerStyle(.navigationLink)
-                            }
-                        }
+                        showconver
                     }
                 }
                 
@@ -216,10 +150,64 @@ struct AddTransactionView: View {
                         }
                     })
                 .padding()
+                
             }.task{
                 await addTransactionViewModel.getConversions()
             }
         }
+    }
+}
+
+extension AddTransactionView {
+    var showconver:  some View  {
+            Section(header: Text("Conversion")) {
+                if let firstConvert = addTransactionViewModel.conversion.first {
+                    let codes = Array(firstConvert.conversionRates.keys).sorted()
+             
+                    // Picker FROM
+                    Picker("De", selection: $selectElment) {
+                        ForEach(
+                            0..<codes.count,
+                            id: \.self
+                        ) { index in
+                            Text(codes[index]).tag(index)
+                                .onChange(of: codes[index]) {
+                                    currentConversion = codes[index]
+                                }
+                        }
+                        
+                    }
+                    .onChange(of: currentConversion) {
+                        baseCurrency = currentConversion
+                    }
+                    .pickerStyle(.navigationLink)
+                    
+                    // Picker TO
+                    Picker("Vers", selection: $selectElment_2) {
+                        ForEach(
+                            0..<codes.count,
+                            id: \.self
+                        ) { index in
+                            Text(codes[index])
+                                .onChange(of:codes[index]){
+                                    currentConversion_2 = codes[index]
+                                }
+                            
+                        }
+                    }
+                    .onChange(of: selectElment_2) {
+                        currency = currentConversion_2
+                        amount = addTransactionViewModel
+                            .exchangeRate(
+                                amount: amount,
+                                to: currency,
+                                baseCurrency: baseCurrency
+                            )
+                    }
+                    .pickerStyle(.navigationLink)
+                }
+            }
+        
     }
 }
 
