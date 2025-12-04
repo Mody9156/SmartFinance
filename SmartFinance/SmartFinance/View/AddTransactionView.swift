@@ -121,7 +121,6 @@ struct AddTransactionView: View {
                                         id: \.self
                                     ) { index in
                                         Text(codes[index]).tag(index)
-                                        
                                     }
                                     
                                 }
@@ -134,9 +133,7 @@ struct AddTransactionView: View {
                                 Picker("Vers", selection: $selectElment_2) {
                                     ForEach(0..<codes.count, id: \.self) { index in
                                         VStack {
-                                            
                                             Text(codes[index]).tag(index)
-                                            
                                         }
                                     }
                                 }
