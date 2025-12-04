@@ -46,7 +46,7 @@ struct AddTransactionView: View {
     @State var currency : String = ""
     @State var category: String = ""
     @Environment(\.modelContext) private var modelContext
-    
+    @State var search : String = ""
     var body: some View {
         NavigationStack {
             VStack {
@@ -135,6 +135,7 @@ struct AddTransactionView: View {
                                         VStack {
                                             Text(codes[index]).tag(index)
                                         }
+                                        .searchable(text: $search)
                                     }
                                 }
                                 .onChange(of: selectElment_2) {
