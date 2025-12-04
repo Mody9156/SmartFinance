@@ -12,8 +12,10 @@ import SwiftData
 struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
-    @State var selectElement = ""
-    @State var selectElment_2 = ""
+    @State var currentConversion = ""
+    @State var selectElment_2 : Int = 0
+    @State var selectElment : Int = 0
+    @State var currentConversion_2: String = ""
     @State var selectCategory = 0
     @State var note: String = ""
     @State var date : Date = Date()
@@ -28,13 +30,25 @@ struct AddTransactionView: View {
         "Shopping",
         "Voyages",
         "Services",
-        "Autre"
+        "Autre",
+        "Virement reçu",
+        "Virement envoyé",
+        "Transfert interne",
+        "Revenu",
+        "Salaire",
+        "Impôts et taxes",
+        "Épargne",
+        "Investissements",
+        "Retrait",
+        "Dépôt"
     ]
+    
     @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
     @State var category: String = ""
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
@@ -68,7 +82,7 @@ struct AddTransactionView: View {
                                     .onChange(of:selectCategory ){
                                         category = showCategory[items]
                                     }
-                                    
+                                
                             }
                         } label: {
                             Text("Catgories")
@@ -99,59 +113,26 @@ struct AddTransactionView: View {
                     }
                     
                     if activeToggle {
-                        Section(header: Text("Conversion")) {
-                            if let firstConvert = addTransactionViewModel.conversion.first {
-                                let codes = Array(firstConvert.conversionRates.keys.sorted())
-                                
-                                // Picker FROM
-                                Picker("De", selection: $selectElement) {
-                                    ForEach(
-                                        0..<codes.count,
-                                        id: \.self
-                                    ) { index in
-                                        Text(codes[index]).tag(index)
-                                        
-                                    }
-                                    
-                                }
-                                .onChange(of: selectElement) {
-                                    baseCurrency = selectElement
-                                }
-                                .pickerStyle(.navigationLink)
-                                
-                                // Picker TO
-                                Picker("Vers", selection: $selectElment_2) {
-                                    ForEach(0..<codes.count, id: \.self) { index in
-                                        VStack {
-                                            
-                                            Text(codes[index]).tag(index)
-                                            
-                                        }
-                                    }
-                                }
-                                .onChange(of: selectElment_2) {
-                                    currency = selectElment_2
-                                    amount = addTransactionViewModel
-                                        .exchangeRate(
-                                            amount: amount,
-                                            to: currency,
-                                            baseCurrency: baseCurrency
-                                        )
-                                }
-                                .pickerStyle(.navigationLink)
-                            }
-                        }
+                        showconver
                     }
                 }
                 
                 Button(
                     action: {
+                        let icone = addTransactionViewModel.selectedCategoryIcone(
+                            element: category
+                        )
+                        let type = addTransactionViewModel.categoryType(
+                            element: category
+                        )
+                        
                         let newTransaction = Transaction(
                             name: name,
-                            amount: amount,
+                            amount: "\(type)\(amount)",
                             date: date,
                             category: category,
-                            description: note
+                            description: note,
+                            icon: icone
                         )
                         
                         modelContext.insert(newTransaction)
@@ -170,8 +151,72 @@ struct AddTransactionView: View {
                         }
                     })
                 .padding()
+                
             }.task{
                 await addTransactionViewModel.getConversions()
+            }
+        }
+    }
+}
+
+extension AddTransactionView {
+    var showconver:  some View  {
+            Section(header: Text("Conversion")) {
+                if let firstConvert = addTransactionViewModel.conversion.first {
+                    let codes = Array(firstConvert.conversionRates.keys).sorted()
+             
+                    // Picker FROM
+                    CustomPicker(
+                        name: "De",
+                        electElment:  $selectElment,
+                        currentConversion: $currentConversion,
+                        codes: codes
+                    )
+                    .onChange(of: currentConversion) {
+                        baseCurrency = currentConversion
+                    }
+                    .pickerStyle(.navigationLink)
+                    
+                    // Picker TO
+                    CustomPicker(
+                        name: "Vers",
+                        electElment: $selectElment_2,
+                        currentConversion: $currentConversion_2,
+                        codes: codes
+                    )
+                    .onChange(of: selectElment_2) {
+                        currency = currentConversion_2
+                        amount = addTransactionViewModel
+                            .exchangeRate(
+                                amount: amount,
+                                to: currency,
+                                baseCurrency: baseCurrency
+                            )
+                    }
+                    .pickerStyle(.navigationLink)
+                }
+            }
+    }
+}
+
+
+struct CustomPicker: View {
+    var name : String
+    @Binding var electElment : Int
+    @Binding var currentConversion: String
+    var codes: [Dictionary<String, Double>.Keys.Element]
+    
+    var body: some View {
+        Picker(name, selection: $electElment) {
+            ForEach(
+                0..<codes.count,
+                id: \.self
+            ) { index in
+                Text(codes[index])
+                    .onChange(of:codes[index]){
+                        currentConversion = codes[index]
+                    }
+                
             }
         }
     }
