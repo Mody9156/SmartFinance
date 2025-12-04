@@ -213,6 +213,29 @@ extension AddTransactionView {
 }
 
 
+struct CustomPicker: View {
+    var name : String
+    @Binding var electElment : Int
+    @Binding var currentConversion: String
+    var codes: [Dictionary<String, Double>.Keys.Element]
+    
+    var body: some View {
+        Picker(name, selection: $electElment) {
+            ForEach(
+                0..<codes.count,
+                id: \.self
+            ) { index in
+                Text(codes[index])
+                    .onChange(of:codes[index]){
+                        currentConversion = codes[index]
+                    }
+                
+            }
+        }
+    }
+}
+
+
 #Preview {
     AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
 }
