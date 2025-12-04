@@ -48,7 +48,7 @@ struct AddTransactionView: View {
     @State var currency : String = ""
     @State var category: String = ""
     @Environment(\.modelContext) private var modelContext
-    @State var search : String = ""
+
     var body: some View {
         NavigationStack {
             VStack {
