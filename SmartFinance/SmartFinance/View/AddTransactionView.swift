@@ -13,7 +13,8 @@ struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
     @State var selectElement = ""
-    @State var selectElment_2 = ""
+    @State var selectElment_2 : Int = 0
+    @State var currentConversion_2: String = ""
     @State var selectCategory = 0
     @State var note: String = ""
     @State var date : Date = Date()
@@ -114,18 +115,17 @@ struct AddTransactionView: View {
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys.sorted())
                                 
-                                
                                 var seachableCode : [String] {
-                                    if codes.isEmpty {
-                                        codes
-                                    }else {
-                                        codes.filter{
-                                            $0.contains(search)
-                                        }
+                                    let codesFilter = codes.filter{$0.contains(search)}
+                                    
+                                    guard !search.isEmpty else {
+                                        return codes
                                     }
+                                   
+                                    
+                                    return codesFilter
                                 }
-                                
-                                
+                            
                                 // Picker FROM
                                 Picker("De", selection: $selectElement) {
                                     ForEach(
@@ -143,15 +143,20 @@ struct AddTransactionView: View {
                                 
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
-                                    ForEach(0..<seachableCode.count, id: \.self) { index in
-                                        VStack {
+                                    
+                                    ForEach(
+                                        0..<codes.count,
+                                        id: \.self
+                                    ) { index in
                                             Text(codes[index]).tag(index)
-                                        }
-                                        .searchable(text: $search)
+                                            .onChange(of:codes[index]){
+                                                currentConversion_2 = codes[index]
+                                            }
                                     }
+                                   
                                 }
                                 .onChange(of: selectElment_2) {
-                                    currency = selectElment_2
+                                    currency = currentConversion_2
                                     amount = addTransactionViewModel
                                         .exchangeRate(
                                             amount: amount,
