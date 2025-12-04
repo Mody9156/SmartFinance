@@ -48,7 +48,8 @@ struct AddTransactionView: View {
     @State var currency : String = ""
     @State var category: String = ""
     @Environment(\.modelContext) private var modelContext
-
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationStack {
             VStack {
