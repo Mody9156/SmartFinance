@@ -166,36 +166,24 @@ extension AddTransactionView {
                     let codes = Array(firstConvert.conversionRates.keys).sorted()
              
                     // Picker FROM
-                    Picker("De", selection: $selectElment) {
-                        ForEach(
-                            0..<codes.count,
-                            id: \.self
-                        ) { index in
-                            Text(codes[index]).tag(index)
-                                .onChange(of: codes[index]) {
-                                    currentConversion = codes[index]
-                                }
-                        }
-                        
-                    }
+                    CustomPicker(
+                        name: "De",
+                        electElment:  $selectElment,
+                        currentConversion: $currentConversion,
+                        codes: codes
+                    )
                     .onChange(of: currentConversion) {
                         baseCurrency = currentConversion
                     }
                     .pickerStyle(.navigationLink)
                     
                     // Picker TO
-                    Picker("Vers", selection: $selectElment_2) {
-                        ForEach(
-                            0..<codes.count,
-                            id: \.self
-                        ) { index in
-                            Text(codes[index])
-                                .onChange(of:codes[index]){
-                                    currentConversion_2 = codes[index]
-                                }
-                            
-                        }
-                    }
+                    CustomPicker(
+                        name: "Vers",
+                        electElment: $selectElment_2,
+                        currentConversion: $currentConversion_2,
+                        codes: codes
+                    )
                     .onChange(of: selectElment_2) {
                         currency = currentConversion_2
                         amount = addTransactionViewModel
@@ -208,7 +196,6 @@ extension AddTransactionView {
                     .pickerStyle(.navigationLink)
                 }
             }
-        
     }
 }
 
