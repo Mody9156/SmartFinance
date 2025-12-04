@@ -114,6 +114,18 @@ struct AddTransactionView: View {
                             if let firstConvert = addTransactionViewModel.conversion.first {
                                 let codes = Array(firstConvert.conversionRates.keys.sorted())
                                 
+                                
+                                var seachableCode : [String] {
+                                    if codes.isEmpty {
+                                        codes
+                                    }else {
+                                        codes.filter{
+                                            $0.contains(search)
+                                        }
+                                    }
+                                }
+                                
+                                
                                 // Picker FROM
                                 Picker("De", selection: $selectElement) {
                                     ForEach(
@@ -131,7 +143,7 @@ struct AddTransactionView: View {
                                 
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
-                                    ForEach(0..<codes.count, id: \.self) { index in
+                                    ForEach(0..<seachableCode.count, id: \.self) { index in
                                         VStack {
                                             Text(codes[index]).tag(index)
                                         }
