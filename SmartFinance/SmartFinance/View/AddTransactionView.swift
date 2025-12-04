@@ -28,8 +28,19 @@ struct AddTransactionView: View {
         "Shopping",
         "Voyages",
         "Services",
-        "Autre"
+        "Autre",
+        "Virement reçu",
+        "Virement envoyé",
+        "Transfert interne",
+        "Revenu",
+        "Salaire",
+        "Impôts et taxes",
+        "Épargne",
+        "Investissements",
+        "Retrait",
+        "Dépôt"
     ]
+
     @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
