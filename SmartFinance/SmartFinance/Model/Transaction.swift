@@ -12,14 +12,14 @@ import SwiftData
 final class Transaction: Identifiable, Hashable {
     var id = UUID()
     var name : String
-    var amount : Double
+    var amount : String
     var date : Date
     var category : String
     var note : String?
     
     init(
         name: String,
-        amount: Double,
+        amount: String,
         date: Date,
         category: String,
         description: String?

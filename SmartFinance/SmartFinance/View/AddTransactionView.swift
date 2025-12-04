@@ -114,17 +114,22 @@ struct AddTransactionView: View {
                     if activeToggle {
                         Section(header: Text("Conversion")) {
                             if let firstConvert = addTransactionViewModel.conversion.first {
-                                let codes = Array(firstConvert.conversionRates.keys.sorted())
+                                let codes = Array(firstConvert.conversionRates.keys).sorted()
                                 
-                                var seachableCode : [String] {
-                                    let codesFilter = codes.filter{$0.contains(search)}
-                                    
-                                    guard !search.isEmpty else {
-                                        return codes
-                                    }
-                                    
-                                    return codesFilter
-                                }
+//                                let convert = addTransactionViewModel.conversion
+//                                
+//                                var seachableCode : [Convert] {
+//
+//                                    let codesFilter = convert.filter{
+//                                        $0.conversionRates.contains(search)
+//                                    }
+//                                    
+//                                    if search.isEmpty {
+//                                        return convert
+//                                    }else {
+//                                        return codesFilter
+//                                    }
+//                                }
                             
                                 // Picker FROM
                                 Picker("De", selection: $selectElment) {
@@ -146,14 +151,16 @@ struct AddTransactionView: View {
                                 
                                 // Picker TO
                                 Picker("Vers", selection: $selectElment_2) {
-                                    searchable(
-                                        text: $search
-                                    )
+//                                   
+//                                    VStack {
+//                                        
+//                                    }
+//                                    .searchable(text: $search)
                                     ForEach(
-                                        0..<seachableCode.count,
-                                        id: \.self
+                                        0..<codes.count,
+                                       id: \.self
                                     ) { index in
-                                            Text(codes[index]).tag(index)
+                                        Text(codes[index])
                                             .onChange(of:codes[index]){
                                                 currentConversion_2 = codes[index]
                                             }
