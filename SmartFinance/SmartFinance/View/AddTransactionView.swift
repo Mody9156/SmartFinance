@@ -12,7 +12,7 @@ import SwiftData
 struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
-    @State var selectElement = ""
+    @State var currentConversion = ""
     @State var selectElment_2 : Int = 0
     @State var currentConversion_2: String = ""
     @State var selectCategory = 0
@@ -127,7 +127,7 @@ struct AddTransactionView: View {
                                 }
                             
                                 // Picker FROM
-                                Picker("De", selection: $selectElement) {
+                                Picker("De", selection: $currentConversion) {
                                     ForEach(
                                         0..<codes.count,
                                         id: \.self
@@ -136,8 +136,8 @@ struct AddTransactionView: View {
                                     }
                                     
                                 }
-                                .onChange(of: selectElement) {
-                                    baseCurrency = selectElement
+                                .onChange(of: currentConversion) {
+                                    baseCurrency = currentConversion
                                 }
                                 .pickerStyle(.navigationLink)
                                 
