@@ -39,6 +39,8 @@ class AddTransactionViewModel {
         "Virement reçu": .virementRecu
     ]
     
+    
+    
     enum ConversionError: LocalizedError {
             case emptyArray
             case network
@@ -52,6 +54,14 @@ class AddTransactionViewModel {
                 }
             }
         }
+    
+    func categoryType(element: String) -> String {
+        if element == "Salaire" || element == "Revenu" || element == "Dépôt" || element == "Virement reçu" {
+            return "+"
+        }else {
+            return "-"
+        }
+    }
     
     func selectedCategoryIcone(element: String) -> String {
         return categoryIconMap[element]?.rawValue ?? "?"

@@ -7,9 +7,6 @@
 
 import Foundation
 
-
-
-
 enum CategoryIcon: String {
     // Dépenses
     case alimentation
@@ -32,12 +29,5 @@ enum CategoryIcon: String {
     case revenu
     case depot
     case virementRecu
-}
-
-
-
-enum CategoryType {
-    case expense
-    case income
 }
 

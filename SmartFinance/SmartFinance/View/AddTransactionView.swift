@@ -184,12 +184,20 @@ struct AddTransactionView: View {
                 
                 Button(
                     action: {
+                        let icone = addTransactionViewModel.selectedCategoryIcone(
+                            element: category
+                        )
+                        let type = addTransactionViewModel.categoryType(
+                            element: category
+                        )
+                        
                         let newTransaction = Transaction(
                             name: name,
-                            amount: amount,
+                            amount: "\(type)\(amount)",
                             date: date,
                             category: category,
-                            description: note
+                            description: note,
+                            icon: icone
                         )
                         
                         modelContext.insert(newTransaction)
