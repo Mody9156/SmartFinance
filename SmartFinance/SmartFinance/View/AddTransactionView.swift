@@ -14,6 +14,7 @@ struct AddTransactionView: View {
     @State var amount: Double = 0.0
     @State var currentConversion = ""
     @State var selectElment_2 : Int = 0
+    @State var selectElment : Int = 0
     @State var currentConversion_2: String = ""
     @State var selectCategory = 0
     @State var note: String = ""
