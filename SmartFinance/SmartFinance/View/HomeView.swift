@@ -13,6 +13,7 @@ struct HomeView: View {
     @Bindable var homeViewModel : HomeViewModel
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
+    @State var activeNavigation : Bool = false
     
     var body: some View {
         
@@ -87,6 +88,8 @@ struct HomeView: View {
                                     .frame(width: 25,height: 25)
                                     .foregroundStyle(.white)
                             }
+                        }.navigationDestination(isPresented: $activeNavigation) {
+                            AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
                         }
                     }
                 }
@@ -108,23 +111,24 @@ struct HomeView: View {
                     }
                     .padding()
                 }
-               
+                
                 VStack {
                     ScrollView {
                         VStack(alignment: .leading) {
                             Text("Transaction récente")
                                 .foregroundStyle(.secondary)
                                 .padding()
-                                VStack {
-                                    ForEach(transaction){ item in
-                                        CustomLabel(
-                                            name: item.name,
-                                            systemName: item.icon,
-                                            date: item.date,
-                                            category: item.category,
-                                            amount: item.amount
-                                        )                                    }
+                            VStack {
+                                ForEach(transaction){ item in
+                                    CustomLabel(
+                                        name: item.name,
+                                        systemName: item.icon,
+                                        date: item.date,
+                                        category: item.category,
+                                        amount: item.amount
+                                    )
                                 }
+                            }
                         }
                     }
                 }
