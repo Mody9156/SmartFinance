@@ -11,7 +11,6 @@ import SwiftData
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
-//    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150.00", date: Date(), category: "SHOP", description: "rien", icon: "moon.fill")]
     @State var activeNavigationLink: Bool = false
     @State var search : String = ""
 
