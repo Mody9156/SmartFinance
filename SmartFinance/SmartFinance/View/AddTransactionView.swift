@@ -207,10 +207,10 @@ struct CustomPicker: View {
     var body: some View {
         Picker(name, selection: $electElment) {
             ForEach(
-                0..<codes.count,
+                codes,
                 id: \.self
             ) { index in
-                Text(codes[index])
+                Text(index)
             }
         }
         .onChange(of:electElment){
