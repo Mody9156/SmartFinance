@@ -101,9 +101,14 @@ struct HomeView: View {
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
                     
-                    ForEach(transaction){ amount in
-                        
-                    }
+//                    ForEach(transaction,id: \.self){ amount in
+//                        
+//                        let result = await homeViewModel
+//                                    .deleteFirtsCharactere(
+//                                        amount: amount.amount
+//                                    )
+//                     
+//                    }
                     
                     LineView(data: result, title: "", legend: "Totalité des dépenses")
                         .padding()
