@@ -13,23 +13,26 @@ struct TransactionsView: View {
     @Query var transaction : [Transaction]
     @State var activeNavigationLink: Bool = false
     @State var search : String = ""
-
+    
     var body: some View {
         NavigationStack{
             List {
                 ForEach(searchable) { transaction in
                     NavigationLink {
                         
-                        Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                      Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
                        
+                        
                     } label: {
-                        CustomLabel(
-                            name: transaction.name,
-                            systemName: transaction.icon,
-                            date: transaction.date,
-                            category: transaction.category,
-                            amount: transaction.amount
-                        )
+                        VStack(alignment:.leading) {
+                            CustomLabel(
+                                name: transaction.name,
+                                systemName: transaction.icon,
+                                date: transaction.date,
+                                category: transaction.category,
+                                amount: transaction.amount
+                            )
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -63,7 +66,7 @@ struct TransactionsView: View {
         guard !search.isEmpty else { return transaction }
         return transactionsFilter
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
@@ -87,8 +90,6 @@ extension TransactionsView {
                     .foregroundStyle(Color("titleColor"))
             }
             
-            Spacer()
-            
             VStack(alignment: .leading) {
                 Text(name)
                     .font(.title3)
@@ -96,11 +97,12 @@ extension TransactionsView {
                 HStack {
                     Text("\(category) -")
                         .font(.caption)
-                        
+                    
                     Text(date, format: .dateTime.day().month())
                         .font(.caption)
                 }
             }
+            .padding()
             
             Spacer()
             
