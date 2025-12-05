@@ -136,7 +136,7 @@ struct AddTransactionView: View {
                         )
                         
                         modelContext.insert(newTransaction)
-                        
+                        dismiss()
                     },
                     label:{
                         VStack(alignment: .center) {
