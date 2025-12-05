@@ -11,7 +11,7 @@ import SwiftData
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
-    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150", date: Date(), category: "SHOP", description: "rien", icon: "moon.stars.fill")]
+    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150", date: Date(), category: "SHOP", description: "rien", icon: "moon.fill")]
     
     @State var activeNavigationLink: Bool = false
 
@@ -25,7 +25,7 @@ struct TransactionsView: View {
                        
                     } label: {
                         CustomLabel(
-                            systemName: transaction.name,
+                            name: transaction.name, systemName: transaction.icon,
                             date: transaction.date,
                             category: transaction.category,
                             amount: transaction.amount
@@ -62,19 +62,39 @@ struct TransactionsView: View {
 }
 
 extension TransactionsView {
-    func CustomLabel(systemName:String,date:Date, category:String, amount:String) -> some View {
+    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String) -> some View {
         HStack {
             ZStack {
                 Circle()
-                    .frame(height: 20)
-                    .foregroundStyle(.green)
+                    .frame(height: 50)
+                    .foregroundStyle(Color("textColor"))
                 
                 Image(systemName: systemName)
-                    .foregroundStyle(.green)
+                    .resizable()
+                    .frame(width: 20,height: 20)
+                    .foregroundStyle(Color("titleColor"))
             }
             
-            Text(date, format: .dateTime.day().month())
+            Spacer()
+            
+            VStack(alignment: .leading) {
+                Text(name)
+                    .font(.title3)
+                HStack {
+                    Text("\(category) -")
+                        .font(.caption)
+                    Text(date, format: .dateTime.day().month())
+                        .font(.caption)
+                }
+            }
+            
+            Spacer()
+            
+            let ColorAmount = amount.contains("-")
+            
             Text(amount)
+                .foregroundStyle(ColorAmount ? .red : .green)
+                
         }
     }
 }
