@@ -20,17 +20,17 @@ struct TransactionsView: View {
                 ForEach(searchable) { transaction in
                     NavigationLink {
                         
-                      Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                       
+                        Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        
                         
                     } label: {
-                            CustomLabel(
-                                name: transaction.name,
-                                systemName: transaction.icon,
-                                date: transaction.date,
-                                category: transaction.category,
-                                amount: transaction.amount
-                            )
+                        CustomLabel(
+                            name: transaction.name,
+                            systemName: transaction.icon,
+                            date: transaction.date,
+                            category: transaction.category,
+                            amount: transaction.amount
+                        )
                     }
                 }
                 .onDelete(perform: deleteItems)
