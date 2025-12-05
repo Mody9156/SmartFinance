@@ -78,8 +78,8 @@ struct AddTransactionView: View {
                         
                         Picker(selection: $selectCategory) {
                             ForEach(0..<showCategory.count,id: \.self){ items in
-                                Text(self.showCategory[items])
-                                    .onChange(of:selectCategory ){
+                                Text(showCategory[items])
+                                    .onChange(of:showCategory[items] ){
                                         category = showCategory[items]
                                     }
                                 

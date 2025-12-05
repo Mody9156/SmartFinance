@@ -25,7 +25,8 @@ struct TransactionsView: View {
                        
                     } label: {
                         CustomLabel(
-                            name: transaction.name, systemName: transaction.icon,
+                            name: transaction.name,
+                            systemName: transaction.icon,
                             date: transaction.date,
                             category: transaction.category,
                             amount: transaction.amount
@@ -54,7 +55,7 @@ struct TransactionsView: View {
     }
     
     var searchable: [Transaction] {
-        var transactionsFilter = transaction.filter {
+        let transactionsFilter = transaction.filter {
             $0.name.localizedCaseInsensitiveContains(search) ||
             $0.category.localizedCaseInsensitiveContains(search) ||
             DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
