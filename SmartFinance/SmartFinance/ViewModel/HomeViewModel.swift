@@ -48,4 +48,12 @@ class HomeViewModel {
             ""
         }
     }
+    
+    //Suppression de prefix - et +
+    func deleteFirtsCharactere(amount:String) -> Double {
+        let cleaned = amount.trimmingCharacters(
+            in: CharacterSet(charactersIn: "-+")
+        )
+       return Double (cleaned) ?? 0
+    }
 }

@@ -14,6 +14,7 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
+    @State var result : [Double] = []
     
     var body: some View {
         
@@ -100,7 +101,11 @@ struct HomeView: View {
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
                     
-                    LineView(data: [8,23,500,32,12,37,7,23,43], title: "", legend: "Totalité des dépenses")
+                    ForEach(transaction){ amount in
+                        
+                    }
+                    
+                    LineView(data: result, title: "", legend: "Totalité des dépenses")
                         .padding()
                     
                     HStack {
