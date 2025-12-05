@@ -116,11 +116,14 @@ struct HomeView: View {
                                 .foregroundStyle(.secondary)
                                 .padding()
                                 VStack {
-                                   
-                                    HistoryCustoms(systemName: "cart.fill", name: "Auchant", price: 160.88)
-                                    HistoryCustoms(systemName: "bag.fill", name: "Adidas", price: 90.77)
-                                    HistoryCustoms(systemName: "cart.fill", name: "Adidas", price: 160.88)
-                                    
+                                    ForEach(transaction){ item in
+                                        CustomLabel(
+                                            name: item.name,
+                                            systemName: item.icon,
+                                            date: item.date,
+                                            category: item.category,
+                                            amount: item.amount
+                                        )                                    }
                                 }
                         }
                     }
@@ -131,42 +134,44 @@ struct HomeView: View {
     }
 }
 
-struct HistoryCustoms:View {
-    var systemName: String
-    var name: String
-    var price: Double
-    
-    var body: some View {
-        VStack {
-            HStack{
+extension HomeView {
+    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String) -> some View {
+        HStack {
+            ZStack {
                 Circle()
-                    .foregroundStyle(.green.opacity(0.4))
                     .frame(height: 50)
-                    .overlay(content: {
-
-                        Image(systemName: systemName)
-                            .resizable()
-                            .foregroundStyle(.green)
-                            .frame(width: 25,height: 25)
-                    })
+                    .foregroundStyle(Color("textColor"))
                 
-                VStack {
-                    HStack {
-                        Text(name)
-                        Spacer()
-                        Text("Jun 1")
-                    }
-                    HStack {
-                        Text("Salaray - Jun 1")
-                        Spacer()
-                        Text("+ \(String(format: "%.2f",price))€")
-                    }
+                Image(systemName: systemName)
+                    .resizable()
+                    .frame(width: 25,height: 25)
+                    .foregroundStyle(Color("titleColor"))
+            }
+            
+            VStack(alignment: .leading) {
+                Text(name)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                HStack {
+                    Text("\(category) -")
+                        .font(.caption)
+                    
+                    Text(date, format: .dateTime.day().month())
+                        .font(.caption)
                 }
             }
             .padding()
+            
+            Spacer()
+            
+            let ColorAmount = amount.contains("-")
+            
+            Text(amount)
+                .foregroundStyle(ColorAmount ? .red : .green)
         }
     }
 }
+
 
 struct CustomImageSystem:View {
     var image : String
