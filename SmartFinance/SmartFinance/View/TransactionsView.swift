@@ -17,7 +17,9 @@ struct TransactionsView: View {
             List {
                 ForEach(transaction) { transaction in
                     NavigationLink {
+                        
                         Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        
                     } label: {
                         Text(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))
                     }
@@ -50,6 +52,16 @@ struct TransactionsView: View {
         }
     }
 }
+
+extension TransactionsView {
+    var label : some View {
+        ZStack {
+            
+        }
+    }
+}
+
+
 
 #Preview {
     TransactionsView()
