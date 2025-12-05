@@ -14,7 +14,7 @@ struct TransactionsView: View {
     var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150", date: Date(), category: "SHOP", description: "rien", icon: "moon.stars.fill")]
     
     @State var activeNavigationLink: Bool = false
-    
+
     var body: some View {
         NavigationStack{
             List {
@@ -67,11 +67,13 @@ extension TransactionsView {
             ZStack {
                 Circle()
                     .frame(height: 20)
+                    .foregroundStyle(.green)
+                
                 Image(systemName: systemName)
                     .foregroundStyle(.green)
             }
             
-            Text("\(category) - \(date)")
+            Text(date, format: .dateTime.day().month())
             Text(amount)
         }
     }
