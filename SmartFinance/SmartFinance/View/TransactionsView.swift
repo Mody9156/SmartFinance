@@ -18,7 +18,7 @@ struct TransactionsView: View {
     var body: some View {
         NavigationStack{
             List {
-                ForEach(transactions) { transaction in
+                ForEach(searchable) { transaction in
                     NavigationLink {
                         
                         Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
@@ -51,6 +51,17 @@ struct TransactionsView: View {
                 }
             }
         }
+    }
+    
+    var searchable: [Transaction] {
+        var transactionsFilter = transactions.filter {
+            $0.name.localizedCaseInsensitiveContains(search) ||
+            $0.category.localizedCaseInsensitiveContains(search) ||
+            DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
+            $0.amount.localizedCaseInsensitiveContains(search)
+        }
+        guard !search.isEmpty else { return transactions }
+        return transactionsFilter
     }
 
     private func deleteItems(offsets: IndexSet) {
