@@ -122,6 +122,7 @@ struct AddTransactionView: View {
                         let icone = addTransactionViewModel.selectedCategoryIcone(
                             element: category
                         )
+                        
                         let type = addTransactionViewModel.categoryType(
                             element: category
                         )
