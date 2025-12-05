@@ -166,7 +166,7 @@ extension AddTransactionView {
                 // Picker FROM
                 CustomPicker(
                     name: "De",
-                    electElment:  $selectElment,
+                    selectElement:  $selectElment,
                     currentConversion: $currentConversion,
                     codes: codes
                 )
@@ -178,7 +178,7 @@ extension AddTransactionView {
                 // Picker TO
                 CustomPicker(
                     name: "Vers",
-                    electElment: $selectElment_2,
+                    selectElement: $selectElment_2,
                     currentConversion: $currentConversion_2,
                     codes: codes
                 )
@@ -200,12 +200,12 @@ extension AddTransactionView {
 
 struct CustomPicker: View {
     var name : String
-    @Binding var electElment : String
+    @Binding var selectElement : String
     @Binding var currentConversion: String
     var codes: [Dictionary<String, Double>.Keys.Element]
     
     var body: some View {
-        Picker(name, selection: $electElment) {
+        Picker(name, selection: $selectElement) {
             ForEach(
                 codes,
                 id: \.self
@@ -213,8 +213,8 @@ struct CustomPicker: View {
                 Text(index)
             }
         }
-        .onChange(of:electElment){
-            currentConversion = electElment
+        .onChange(of:selectElement){
+            currentConversion = selectElement
         }
     }
 }
