@@ -13,8 +13,8 @@ struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
     @State var currentConversion = ""
-    @State var selectElment_2 : Int = 0
-    @State var selectElment : Int = 0
+    @State var selectElment_2 : String = ""
+    @State var selectElment : String = ""
     @State var currentConversion_2: String = ""
     @State var selectCategory : String = ""
     @State var note: String = ""
@@ -200,7 +200,7 @@ extension AddTransactionView {
 
 struct CustomPicker: View {
     var name : String
-    @Binding var electElment : Int
+    @Binding var electElment : String
     @Binding var currentConversion: String
     var codes: [Dictionary<String, Double>.Keys.Element]
     
@@ -211,11 +211,10 @@ struct CustomPicker: View {
                 id: \.self
             ) { index in
                 Text(codes[index])
-                    .onChange(of:codes[index]){
-                        currentConversion = codes[index]
-                    }
-                
             }
+        }
+        .onChange(of:electElment){
+            currentConversion = electElment
         }
     }
 }
