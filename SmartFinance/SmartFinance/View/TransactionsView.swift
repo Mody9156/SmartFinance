@@ -24,7 +24,6 @@ struct TransactionsView: View {
                        
                         
                     } label: {
-                        VStack(alignment:.leading) {
                             CustomLabel(
                                 name: transaction.name,
                                 systemName: transaction.icon,
@@ -32,7 +31,6 @@ struct TransactionsView: View {
                                 category: transaction.category,
                                 amount: transaction.amount
                             )
-                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
