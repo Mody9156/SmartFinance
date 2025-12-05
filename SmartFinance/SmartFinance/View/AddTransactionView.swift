@@ -16,7 +16,7 @@ struct AddTransactionView: View {
     @State var selectElment_2 : Int = 0
     @State var selectElment : Int = 0
     @State var currentConversion_2: String = ""
-    @State var selectCategory = 0
+    @State var selectCategory : String = ""
     @State var note: String = ""
     @State var date : Date = Date()
     @State var activeToggle: Bool = false
@@ -75,17 +75,14 @@ struct AddTransactionView: View {
                         }
                         
                         DatePicker("Date", selection: $date)
-                        
-                        Picker(selection: $selectCategory) {
-                            ForEach(0..<showCategory.count,id: \.self){ items in
-                                Text(showCategory[items])
-                                    .onChange(of:showCategory[items] ){
-                                        category = showCategory[items]
-                                    }
-                                
+
+                        Picker("Catgories",selection: $selectCategory) {
+                            ForEach(showCategory,id: \.self){ items in
+                                Text(items)
                             }
-                        } label: {
-                            Text("Catgories")
+                        }
+                        .onChange(of:selectCategory){
+                            category = selectCategory
                         }
                         .pickerStyle(.navigationLink)
                         
@@ -162,41 +159,41 @@ struct AddTransactionView: View {
 
 extension AddTransactionView {
     var showconver:  some View  {
-            Section(header: Text("Conversion")) {
-                if let firstConvert = addTransactionViewModel.conversion.first {
-                    let codes = Array(firstConvert.conversionRates.keys).sorted()
-             
-                    // Picker FROM
-                    CustomPicker(
-                        name: "De",
-                        electElment:  $selectElment,
-                        currentConversion: $currentConversion,
-                        codes: codes
-                    )
-                    .onChange(of: currentConversion) {
-                        baseCurrency = currentConversion
-                    }
-                    .pickerStyle(.navigationLink)
-                    
-                    // Picker TO
-                    CustomPicker(
-                        name: "Vers",
-                        electElment: $selectElment_2,
-                        currentConversion: $currentConversion_2,
-                        codes: codes
-                    )
-                    .onChange(of: selectElment_2) {
-                        currency = currentConversion_2
-                        amount = addTransactionViewModel
-                            .exchangeRate(
-                                amount: amount,
-                                to: currency,
-                                baseCurrency: baseCurrency
-                            )
-                    }
-                    .pickerStyle(.navigationLink)
+        Section(header: Text("Conversion")) {
+            if let firstConvert = addTransactionViewModel.conversion.first {
+                let codes = Array(firstConvert.conversionRates.keys).sorted()
+                
+                // Picker FROM
+                CustomPicker(
+                    name: "De",
+                    electElment:  $selectElment,
+                    currentConversion: $currentConversion,
+                    codes: codes
+                )
+                .onChange(of: currentConversion) {
+                    baseCurrency = currentConversion
                 }
+                .pickerStyle(.navigationLink)
+                
+                // Picker TO
+                CustomPicker(
+                    name: "Vers",
+                    electElment: $selectElment_2,
+                    currentConversion: $currentConversion_2,
+                    codes: codes
+                )
+                .onChange(of: selectElment_2) {
+                    currency = currentConversion_2
+                    amount = addTransactionViewModel
+                        .exchangeRate(
+                            amount: amount,
+                            to: currency,
+                            baseCurrency: baseCurrency
+                        )
+                }
+                .pickerStyle(.navigationLink)
             }
+        }
     }
 }
 

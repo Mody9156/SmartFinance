@@ -64,7 +64,8 @@ class AddTransactionViewModel {
     }
     
     func selectedCategoryIcone(element: String) -> String {
-        return categoryIconMap[element]?.rawValue ?? "?"
+        
+        return categoryIconMap[element]?.icon ?? "?"
         
     }
     
