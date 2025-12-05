@@ -11,9 +11,9 @@ import SwiftData
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
-    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150", date: Date(), category: "SHOP", description: "rien", icon: "moon.fill")]
-    
+    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150.00", date: Date(), category: "SHOP", description: "rien", icon: "moon.fill")]
     @State var activeNavigationLink: Bool = false
+    @State var search : String = ""
 
     var body: some View {
         NavigationStack{
@@ -34,6 +34,7 @@ struct TransactionsView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+            .searchable(text: $search)
             .navigationDestination(isPresented: $activeNavigationLink) {
                 AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
             }
@@ -80,9 +81,11 @@ extension TransactionsView {
             VStack(alignment: .leading) {
                 Text(name)
                     .font(.title3)
+                    .fontWeight(.bold)
                 HStack {
                     Text("\(category) -")
                         .font(.caption)
+                        
                     Text(date, format: .dateTime.day().month())
                         .font(.caption)
                 }
@@ -94,7 +97,6 @@ extension TransactionsView {
             
             Text(amount)
                 .foregroundStyle(ColorAmount ? .red : .green)
-                
         }
     }
 }
