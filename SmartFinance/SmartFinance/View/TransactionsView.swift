@@ -54,8 +54,14 @@ struct TransactionsView: View {
 }
 
 extension TransactionsView {
-    var label : some View {
-        ZStack {
+    func CustomLabel(systemName:String) -> some View {
+        HStack {
+            ZStack {
+                Circle()
+                    .frame(height: 20)
+                Image(systemName: systemName)
+                    .foregroundStyle(.green)
+            }
             
         }
     }
