@@ -12,18 +12,30 @@ struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
     @State var activeNavigationLink: Bool = false
+    @State var search : String = ""
+    
     var body: some View {
         NavigationStack{
             List {
-                ForEach(transaction) { transaction in
+                ForEach(searchable) { transaction in
                     NavigationLink {
+                        
                         Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        
+                        
                     } label: {
-                        Text(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        CustomLabel(
+                            name: transaction.name,
+                            systemName: transaction.icon,
+                            date: transaction.date,
+                            category: transaction.category,
+                            amount: transaction.amount
+                        )
                     }
                 }
                 .onDelete(perform: deleteItems)
             }
+            .searchable(text: $search)
             .navigationDestination(isPresented: $activeNavigationLink) {
                 AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
             }
@@ -42,11 +54,15 @@ struct TransactionsView: View {
         }
     }
     
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+    var searchable: [Transaction] {
+        let transactionsFilter = transaction.filter {
+            $0.name.localizedCaseInsensitiveContains(search) ||
+            $0.category.localizedCaseInsensitiveContains(search) ||
+            DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
+            $0.amount.localizedCaseInsensitiveContains(search)
         }
+        guard !search.isEmpty else { return transaction }
+        return transactionsFilter
     }
     
     private func deleteItems(offsets: IndexSet) {
@@ -58,7 +74,47 @@ struct TransactionsView: View {
     }
 }
 
+extension TransactionsView {
+    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String) -> some View {
+        HStack {
+            ZStack {
+                Circle()
+                    .frame(height: 50)
+                    .foregroundStyle(Color("textColor"))
+                
+                Image(systemName: systemName)
+                    .resizable()
+                    .frame(width: 25,height: 25)
+                    .foregroundStyle(Color("titleColor"))
+            }
+            
+            VStack(alignment: .leading) {
+                Text(name)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                HStack {
+                    Text("\(category) -")
+                        .font(.caption)
+                    
+                    Text(date, format: .dateTime.day().month())
+                        .font(.caption)
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            let ColorAmount = amount.contains("-")
+            
+            Text(amount)
+                .foregroundStyle(ColorAmount ? .red : .green)
+        }
+    }
+}
+
+
+
 #Preview {
     TransactionsView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: Transaction.self, inMemory: true)
 }

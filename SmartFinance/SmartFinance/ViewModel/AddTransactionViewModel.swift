@@ -18,6 +18,7 @@ class AddTransactionViewModel {
         self.converterManager = converterManager
     }
     let categoryIconMap: [String: CategoryIcon] = [
+        // Dépenses
         "Alimentation": .alimentation,
         "Logement": .logement,
         "Transport": .transport,
@@ -28,18 +29,19 @@ class AddTransactionViewModel {
         "Voyages": .voyages,
         "Services": .services,
         "Autre": .autre,
-        "Impôts et taxes": .impots,
+        "Impôts et taxes": .impotsEtTaxes,
         "Investissements": .investissements,
         "Épargne": .epargne,
         "Retrait": .retrait,
 
+        // Revenus / transferts
         "Salaire": .salaire,
         "Revenu": .revenu,
         "Dépôt": .depot,
-        "Virement reçu": .virementRecu
+        "Virement reçu": .virementRecu,
+        "Virement envoyé": .virementEnvoye,
+        "Transfert interne": .transfertInterne
     ]
-    
-    
     
     enum ConversionError: LocalizedError {
             case emptyArray
@@ -64,7 +66,8 @@ class AddTransactionViewModel {
     }
     
     func selectedCategoryIcone(element: String) -> String {
-        return categoryIconMap[element]?.rawValue ?? "?"
+        
+        return categoryIconMap[element]?.icon ?? "?"
         
     }
     

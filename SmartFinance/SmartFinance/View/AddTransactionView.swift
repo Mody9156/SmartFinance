@@ -13,10 +13,10 @@ struct AddTransactionView: View {
     @State var name: String = ""
     @State var amount: Double = 0.0
     @State var currentConversion = ""
-    @State var selectElment_2 : Int = 0
-    @State var selectElment : Int = 0
+    @State var selectElment_2 : String = ""
+    @State var selectElment : String = ""
     @State var currentConversion_2: String = ""
-    @State var selectCategory = 0
+    @State var selectCategory : String = ""
     @State var note: String = ""
     @State var date : Date = Date()
     @State var activeToggle: Bool = false
@@ -75,17 +75,14 @@ struct AddTransactionView: View {
                         }
                         
                         DatePicker("Date", selection: $date)
-                        
-                        Picker(selection: $selectCategory) {
-                            ForEach(0..<showCategory.count,id: \.self){ items in
-                                Text(self.showCategory[items])
-                                    .onChange(of:selectCategory ){
-                                        category = showCategory[items]
-                                    }
-                                
+
+                        Picker("Catgories",selection: $selectCategory) {
+                            ForEach(showCategory,id: \.self){ items in
+                                Text(items)
                             }
-                        } label: {
-                            Text("Catgories")
+                        }
+                        .onChange(of:selectCategory){
+                            category = selectCategory
                         }
                         .pickerStyle(.navigationLink)
                         
@@ -122,6 +119,7 @@ struct AddTransactionView: View {
                         let icone = addTransactionViewModel.selectedCategoryIcone(
                             element: category
                         )
+                        
                         let type = addTransactionViewModel.categoryType(
                             element: category
                         )
@@ -136,7 +134,7 @@ struct AddTransactionView: View {
                         )
                         
                         modelContext.insert(newTransaction)
-                        
+                        dismiss()
                     },
                     label:{
                         VStack(alignment: .center) {
@@ -161,63 +159,62 @@ struct AddTransactionView: View {
 
 extension AddTransactionView {
     var showconver:  some View  {
-            Section(header: Text("Conversion")) {
-                if let firstConvert = addTransactionViewModel.conversion.first {
-                    let codes = Array(firstConvert.conversionRates.keys).sorted()
-             
-                    // Picker FROM
-                    CustomPicker(
-                        name: "De",
-                        electElment:  $selectElment,
-                        currentConversion: $currentConversion,
-                        codes: codes
-                    )
-                    .onChange(of: currentConversion) {
-                        baseCurrency = currentConversion
-                    }
-                    .pickerStyle(.navigationLink)
-                    
-                    // Picker TO
-                    CustomPicker(
-                        name: "Vers",
-                        electElment: $selectElment_2,
-                        currentConversion: $currentConversion_2,
-                        codes: codes
-                    )
-                    .onChange(of: selectElment_2) {
-                        currency = currentConversion_2
-                        amount = addTransactionViewModel
-                            .exchangeRate(
-                                amount: amount,
-                                to: currency,
-                                baseCurrency: baseCurrency
-                            )
-                    }
-                    .pickerStyle(.navigationLink)
+        Section(header: Text("Conversion")) {
+            if let firstConvert = addTransactionViewModel.conversion.first {
+                let codes = Array(firstConvert.conversionRates.keys).sorted()
+                
+                // Picker FROM
+                CustomPicker(
+                    name: "De",
+                    selectElement:  $selectElment,
+                    currentConversion: $currentConversion,
+                    codes: codes
+                )
+                .onChange(of: currentConversion) {
+                    baseCurrency = currentConversion
                 }
+                .pickerStyle(.navigationLink)
+                
+                // Picker TO
+                CustomPicker(
+                    name: "Vers",
+                    selectElement: $selectElment_2,
+                    currentConversion: $currentConversion_2,
+                    codes: codes
+                )
+                .onChange(of: selectElment_2) {
+                    currency = currentConversion_2
+                    amount = addTransactionViewModel
+                        .exchangeRate(
+                            amount: amount,
+                            to: currency,
+                            baseCurrency: baseCurrency
+                        )
+                }
+                .pickerStyle(.navigationLink)
             }
+        }
     }
 }
 
 
 struct CustomPicker: View {
     var name : String
-    @Binding var electElment : Int
+    @Binding var selectElement : String
     @Binding var currentConversion: String
     var codes: [Dictionary<String, Double>.Keys.Element]
     
     var body: some View {
-        Picker(name, selection: $electElment) {
+        Picker(name, selection: $selectElement) {
             ForEach(
-                0..<codes.count,
+                codes,
                 id: \.self
             ) { index in
-                Text(codes[index])
-                    .onChange(of:codes[index]){
-                        currentConversion = codes[index]
-                    }
-                
+                Text(index)
             }
+        }
+        .onChange(of:selectElement){
+            currentConversion = selectElement
         }
     }
 }
