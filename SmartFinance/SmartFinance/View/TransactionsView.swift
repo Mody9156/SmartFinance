@@ -11,17 +11,25 @@ import SwiftData
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
+    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150", date: Date(), category: "SHOP", description: "rien", icon: "moon.stars.fill")]
+    
     @State var activeNavigationLink: Bool = false
+    
     var body: some View {
         NavigationStack{
             List {
-                ForEach(transaction) { transaction in
+                ForEach(transactions) { transaction in
                     NavigationLink {
                         
                         Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                        
+                       
                     } label: {
-                        Text(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        CustomLabel(
+                            systemName: transaction.name,
+                            date: transaction.date,
+                            category: transaction.category,
+                            amount: transaction.amount
+                        )
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -54,7 +62,7 @@ struct TransactionsView: View {
 }
 
 extension TransactionsView {
-    func CustomLabel(systemName:String) -> some View {
+    func CustomLabel(systemName:String,date:Date, category:String, amount:String) -> some View {
         HStack {
             ZStack {
                 Circle()
@@ -63,6 +71,8 @@ extension TransactionsView {
                     .foregroundStyle(.green)
             }
             
+            Text("\(category) - \(date)")
+            Text(amount)
         }
     }
 }
