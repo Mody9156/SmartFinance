@@ -11,7 +11,7 @@ import SwiftData
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
-    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150.00", date: Date(), category: "SHOP", description: "rien", icon: "moon.fill")]
+//    var transactions : [Transaction] = [Transaction(name: "Nike", amount: "-150.00", date: Date(), category: "SHOP", description: "rien", icon: "moon.fill")]
     @State var activeNavigationLink: Bool = false
     @State var search : String = ""
 
@@ -54,13 +54,13 @@ struct TransactionsView: View {
     }
     
     var searchable: [Transaction] {
-        var transactionsFilter = transactions.filter {
+        var transactionsFilter = transaction.filter {
             $0.name.localizedCaseInsensitiveContains(search) ||
             $0.category.localizedCaseInsensitiveContains(search) ||
             DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
             $0.amount.localizedCaseInsensitiveContains(search)
         }
-        guard !search.isEmpty else { return transactions }
+        guard !search.isEmpty else { return transaction }
         return transactionsFilter
     }
 
