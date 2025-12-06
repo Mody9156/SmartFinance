@@ -15,6 +15,13 @@ struct HomeView: View {
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
     @State var result : [Double] = []
+    var randomElement: () {
+        for i in transaction {
+            result.append(homeViewModel.deleteFirtsCharactere(amount: i.amount))
+        }
+        print("\(result)")
+    }
+    
     
     var body: some View {
         
@@ -101,14 +108,7 @@ struct HomeView: View {
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
                     
-//                    ForEach(transaction,id: \.self){ amount in
-//                        
-//                        let result = await homeViewModel
-//                                    .deleteFirtsCharactere(
-//                                        amount: amount.amount
-//                                    )
-//                     
-//                    }
+                    ///
                     
                     LineView(data: result, title: "", legend: "Totalité des dépenses")
                         .padding()
@@ -142,6 +142,9 @@ struct HomeView: View {
                         }
                     }
                 }
+            }
+            .onAppear{
+                 _ = randomElement
             }
             .padding()
         }
