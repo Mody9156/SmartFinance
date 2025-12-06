@@ -17,7 +17,7 @@ struct HomeView: View {
     @State var result : [Double] = []
     var randomElement: () {
         for i in transaction {
-            result.append(homeViewModel.deleteFirtsCharactere(amount: i.amount))
+            result.append(homeViewModel.cleanSign(amount: i.amount))
         }
         print("\(result)")
     }
