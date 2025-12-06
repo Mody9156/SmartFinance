@@ -15,7 +15,7 @@ struct HomeView: View {
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
     @State var result : [Double] = []
-    var randomElement: () {
+    var cleanedAmounts: () {
         for i in transaction {
             result.append(homeViewModel.cleanSign(amount: i.amount))
         }
@@ -144,7 +144,7 @@ struct HomeView: View {
                 }
             }
             .onAppear{
-                 _ = randomElement
+                 _ = cleanedAmounts
             }
             .padding()
         }
