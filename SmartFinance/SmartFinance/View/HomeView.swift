@@ -14,12 +14,9 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
-    @State var result : [Double] = []
-    var cleanedAmounts: () {
-        for i in transaction {
-            result.append(homeViewModel.cleanSign(amount: i.amount))
-        }
-        print("\(result)")
+    func cleanedAmounts (transaction : [Transaction]) -> [Double] {
+        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+        return result
     }
     
     
@@ -110,7 +107,11 @@ struct HomeView: View {
                     
                     ///
                     
-                    LineView(data: result, title: "", legend: "Totalité des dépenses")
+                    LineView(
+                        data: cleanedAmounts(transaction: transaction),
+                        title: "",
+                        legend: "Totalité des dépenses"
+                    )
                         .padding()
                     
                     HStack {
@@ -144,7 +145,7 @@ struct HomeView: View {
                 }
             }
             .onAppear{
-                 _ = cleanedAmounts
+               
             }
             .padding()
         }
