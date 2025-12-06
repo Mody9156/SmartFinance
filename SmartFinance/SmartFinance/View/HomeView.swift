@@ -14,10 +14,11 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
-    func cleanedAmounts (transaction : [Transaction]) -> [Double] {
+    func cleanedAmounts(transaction : [Transaction]) -> [Double] {
         let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
         return result
     }
+   
     
     
     var body: some View {
@@ -104,8 +105,6 @@ struct HomeView: View {
                         .frame(height: 400)
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
-                    
-                    ///
                     
                     LineView(
                         data: cleanedAmounts(transaction: transaction),
