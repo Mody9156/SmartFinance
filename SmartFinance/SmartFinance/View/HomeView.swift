@@ -14,7 +14,12 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
-    @State var result : [Double] = []
+    func cleanedAmounts(transaction : [Transaction]) -> [Double] {
+        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+        return result
+    }
+   
+    
     
     var body: some View {
         
@@ -101,16 +106,11 @@ struct HomeView: View {
                         .foregroundStyle(.white)
                         .shadow(radius: 12)
                     
-//                    ForEach(transaction,id: \.self){ amount in
-//                        
-//                        let result = await homeViewModel
-//                                    .deleteFirtsCharactere(
-//                                        amount: amount.amount
-//                                    )
-//                     
-//                    }
-                    
-                    LineView(data: result, title: "", legend: "Totalité des dépenses")
+                    LineView(
+                        data: cleanedAmounts(transaction: transaction),
+                        title: "",
+                        legend: "Totalité des dépenses"
+                    )
                         .padding()
                     
                     HStack {
@@ -129,7 +129,7 @@ struct HomeView: View {
                                 .foregroundStyle(.secondary)
                                 .padding()
                             VStack {
-                                ForEach(transaction){ item in
+                                ForEach(transaction.prefix(3)){ item in
                                     CustomLabel(
                                         name: item.name,
                                         systemName: item.icon,
@@ -142,6 +142,9 @@ struct HomeView: View {
                         }
                     }
                 }
+            }
+            .onAppear{
+               
             }
             .padding()
         }
