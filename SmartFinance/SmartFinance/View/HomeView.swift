@@ -130,7 +130,7 @@ struct HomeView: View {
                                 .foregroundStyle(.secondary)
                                 .padding()
                             VStack {
-                                ForEach(transaction){ item in
+                                ForEach(transaction.prefix(3)){ item in
                                     CustomLabel(
                                         name: item.name,
                                         systemName: item.icon,
