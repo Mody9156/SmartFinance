@@ -45,7 +45,7 @@ struct HomeView: View {
 //    }
     
     
-    func filterDate(date:Date) -> Bool {
+    func selectedPeriod(date:Date) -> Bool {
         let dateNow = Date()
         let dateFromatter = DateFormatter()
         dateFromatter.dateFormat = "MM"
@@ -61,6 +61,14 @@ struct HomeView: View {
 
     }
     
+//    func resultInThemounth(transaction : [Transaction]) -> [Double]{
+//        let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+//        let result = transaction.reduce(amount) {_ in
+//        
+//        }
+//        print("reuslt:\(result)")
+//        return result
+//    }
     
     
     var body: some View {
