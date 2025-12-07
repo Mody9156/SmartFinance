@@ -84,7 +84,7 @@ struct HomeView: View {
                                 .clipShape(RoundedRectangleLetAndRight(radius: 12))
                             
                             Button(action: {
-                                activeNavigation.toggle()
+                                activeNavigation = true 
                             }) {
                                 Label{
                                     Text("Nouvelle transaction")
