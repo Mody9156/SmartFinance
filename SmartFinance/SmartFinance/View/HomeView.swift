@@ -21,7 +21,6 @@ struct HomeView: View {
     
     
     
-    
     var body: some View {
         
         NavigationStack{
@@ -85,7 +84,7 @@ struct HomeView: View {
                                 .clipShape(RoundedRectangleLetAndRight(radius: 12))
                             
                             Button(action: {
-                                
+                                activeNavigation.toggle()
                             }) {
                                 Label{
                                     Text("Nouvelle transaction")
