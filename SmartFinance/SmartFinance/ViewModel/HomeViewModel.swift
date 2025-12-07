@@ -31,9 +31,9 @@ class HomeViewModel {
         let division = selectedNumber()
         let arround = division.rounded()
         if arround > 0 {
-            return "+$\(arround) this mouth"
+            return "+\(arround) this mouth"
         }else if arround < 0{
-            return "-$\(arround) this mouth"
+            return "-\(arround) this mouth"
         }else {
             return "\(arround) this mouth"
         }

@@ -44,6 +44,16 @@ struct HomeView: View {
 //        return result
 //    }
     
+    
+    func filterDate(date:Date) -> Bool {
+        let dateNow = Date()
+        let dateFromatter = DateFormatter()
+        dateFromatter.dateFormat = "MM"
+        let currentMonth = dateFromatter.string(from: dateNow)
+        let transactionMonth = dateFromatter.string(from: date)
+        return currentMonth == transactionMonth
+    }
+    
      func cleanedAmounts(transaction : [Transaction]) -> [Double] {
         let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
         
