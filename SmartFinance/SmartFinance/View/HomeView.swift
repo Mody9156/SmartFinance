@@ -14,9 +14,34 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
-    func cleanedAmounts(transaction : [Transaction]) -> [Double] {
-        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-        return result
+    var transactions : [Transaction]  = [
+        Transaction(
+          name: "Groceries",
+          amount: "+45.50",
+          date: Date(), // Uses the current date and time
+          category: "Food",
+          description: "Weekly shop at local supermarket.",
+          icon: "cart.fill" // Example SFSymbol name
+        ),
+        Transaction(
+          name: "Bus Fare",
+          amount: "+2.80",
+          date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, // Uses yesterday's date
+          category: "Transport",
+          description: nil, // Optional field, can be set to nil
+          icon: "bus.fill"
+        )
+      ]
+    
+    
+     func cleanedAmounts(transaction : [Transaction]) -> [Double] {
+//        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+//        
+//        return result
+//
+         let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+         
+         return result
     }
     
     
@@ -84,7 +109,7 @@ struct HomeView: View {
                                 .clipShape(RoundedRectangleLetAndRight(radius: 12))
                             
                             Button(action: {
-                                activeNavigation = true 
+                                activeNavigation = true
                             }) {
                                 Label{
                                     Text("Nouvelle transaction")
@@ -108,7 +133,7 @@ struct HomeView: View {
                             .shadow(radius: 12)
                         
                         LineView(
-                            data: cleanedAmounts(transaction: transaction),
+                            data: cleanedAmounts(transaction: transactions),
                             title: "",
                             legend: "Totalité des dépenses"
                         )
@@ -130,7 +155,7 @@ struct HomeView: View {
                                     .foregroundStyle(.secondary)
                                     .padding()
                                 VStack {
-                                    ForEach(transaction.prefix(3)){ item in
+                                    ForEach(transactions.prefix(3)){ item in
                                         CustomLabel(
                                             name: item.name,
                                             systemName: item.icon,
