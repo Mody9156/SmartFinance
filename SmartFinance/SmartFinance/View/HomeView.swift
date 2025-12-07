@@ -18,135 +18,138 @@ struct HomeView: View {
         let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
         return result
     }
-   
+    
+    
     
     
     var body: some View {
         
-        ScrollView {
-            VStack(alignment: .leading){
-                HStack {
-                    CustomImageSystem(image: "person.crop.circle.fill")
-                    
-                    Spacer()
-                    
-                    CustomImageSystem(image: "gearshape")
-                }
-                Text("Tableau de bord")
-                    .foregroundStyle(Color("titleColor"))
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding()
-                
-                ZStack(alignment: .bottom) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [
-                                        Color("containerColor_left"),
-                                        Color("containerColor_right")
-                                    ],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .frame(height: 200)
+        NavigationStack{
+            ScrollView {
+                VStack(alignment: .leading){
+                    HStack {
+                        CustomImageSystem(image: "person.crop.circle.fill")
                         
-                        VStack(alignment: .center) {
-                            Text("Montant utilisé")
-                                .foregroundStyle(Color("textColor"))
-                            
-                            Text("$\(String(format: "%.2f",homeViewModel.newBalance))")
-                                .font(.title)
-                                .foregroundStyle(.white)
-                            
-                            let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
-                            let displayDifference = homeViewModel.displayDifference()
-                            
-                            Label{
-                                Text(displayDifference)
-                                    .foregroundStyle(Color("textColor"))
-                                
-                            } icon:{
-                                Image(systemName: updateDifference)
-                                    .foregroundStyle(.white)
-                            }
-                        }
-                    }
-                    
-                    ZStack {
-                        Rectangle()
-                            .frame(height: 50)
-                            .foregroundStyle(.green)
-                            .opacity(0.9)
-                            .clipShape(RoundedRectangleLetAndRight(radius: 12))
+                        Spacer()
                         
-                        Button(action: {
-                            
-                        }) {
-                            Label{
-                                Text("Nouvelle transaction")
-                                    .foregroundStyle(.white)
-                            }icon:{
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 25,height: 25)
-                                    .foregroundStyle(.white)
-                            }
-                        }.navigationDestination(isPresented: $activeNavigation) {
-                            AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
-                        }
+                        CustomImageSystem(image: "gearshape")
                     }
-                }
-                
-                ZStack(alignment: .topTrailing){
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(height: 400)
-                        .foregroundStyle(.white)
-                        .shadow(radius: 12)
-                    
-                    LineView(
-                        data: cleanedAmounts(transaction: transaction),
-                        title: "",
-                        legend: "Totalité des dépenses"
-                    )
+                    Text("Tableau de bord")
+                        .foregroundStyle(Color("titleColor"))
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
                         .padding()
                     
-                    HStack {
-                        Text("Finance")
-                            .fontWeight(.bold)
-                        
-                        Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
-                    }
-                    .padding()
-                }
-                
-                VStack {
-                    ScrollView {
-                        VStack(alignment: .leading) {
-                            Text("Transaction récente")
-                                .foregroundStyle(.secondary)
-                                .padding()
-                            VStack {
-                                ForEach(transaction.prefix(3)){ item in
-                                    CustomLabel(
-                                        name: item.name,
-                                        systemName: item.icon,
-                                        date: item.date,
-                                        category: item.category,
-                                        amount: item.amount
+                    ZStack(alignment: .bottom) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundStyle(
+                                    LinearGradient(
+                                        colors: [
+                                            Color("containerColor_left"),
+                                            Color("containerColor_right")
+                                        ],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
                                     )
+                                )
+                                .frame(height: 200)
+                            
+                            VStack(alignment: .center) {
+                                Text("Montant utilisé")
+                                    .foregroundStyle(Color("textColor"))
+                                
+                                Text("$\(String(format: "%.2f",homeViewModel.newBalance))")
+                                    .font(.title)
+                                    .foregroundStyle(.white)
+                                
+                                let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
+                                let displayDifference = homeViewModel.displayDifference()
+                                
+                                Label{
+                                    Text(displayDifference)
+                                        .foregroundStyle(Color("textColor"))
+                                    
+                                } icon:{
+                                    Image(systemName: updateDifference)
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                        }
+                        
+                        ZStack {
+                            Rectangle()
+                                .frame(height: 50)
+                                .foregroundStyle(.green)
+                                .opacity(0.9)
+                                .clipShape(RoundedRectangleLetAndRight(radius: 12))
+                            
+                            Button(action: {
+                                
+                            }) {
+                                Label{
+                                    Text("Nouvelle transaction")
+                                        .foregroundStyle(.white)
+                                }icon:{
+                                    Image(systemName: "plus.circle.fill")
+                                        .resizable()
+                                        .frame(width: 25,height: 25)
+                                        .foregroundStyle(.white)
+                                }
+                            }.navigationDestination(isPresented: $activeNavigation) {
+                                AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
+                            }
+                        }
+                    }
+                    
+                    ZStack(alignment: .topTrailing){
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(height: 400)
+                            .foregroundStyle(.white)
+                            .shadow(radius: 12)
+                        
+                        LineView(
+                            data: cleanedAmounts(transaction: transaction),
+                            title: "",
+                            legend: "Totalité des dépenses"
+                        )
+                        .padding()
+                        
+                        HStack {
+                            Text("Finance")
+                                .fontWeight(.bold)
+                            
+                            Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
+                        }
+                        .padding()
+                    }
+                    
+                    VStack {
+                        ScrollView {
+                            VStack(alignment: .leading) {
+                                Text("Transaction récente")
+                                    .foregroundStyle(.secondary)
+                                    .padding()
+                                VStack {
+                                    ForEach(transaction.prefix(3)){ item in
+                                        CustomLabel(
+                                            name: item.name,
+                                            systemName: item.icon,
+                                            date: item.date,
+                                            category: item.category,
+                                            amount: item.amount
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                .onAppear{
+                    
+                }
+                .padding()
             }
-            .onAppear{
-               
-            }
-            .padding()
         }
     }
 }
