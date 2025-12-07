@@ -32,16 +32,23 @@ struct HomeView: View {
           icon: "bus.fill"
         )
       ]
-    
+//    
+//    func formatter() -> String {
+//        guard let firstDate = transaction.first?.date else {
+//            return ""
+//        }
+//        let formatDate = DateFormatter()
+//        formatDate.dateFormat = "MM"
+//        let result = formatDate.string(from: firstDate)
+//        print("result \(result)")
+//        return result
+//    }
     
      func cleanedAmounts(transaction : [Transaction]) -> [Double] {
-//        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-//        
-//        return result
-//
-         let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-         
-         return result
+        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+        
+        return result
+
     }
     
     
@@ -245,3 +252,4 @@ struct RoundedRectangleLetAndRight: Shape {
 #Preview {
     HomeView(homeViewModel: HomeViewModel())
 }
+
