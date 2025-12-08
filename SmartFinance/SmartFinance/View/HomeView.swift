@@ -244,7 +244,7 @@ extension HomeView {
             
             let ColorAmount = amount.contains("-")
             
-            Text(amount)
+            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
                 .foregroundStyle(ColorAmount ? .red : .green)
         }
     }
