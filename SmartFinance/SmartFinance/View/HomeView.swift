@@ -61,14 +61,15 @@ struct HomeView: View {
 
     }
     
-//    func resultInThemounth(transaction : [Transaction]) -> [Double]{
-//        let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-//        let result = transaction.reduce(amount) {_ in
-//        
-//        }
-//        print("reuslt:\(result)")
-//        return result
-//    }
+
+    func resultInThemounth(transaction : [Transaction]) -> Double{
+        let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+        let result = amount.reduce(0,+)
+        print("reuslt:\(result)")
+        homeViewModel.newBalance = result
+        homeViewModel.lastBalance = result
+        return result
+    }
     
     
     var body: some View {
@@ -108,7 +109,9 @@ struct HomeView: View {
                                 Text("Montant utilisé")
                                     .foregroundStyle(Color("textColor"))
                                 
-                                Text("$\(String(format: "%.2f",homeViewModel.newBalance))")
+                                Text(
+                                    "$\(String(format: "%.2f",homeViewModel.lastBalance))"
+                                )
                                     .font(.title)
                                     .foregroundStyle(.white)
                                 
@@ -116,7 +119,9 @@ struct HomeView: View {
                                 let displayDifference = homeViewModel.displayDifference()
                                 
                                 Label{
-                                    Text(displayDifference)
+                                    Text(
+                                        "$\(String(format: "%.2f",homeViewModel.newBalance))"
+                                    )
                                         .foregroundStyle(Color("textColor"))
                                     
                                 } icon:{
@@ -195,7 +200,7 @@ struct HomeView: View {
                     }
                 }
                 .onAppear{
-                    
+                    resultInThemounth(transaction: transactions)
                 }
                 .padding()
             }

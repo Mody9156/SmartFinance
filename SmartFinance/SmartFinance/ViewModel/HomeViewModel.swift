@@ -10,13 +10,8 @@ import Observation
 
 @Observable
 class HomeViewModel {
-    var lastBalance : Double 
-    var newBalance : Double
-    
-    init(lastBalance: Double = 55_000, newBalance: Double = 10_000) {
-        self.lastBalance = lastBalance
-        self.newBalance = newBalance
-    }
+    var lastBalance : Double = 0.0
+    var newBalance : Double = 0.0
     
     func selectedNumber() -> Double {
         if lastBalance >= newBalance {
