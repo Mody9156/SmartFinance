@@ -110,7 +110,7 @@ struct HomeView: View {
                                     .foregroundStyle(Color("textColor"))
                                 
                                 Text(
-                                    "$\(String(format: "%.2f",homeViewModel.lastBalance))"
+                                    "\(String(format: "%.2f",homeViewModel.lastBalance))"
                                 )
                                     .font(.title)
                                     .foregroundStyle(.white)
@@ -120,7 +120,7 @@ struct HomeView: View {
                                 
                                 Label{
                                     Text(
-                                        "$\(String(format: "%.2f",homeViewModel.newBalance))"
+                                        "\(String(format: "%.2f",homeViewModel.newBalance)) ce mois"
                                     )
                                         .foregroundStyle(Color("textColor"))
                                     
