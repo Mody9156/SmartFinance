@@ -15,6 +15,10 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                
+                ZStack{
+                    
+                }
                 Section(header: Text("Paramètre")) {
                     Picker("Devise", selection: $selectedCurrency) {
                         if let firstCurrency = addTransactionViewModel.conversion.first {

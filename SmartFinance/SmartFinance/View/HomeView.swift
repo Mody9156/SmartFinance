@@ -167,7 +167,7 @@ struct HomeView: View {
                             .shadow(radius: 12)
                         
                         LineView(
-                            data: cleanedAmounts(transaction: transactions),
+                            data: cleanedAmounts(transaction: transaction),
                             title: "",
                             legend: "Totalité des dépenses"
                         )
@@ -189,7 +189,7 @@ struct HomeView: View {
                                     .foregroundStyle(.secondary)
                                     .padding()
                                 VStack {
-                                    ForEach(transactions.prefix(3)){ item in
+                                    ForEach(transaction.prefix(3)){ item in
                                         CustomLabel(
                                             name: item.name,
                                             systemName: item.icon,
@@ -204,7 +204,7 @@ struct HomeView: View {
                     }
                 }
                 .onAppear{
-                  _ = resultInThemounth(transaction: transactions)
+                  _ = resultInThemounth(transaction: transaction )
                 }
                 .padding()
             }
