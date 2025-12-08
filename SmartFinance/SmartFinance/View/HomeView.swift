@@ -14,7 +14,9 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
-    @AppStorage("baseCurrency") var baseCurrency : String = "USA"
+    @State var iconeSelected: String = ""
+    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
+  
     var transactions : [Transaction]  = [
         Transaction(
           name: "Groceries",
@@ -61,9 +63,9 @@ struct HomeView: View {
         return result
 
     }
-    
 
     func resultInThemounth(transaction : [Transaction]) -> Double{
+        
         let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
         let result = amount.reduce(0,+)
         print("reuslt:\(result)")
@@ -111,17 +113,18 @@ struct HomeView: View {
                                     .foregroundStyle(Color("textColor"))
                                 
                                 Text(
-                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \(baseCurrency)"
+                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))"
                                 )
                                     .font(.title)
                                     .foregroundStyle(.white)
                                 
                                 let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
                                 let displayDifference = homeViewModel.displayDifference()
+                               
                                 
                                 Label{
                                     Text(
-                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \(baseCurrency) ce mois"
+                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency)) ce mois"
                                     )
                                         .foregroundStyle(Color("textColor"))
                                     
