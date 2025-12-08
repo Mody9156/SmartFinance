@@ -14,6 +14,9 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
+    @State var iconeSelected: String = ""
+    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
+  
     var transactions : [Transaction]  = [
         Transaction(
           name: "Groceries",
@@ -60,15 +63,16 @@ struct HomeView: View {
         return result
 
     }
-    
-//    func resultInThemounth(transaction : [Transaction]) -> [Double]{
-//        let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-//        let result = transaction.reduce(amount) {_ in
-//        
-//        }
-//        print("reuslt:\(result)")
-//        return result
-//    }
+
+    func resultInThemounth(transaction : [Transaction]) -> Double{
+        
+        let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+        let result = amount.reduce(0,+)
+        print("reuslt:\(result)")
+        homeViewModel.newBalance = result
+        homeViewModel.lastBalance = result
+        return result
+    }
     
     
     var body: some View {
@@ -108,15 +112,20 @@ struct HomeView: View {
                                 Text("Montant utilisé")
                                     .foregroundStyle(Color("textColor"))
                                 
-                                Text("$\(String(format: "%.2f",homeViewModel.newBalance))")
+                                Text(
+                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))"
+                                )
                                     .font(.title)
                                     .foregroundStyle(.white)
                                 
                                 let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
                                 let displayDifference = homeViewModel.displayDifference()
+                               
                                 
                                 Label{
-                                    Text(displayDifference)
+                                    Text(
+                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency)) ce mois"
+                                    )
                                         .foregroundStyle(Color("textColor"))
                                     
                                 } icon:{
@@ -195,7 +204,7 @@ struct HomeView: View {
                     }
                 }
                 .onAppear{
-                    
+                  _ = resultInThemounth(transaction: transactions)
                 }
                 .padding()
             }
@@ -235,7 +244,7 @@ extension HomeView {
             
             let ColorAmount = amount.contains("-")
             
-            Text(amount)
+            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
                 .foregroundStyle(ColorAmount ? .red : .green)
         }
     }

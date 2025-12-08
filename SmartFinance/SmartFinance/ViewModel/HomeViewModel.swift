@@ -10,12 +10,21 @@ import Observation
 
 @Observable
 class HomeViewModel {
-    var lastBalance : Double 
-    var newBalance : Double
+    var lastBalance : Double = 0.0
+    var newBalance : Double = 0.0
     
-    init(lastBalance: Double = 55_000, newBalance: Double = 10_000) {
-        self.lastBalance = lastBalance
-        self.newBalance = newBalance
+    var CurrencySymbols: [String : CurrencySymbol] = {
+        var dict: [String : CurrencySymbol] = [:]
+        CurrencySymbol.allCases.forEach { currency  in
+            dict[currency.rawValue] = currency
+        }
+        return dict
+    }()
+ 
+    func selectedCurrencySymbolse(element: String) -> String {
+        
+        return CurrencySymbols[element]?.symbol ?? "?"
+        
     }
     
     func selectedNumber() -> Double {
@@ -56,4 +65,7 @@ class HomeViewModel {
         )
        return Double (cleaned) ?? 0
     }
+    
+    
+    
 }
