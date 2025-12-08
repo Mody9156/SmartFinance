@@ -204,7 +204,7 @@ struct HomeView: View {
                     }
                 }
                 .onAppear{
-                    resultInThemounth(transaction: transactions)
+                  _ = resultInThemounth(transaction: transactions)
                 }
                 .padding()
             }
