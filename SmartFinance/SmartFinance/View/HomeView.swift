@@ -14,6 +14,7 @@ struct HomeView: View {
     @State var activeToggle: Bool = false
     @Query var transaction : [Transaction]
     @State var activeNavigation : Bool = false
+    @AppStorage("baseCurrency") var baseCurrency : String = "USA"
     var transactions : [Transaction]  = [
         Transaction(
           name: "Groceries",
@@ -110,7 +111,7 @@ struct HomeView: View {
                                     .foregroundStyle(Color("textColor"))
                                 
                                 Text(
-                                    "\(String(format: "%.2f",homeViewModel.lastBalance))"
+                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \(baseCurrency)"
                                 )
                                     .font(.title)
                                     .foregroundStyle(.white)
@@ -120,7 +121,7 @@ struct HomeView: View {
                                 
                                 Label{
                                     Text(
-                                        "\(String(format: "%.2f",homeViewModel.newBalance)) ce mois"
+                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \(baseCurrency) ce mois"
                                     )
                                         .foregroundStyle(Color("textColor"))
                                     
