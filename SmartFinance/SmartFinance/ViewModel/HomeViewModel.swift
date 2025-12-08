@@ -21,6 +21,11 @@ class HomeViewModel {
         return dict
     }()
  
+    func selectedCurrencySymbolse(element: String) -> String {
+        
+        return CurrencySymbols[element]?.symbol ?? "?"
+        
+    }
     
     func selectedNumber() -> Double {
         if lastBalance >= newBalance {
