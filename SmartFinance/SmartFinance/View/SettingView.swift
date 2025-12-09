@@ -25,8 +25,7 @@ struct SettingView: View {
                                 Circle()
                                     .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
                             )
-                            .shadow(color: .blue.opacity(0.18), radius: 10, x: 0, y: 3)
-                        
+                            .shadow(color: .green.opacity(0.18), radius: 10, x: 0, y: 3)
                         
                         Button(action:{
                             
@@ -42,9 +41,7 @@ struct SettingView: View {
                                     .frame(width: 25,height: 25)
                             }
                         }
-                           
                     }
-                    
                     
                     Image("User")
                         .resizable()
