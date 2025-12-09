@@ -55,6 +55,11 @@ struct SettingView: View {
                         }
                         
                         Text("Name")
+                            .foregroundStyle(.white)
+                            .font(.title3)
+                        
+                        Text("email")
+                        foregroundStyle(.white)
                     }
                 }
                 
