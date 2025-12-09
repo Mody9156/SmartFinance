@@ -11,7 +11,8 @@ struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "USA"
     @State var selectedCurrency : Int = 0
     var addTransactionViewModel : AddTransactionViewModel
-    @State private var activeToggle: Bool = false
+    @State private var activeNotification: Bool = false
+    
     
     var body: some View {
         NavigationStack {
@@ -80,17 +81,16 @@ struct SettingView: View {
                     }
                     .padding()
                     .pickerStyle(.navigationLink)
-                    
                 }
                 .padding()
                 
                 Section(header: Text("Paramètre")) {
                     HStack {
-                        Image(systemName: activeToggle ? "bell.fill" : "bell")
+                        Image(systemName: activeNotification ? "bell.fill" : "bell")
                         
                         Toggle(
                             "Notifications",
-                            isOn: $activeToggle
+                            isOn: $activeNotification
                         )
                     }
                 }
