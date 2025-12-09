@@ -86,7 +86,12 @@ struct SettingView: View {
                 
                 Section(header: Text("Paramètre")) {
                     HStack {
-                        Toggle("Notifications", isOn: $activeToggle)
+                        Image(systemName: activeToggle ? "bell.fill" : "bell")
+                        
+                        Toggle(
+                            "Notifications",
+                            isOn: $activeToggle
+                        )
                     }
                 }
                 .padding()
