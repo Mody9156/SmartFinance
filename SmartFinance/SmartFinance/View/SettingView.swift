@@ -15,18 +15,28 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                VStack {
-                    ZStack {
-                        Color.green.ignoresSafeArea()
+                ZStack {
+                    Color.green.ignoresSafeArea()
+                    
+                    VStack {
                         ZStack(alignment: .bottomTrailing){
-                            Circle()
-                                .frame(width: 140, height: 140)
-                                .foregroundStyle(.ultraThinMaterial)
-                                .overlay(
-                                    Circle()
-                                        .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
-                                )
-                                .shadow(color: .green.opacity(0.18), radius: 10, x: 0, y: 3)
+                            ZStack{
+                                
+                                Circle()
+                                    .frame(width: 140, height: 140)
+                                    .foregroundStyle(.ultraThinMaterial)
+                                    .overlay(
+                                        Circle()
+                                            .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
+                                    )
+                                    .shadow(color: .green.opacity(0.18), radius: 10, x: 0, y: 3)
+                                Image("User")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 72, height: 72)
+                                    .clipShape(Circle())
+                                    .shadow(radius: 4, y: 2)
+                            }
                             
                             Button(action:{
                                 
@@ -44,17 +54,9 @@ struct SettingView: View {
                             }
                         }
                         
-                        Image("User")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 72, height: 72)
-                            .clipShape(Circle())
-                            .shadow(radius: 4, y: 2)
+                        Text("Name")
                     }
-                    
-                    
                 }
-                
                 
                 Section(header: Text("Paramètre")) {
                     Picker("Devise", selection: $selectedCurrency) {
