@@ -73,11 +73,14 @@ struct SettingView: View {
                 }
                 
                 Section(header: Text("Compte")) {
-                    
-                    Picker("compte lié", selection: $selectedLinkedAcconts) {
-                        
-                        
+                   
+                    NavigationLink {
+                        LinkedAccount()
+                    } label: {
+                        Text("compte lié")
+                            .foregroundStyle(.black)
                     }
+
                     
                     Picker("Devise", selection: $selectedCurrency) {
                         if let firstCurrency = addTransactionViewModel.conversion.first {
@@ -88,6 +91,7 @@ struct SettingView: View {
                                     .onChange(of:values){
                                         baseCurrency = values
                                     }
+                                    .foregroundStyle(.black)
                             }
                         }
                     }
