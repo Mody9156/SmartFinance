@@ -96,7 +96,7 @@ struct SettingView: View {
                 }
                 .padding()
                 
-                Section(header: Text("Paramètre")) {
+                Section(header: Text("Paramètres")) {
                     HStack {
                         Image(systemName: activeNotification ? "bell.fill" : "bell")
                         
