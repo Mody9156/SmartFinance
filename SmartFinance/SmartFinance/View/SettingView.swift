@@ -61,7 +61,9 @@ struct SettingView: View {
                         VStack {
                             Text("Name")
                                 .foregroundStyle(.white)
-                                .font(.title3)
+                                .font(.largeTitle)
+                            
+                            
 
                         }
                     }
