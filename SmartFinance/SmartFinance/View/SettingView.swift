@@ -18,8 +18,18 @@ struct SettingView: View {
                 
                 ZStack{
                     Circle()
-                        .frame(height: 50)
+                        .frame(width: 50,height: 50)
+                        .glassEffect()
+                        .foregroundStyle(.gray)
+                        .clipShape(Circle())
+                    
+                    Image("User")
+                        .resizable()
+                        .frame(width: 25,height: 25)
+                        .foregroundStyle(.red)
+                       
                 }
+                
                 Section(header: Text("Paramètre")) {
                     Picker("Devise", selection: $selectedCurrency) {
                         if let firstCurrency = addTransactionViewModel.conversion.first {
