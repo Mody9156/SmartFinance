@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "USA"
-    @State var selectedCurrency : Int = 0
+    @State var selectedCurrency : String = ""
     @State var selectedLinkedAcconts : String = ""
     var addTransactionViewModel : AddTransactionViewModel
     @State private var activeNotification: Bool = false
@@ -69,7 +69,7 @@ struct SettingView: View {
                 
                 Section(header: Text("Compte")) {
                     
-                    Picker("compte lié", selection: $selectedCurrency) {
+                    Picker("compte lié", selection: $selectedLinkedAcconts) {
                         
                         
                     }
@@ -78,10 +78,10 @@ struct SettingView: View {
                         if let firstCurrency = addTransactionViewModel.conversion.first {
                             let currencyKeys = firstCurrency.conversionRates.keys.sorted()
                             
-                            ForEach(0..<currencyKeys.count, id: \.self) { values in
-                                Text(currencyKeys[values]).tag(values)
+                            ForEach(currencyKeys, id: \.self) { values in
+                                Text(values).tag(values)
                                     .onChange(of:values){
-                                        baseCurrency = currencyKeys[values]
+                                        baseCurrency = values
                                     }
                             }
                         }
