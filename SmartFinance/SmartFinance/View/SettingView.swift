@@ -30,6 +30,7 @@ struct SettingView: View {
                                             .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
                                     )
                                     .shadow(color: .green.opacity(0.18), radius: 10, x: 0, y: 3)
+                                
                                 Image("User")
                                     .resizable()
                                     .scaledToFit()
@@ -54,31 +55,32 @@ struct SettingView: View {
                             }
                         }
                         
-                        Text("Name")
-                            .foregroundStyle(.white)
-                            .font(.title3)
+                            Text("Name")
+                                .foregroundStyle(.white)
+                                .font(.title3)
+                            
+                            Text("email")
+                            foregroundStyle(.white)
                         
-                        Text("email")
-                        foregroundStyle(.white)
                     }
                 }
                 
-                Section(header: Text("Paramètre")) {
-                    Picker("Devise", selection: $selectedCurrency) {
-                        if let firstCurrency = addTransactionViewModel.conversion.first {
-                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
-                            
-                            ForEach(0..<currencyKeys.count, id: \.self) { values in
-                                Text(currencyKeys[values]).tag(values)
-                                    .onChange(of:values){
-                                        baseCurrency = currencyKeys[values]
-                                    }
-                            }
-                        }
-                    }
-                    .padding()
-                    .pickerStyle(.navigationLink)
-                }
+//                Section(header: Text("Paramètre")) {
+//                    Picker("Devise", selection: $selectedCurrency) {
+//                        if let firstCurrency = addTransactionViewModel.conversion.first {
+//                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
+//                            
+//                            ForEach(0..<currencyKeys.count, id: \.self) { values in
+//                                Text(currencyKeys[values]).tag(values)
+//                                    .onChange(of:values){
+//                                        baseCurrency = currencyKeys[values]
+//                                    }
+//                            }
+//                        }
+//                    }
+//                    .padding()
+//                    .pickerStyle(.navigationLink)
+//                }
             }
             .task{
                 await addTransactionViewModel.getConversions()
