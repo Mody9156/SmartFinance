@@ -15,12 +15,12 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
                 ZStack {
+                    Color.green.ignoresSafeArea()
                     ZStack(alignment: .bottomTrailing){
                         Circle()
                             .frame(width: 140, height: 140)
-                            .background(.ultraThinMaterial)
+                            .foregroundStyle(.ultraThinMaterial)
                             .overlay(
                                 Circle()
                                     .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
@@ -51,6 +51,8 @@ struct SettingView: View {
                         .shadow(radius: 4, y: 2)
                 }
                 
+                Spacer()
+                
                 Section(header: Text("Paramètre")) {
                     Picker("Devise", selection: $selectedCurrency) {
                         if let firstCurrency = addTransactionViewModel.conversion.first {
@@ -63,10 +65,11 @@ struct SettingView: View {
                                     }
                             }
                         }
-                    }.pickerStyle(.navigationLink)
+                    }
+                    .padding()
+                    .pickerStyle(.navigationLink)
                 }
             }
-            .padding()
             .task{
                 await addTransactionViewModel.getConversions()
             }
