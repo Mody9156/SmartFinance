@@ -16,18 +16,22 @@ struct SettingView: View {
         NavigationStack {
             VStack {
                 
-                ZStack{
+                ZStack {
                     Circle()
-                        .frame(width: 50,height: 50)
-                        .glassEffect()
-                        .foregroundStyle(.gray)
-                        .clipShape(Circle())
+                        .frame(width: 70, height: 70)
+                        .background(.ultraThinMaterial)
+                        .overlay(
+                            Circle()
+                                .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
+                        )
+                        .shadow(color: .blue.opacity(0.18), radius: 10, x: 0, y: 3)
                     
                     Image("User")
                         .resizable()
-                        .frame(width: 25,height: 25)
-                        .foregroundStyle(.red)
-                       
+                        .scaledToFit()
+                        .frame(width: 36, height: 36)
+                        .clipShape(Circle())
+                        .shadow(radius: 4, y: 2)
                 }
                 
                 Section(header: Text("Paramètre")) {
@@ -55,3 +59,4 @@ struct SettingView: View {
 #Preview {
     SettingView(addTransactionViewModel: AddTransactionViewModel())
 }
+
