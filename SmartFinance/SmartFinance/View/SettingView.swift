@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "USA"
     @State var selectedCurrency : Int = 0
+    @State var selectedLinkedAcconts : String = ""
     var addTransactionViewModel : AddTransactionViewModel
     @State private var activeNotification: Bool = false
     @State private var activeDarkMode: Bool = false
@@ -67,6 +68,12 @@ struct SettingView: View {
                 }
                 
                 Section(header: Text("Compte")) {
+                    
+                    Picker("compte lié", selection: $selectedCurrency) {
+                        
+                        
+                    }
+                    
                     Picker("Devise", selection: $selectedCurrency) {
                         if let firstCurrency = addTransactionViewModel.conversion.first {
                             let currencyKeys = firstCurrency.conversionRates.keys.sorted()
@@ -93,6 +100,16 @@ struct SettingView: View {
                             isOn: $activeNotification
                         )
                     }
+                    
+                    HStack {
+                        Image(systemName: activeDarkMode ? "moon.fill" : "moon")
+                        
+                        Toggle(
+                            "Notifications",
+                            isOn: $activeDarkMode
+                        )
+                    }
+                    
                 }
                 .padding()
             }
