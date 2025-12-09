@@ -14,6 +14,7 @@ struct SettingView: View {
     var addTransactionViewModel : AddTransactionViewModel
     @State private var activeNotification: Bool = false
     @State private var activeDarkMode: Bool = false
+    @State private var modification_of_the_profile: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -63,6 +64,8 @@ struct SettingView: View {
                                 .foregroundStyle(.white)
                                 .font(.largeTitle)
                             
+                                Text("emailexemple.com")
+                                .foregroundStyle(.white)
                             
 
                         }
