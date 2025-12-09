@@ -85,7 +85,9 @@ struct SettingView: View {
                 .padding()
                 
                 Section(header: Text("Paramètre")) {
-                   Text("Notifications")
+                    HStack {
+                        Toggle("Notifications", isOn: $activeToggle)
+                    }
                 }
                 .padding()
             }
