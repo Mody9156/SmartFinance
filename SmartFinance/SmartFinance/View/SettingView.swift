@@ -12,7 +12,7 @@ struct SettingView: View {
     @State var selectedCurrency : Int = 0
     var addTransactionViewModel : AddTransactionViewModel
     @State private var activeNotification: Bool = false
-    
+    @State private var activeDarkMode: Bool = false
     
     var body: some View {
         NavigationStack {
