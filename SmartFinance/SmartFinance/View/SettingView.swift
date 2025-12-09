@@ -17,19 +17,33 @@ struct SettingView: View {
             VStack {
                 
                 ZStack {
-                    Circle()
-                        .frame(width: 70, height: 70)
-                        .background(.ultraThinMaterial)
-                        .overlay(
+                    ZStack(alignment: .bottomTrailing){
+                        Circle()
+                            .frame(width: 140, height: 140)
+                            .background(.ultraThinMaterial)
+                            .overlay(
+                                Circle()
+                                    .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
+                            )
+                            .shadow(color: .blue.opacity(0.18), radius: 10, x: 0, y: 3)
+                        
+                        ZStack {
                             Circle()
-                                .strokeBorder(Gradient(colors: [.white.opacity(0.8), .clear, .green.opacity(0.4)]), lineWidth: 2.5)
-                        )
-                        .shadow(color: .blue.opacity(0.18), radius: 10, x: 0, y: 3)
+                                .foregroundStyle(.white)
+                                .frame(height: 50)
+                            
+                            Image(systemName: "pencil")
+                                .resizable()
+                                .frame(width: 25,height: 25)
+                        }
+                           
+                    }
+                    
                     
                     Image("User")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 36, height: 36)
+                        .frame(width: 72, height: 72)
                         .clipShape(Circle())
                         .shadow(radius: 4, y: 2)
                 }
