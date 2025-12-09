@@ -51,7 +51,6 @@ struct SettingView: View {
                         .shadow(radius: 4, y: 2)
                 }
                 
-                Spacer()
                 
                 Section(header: Text("Paramètre")) {
                     Picker("Devise", selection: $selectedCurrency) {
