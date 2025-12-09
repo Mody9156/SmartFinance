@@ -14,7 +14,7 @@ struct SettingView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(alignment: .leading) {
                 ZStack {
                     Color.green.ignoresSafeArea()
                     
@@ -55,34 +55,55 @@ struct SettingView: View {
                             }
                         }
                         
+                        VStack {
                             Text("Name")
                                 .foregroundStyle(.white)
                                 .font(.title3)
-                            
-                            Text("email")
-                            foregroundStyle(.white)
-                        
+
+                        }
                     }
                 }
                 
-//                Section(header: Text("Paramètre")) {
-//                    Picker("Devise", selection: $selectedCurrency) {
-//                        if let firstCurrency = addTransactionViewModel.conversion.first {
-//                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
-//                            
-//                            ForEach(0..<currencyKeys.count, id: \.self) { values in
-//                                Text(currencyKeys[values]).tag(values)
-//                                    .onChange(of:values){
-//                                        baseCurrency = currencyKeys[values]
-//                                    }
-//                            }
-//                        }
-//                    }
-//                    .padding()
-//                    .pickerStyle(.navigationLink)
-//                }
+                ZStack {
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .fill(.ultraThinMaterial)
+                        .shadow(radius: 8, y: 4)
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("COMPTE")
+                            .font(.caption2)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.secondary)
+                        
+                        HStack {
+                            Image(systemName: "coloncurrencysign.circle.fill")
+                                .foregroundStyle(.blue)
+                                .font(.title3)
+                            Picker("Devise", selection: $selectedCurrency) {
+                                if let firstCurrency = addTransactionViewModel.conversion.first {
+                                    let currencyKeys = firstCurrency.conversionRates.keys.sorted()
+                                    ForEach(0..<currencyKeys.count, id: \.self) { values in
+                                        Text(currencyKeys[values]).tag(values)
+                                            .onChange(of: values) {
+                                                baseCurrency = currencyKeys[values]
+                                            }
+                                    }
+                                }
+                            }
+                            .pickerStyle(.navigationLink)
+                            .tint(.primary)
+                        }
+                    }
+                    .padding(.vertical, 18)
+                    .padding(.horizontal, 20)
+                }
+                
+                Section(header: Text("Paramètre")) {
+                   
+                }
+                .padding()
             }
-            .task{
+             .task{
                 await addTransactionViewModel.getConversions()
             }
         }
