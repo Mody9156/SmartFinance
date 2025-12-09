@@ -11,6 +11,7 @@ struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "USA"
     @State var selectedCurrency : Int = 0
     var addTransactionViewModel : AddTransactionViewModel
+    @State private var activeToggle: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -64,42 +65,27 @@ struct SettingView: View {
                     }
                 }
                 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 22, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                        .shadow(radius: 8, y: 4)
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("COMPTE")
-                            .font(.caption2)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
-                        
-                        HStack {
-                            Image(systemName: "coloncurrencysign.circle.fill")
-                                .foregroundStyle(.blue)
-                                .font(.title3)
-                            Picker("Devise", selection: $selectedCurrency) {
-                                if let firstCurrency = addTransactionViewModel.conversion.first {
-                                    let currencyKeys = firstCurrency.conversionRates.keys.sorted()
-                                    ForEach(0..<currencyKeys.count, id: \.self) { values in
-                                        Text(currencyKeys[values]).tag(values)
-                                            .onChange(of: values) {
-                                                baseCurrency = currencyKeys[values]
-                                            }
+                Section(header: Text("Compte")) {
+                    Picker("Devise", selection: $selectedCurrency) {
+                        if let firstCurrency = addTransactionViewModel.conversion.first {
+                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
+                            
+                            ForEach(0..<currencyKeys.count, id: \.self) { values in
+                                Text(currencyKeys[values]).tag(values)
+                                    .onChange(of:values){
+                                        baseCurrency = currencyKeys[values]
                                     }
-                                }
                             }
-                            .pickerStyle(.navigationLink)
-                            .tint(.primary)
                         }
                     }
-                    .padding(.vertical, 18)
-                    .padding(.horizontal, 20)
+                    .padding()
+                    .pickerStyle(.navigationLink)
+                    
                 }
+                .padding()
                 
                 Section(header: Text("Paramètre")) {
-                   
+                   Text("Notifications")
                 }
                 .padding()
             }
