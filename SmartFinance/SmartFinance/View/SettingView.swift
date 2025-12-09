@@ -17,7 +17,8 @@ struct SettingView: View {
             VStack {
                 
                 ZStack{
-                    
+                    Circle()
+                        .frame(height: 50)
                 }
                 Section(header: Text("Paramètre")) {
                     Picker("Devise", selection: $selectedCurrency) {
