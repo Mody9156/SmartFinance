@@ -27,14 +27,20 @@ struct SettingView: View {
                             )
                             .shadow(color: .blue.opacity(0.18), radius: 10, x: 0, y: 3)
                         
-                        ZStack {
-                            Circle()
-                                .foregroundStyle(.white)
-                                .frame(height: 50)
+                        
+                        Button(action:{
                             
-                            Image(systemName: "pencil")
-                                .resizable()
-                                .frame(width: 25,height: 25)
+                        }) {
+                            ZStack {
+                                Circle()
+                                    .foregroundStyle(.white)
+                                    .frame(height: 50)
+                                
+                                Image(systemName: "pencil")
+                                    .resizable()
+                                    .foregroundStyle(.black)
+                                    .frame(width: 25,height: 25)
+                            }
                         }
                            
                     }
