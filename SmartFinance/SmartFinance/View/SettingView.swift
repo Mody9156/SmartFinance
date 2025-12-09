@@ -14,6 +14,7 @@ struct SettingView: View {
     var addTransactionViewModel : AddTransactionViewModel
     @State private var activeNotification: Bool = false
     @State private var activeDarkMode: Bool = false
+    @State private var modification_of_the_profile: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -61,17 +62,23 @@ struct SettingView: View {
                         VStack {
                             Text("Name")
                                 .foregroundStyle(.white)
-                                .font(.title3)
+                                .font(.largeTitle)
+                            
+                                Text("emailexemple.com")
+                                .foregroundStyle(.white)
+                            
 
                         }
                     }
                 }
                 
                 Section(header: Text("Compte")) {
-                    
-                    Picker("compte lié", selection: $selectedLinkedAcconts) {
-                        
-                        
+                   
+                    NavigationLink {
+                        LinkedAccount()
+                    } label: {
+                        Text("compte lié")
+                            .foregroundStyle(.black)
                     }
                     
                     Picker("Devise", selection: $selectedCurrency) {
@@ -79,19 +86,24 @@ struct SettingView: View {
                             let currencyKeys = firstCurrency.conversionRates.keys.sorted()
                             
                             ForEach(currencyKeys, id: \.self) { values in
-                                Text(values).tag(values)
-                                    .onChange(of:values){
-                                        baseCurrency = values
-                                    }
+                                HStack {
+                                    Text(values).tag(values)
+                                        .onChange(of:values){
+                                            baseCurrency = values
+                                        }
+                                        .foregroundStyle(.black)
+                                    
+                                }
                             }
                         }
+                        
+                        
                     }
-                    .padding()
                     .pickerStyle(.navigationLink)
                 }
                 .padding()
                 
-                Section(header: Text("Paramètre")) {
+                Section(header: Text("Paramètres")) {
                     HStack {
                         Image(systemName: activeNotification ? "bell.fill" : "bell")
                         
