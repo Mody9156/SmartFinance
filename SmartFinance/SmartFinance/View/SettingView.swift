@@ -80,22 +80,25 @@ struct SettingView: View {
                         Text("compte lié")
                             .foregroundStyle(.black)
                     }
-
                     
                     Picker("Devise", selection: $selectedCurrency) {
                         if let firstCurrency = addTransactionViewModel.conversion.first {
                             let currencyKeys = firstCurrency.conversionRates.keys.sorted()
                             
                             ForEach(currencyKeys, id: \.self) { values in
-                                Text(values).tag(values)
-                                    .onChange(of:values){
-                                        baseCurrency = values
-                                    }
-                                    .foregroundStyle(.black)
+                                HStack {
+                                    Text(values).tag(values)
+                                        .onChange(of:values){
+                                            baseCurrency = values
+                                        }
+                                        .foregroundStyle(.black)
+                                    
+                                }
                             }
                         }
+                        
+                        
                     }
-                    .padding()
                     .pickerStyle(.navigationLink)
                 }
                 .padding()
