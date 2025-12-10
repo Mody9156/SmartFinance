@@ -23,7 +23,7 @@ class HomeViewModel {
     }()
  
     func selectedCurrencySymbolse(element: String) -> String {
-        return CurrencySymbols[element]?.symbol ?? "?"
+        return CurrencySymbols[element,default: CurrencySymbol.EUR].symbol
         
     }
     //
