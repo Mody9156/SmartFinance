@@ -29,6 +29,8 @@ class UserProfileService {
             }
         }
     
+    
+    //Modification
     var CurrencySymbols: [String : CurrencySymbol] = {
         var dict: [String : CurrencySymbol] = [:]
         CurrencySymbol.allCases.forEach { currency  in
@@ -36,19 +38,20 @@ class UserProfileService {
         }
         return dict
     }()
-    
+    //
     init(
-        converterManager: ConverterService,
+        converterManager: ConverterService = ConverterManager(),
        
     ) {
         self.converterManager = converterManager
     }
     
+    //Modification
     func selectedCurrencySymbolse(element: String) -> String {
-        return CurrencySymbols[element]?.symbol ?? "?"
+        return CurrencySymbols[element, default: CurrencySymbol.EUR].symbol
         
     }
-    
+    //
     
     func getConversions() async throws {
         do {

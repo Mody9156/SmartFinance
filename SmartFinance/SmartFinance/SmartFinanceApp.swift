@@ -33,7 +33,7 @@ struct SmartFinanceApp: App {
                 }
                 Tab("Transaction", systemImage: "chart.bar.xaxis.ascending") {
                     TransactionsView(
-                        TransactionViewModel: TransactionViewModel()
+                        transactionViewModel: TransactionViewModel()
                     )
                 }
                 

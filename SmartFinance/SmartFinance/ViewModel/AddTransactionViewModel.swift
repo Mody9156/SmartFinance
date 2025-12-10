@@ -13,21 +13,13 @@ class AddTransactionViewModel {
     var converterManager : ConverterService
     var conversion : Convert? = nil
     var currentError : ConversionError? = nil
+    var userProfileService : UserProfileService
     
-    init(converterManager: ConverterService = ConverterManager()) {
+    init(converterManager: ConverterService = ConverterManager(), userProfileService: UserProfileService = UserProfileService()) {
         self.converterManager = converterManager
+        self.userProfileService = userProfileService
     }
  
-  
-    var categoryIconMap: [String: CategoryIcon] = {
-        var icone : [String: CategoryIcon] = [:]
-        CategoryIcon.allCases.forEach { element in
-            icone[element.rawValue] = element
-        }
-        return icone
-    }()
-        
-        
     enum ConversionError: LocalizedError {
             case emptyArray
             case network
@@ -41,14 +33,15 @@ class AddTransactionViewModel {
                 }
             }
         }
-    
+    //Modifier
     func categoryType(element: String) -> String {
         let positives = ["Salaire","Revenu","Dépôt","Virement reçu"]
         return positives.contains(element) ? "+":"-"
     }
-    
+    //
     func selectedCategoryIcone(element: String) -> String {
-        return categoryIconMap[element]?.icon ?? "?"
+        return userProfileService
+            .CurrencySymbols[element,default: CurrencySymbol.EUR].symbol
     }
     
     @MainActor
