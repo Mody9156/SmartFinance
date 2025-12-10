@@ -12,6 +12,7 @@ struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
     @State var activeNavigationLink: Bool = false
+    let TransactionViewModel: TransactionViewModel
     @State var search : String = ""
     
     var body: some View {
@@ -117,6 +118,6 @@ extension TransactionsView {
 
 
 #Preview {
-    TransactionsView()
+    TransactionsView(TransactionViewModel: TransactionViewModel())
         .modelContainer(for: Transaction.self, inMemory: true)
 }
