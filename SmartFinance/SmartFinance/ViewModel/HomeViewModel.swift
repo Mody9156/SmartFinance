@@ -13,6 +13,7 @@ class HomeViewModel {
     var lastBalance : Double = 0.0
     var newBalance : Double = 0.0
     
+    //Modification
     var CurrencySymbols: [String : CurrencySymbol] = {
         var dict: [String : CurrencySymbol] = [:]
         CurrencySymbol.allCases.forEach { currency  in
@@ -22,11 +23,10 @@ class HomeViewModel {
     }()
  
     func selectedCurrencySymbolse(element: String) -> String {
-        
-        return CurrencySymbols[element]?.symbol ?? "?"
+        return CurrencySymbols[element,default: CurrencySymbol.EUR].symbol
         
     }
-    
+    //
     func selectedNumber() -> Double {
         if lastBalance >= newBalance {
             return lastBalance - newBalance

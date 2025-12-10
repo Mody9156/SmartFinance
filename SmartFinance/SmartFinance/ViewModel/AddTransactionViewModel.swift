@@ -11,38 +11,15 @@ import Observation
 @Observable
 class AddTransactionViewModel {
     var converterManager : ConverterService
-    var conversion : [Convert] = []
+    var conversion : Convert? = nil
     var currentError : ConversionError? = nil
+    var userProfileService : UserProfileService
     
-    init(converterManager: ConverterService = ConverterManager()) {
+    init(converterManager: ConverterService = ConverterManager(), userProfileService: UserProfileService = UserProfileService()) {
         self.converterManager = converterManager
+        self.userProfileService = userProfileService
     }
-    let categoryIconMap: [String: CategoryIcon] = [
-        // Dépenses
-        "Alimentation": .alimentation,
-        "Logement": .logement,
-        "Transport": .transport,
-        "Santé": .sante,
-        "Divertissement": .divertissement,
-        "Éducation": .education,
-        "Shopping": .shopping,
-        "Voyages": .voyages,
-        "Services": .services,
-        "Autre": .autre,
-        "Impôts et taxes": .impotsEtTaxes,
-        "Investissements": .investissements,
-        "Épargne": .epargne,
-        "Retrait": .retrait,
-
-        // Revenus / transferts
-        "Salaire": .salaire,
-        "Revenu": .revenu,
-        "Dépôt": .depot,
-        "Virement reçu": .virementRecu,
-        "Virement envoyé": .virementEnvoye,
-        "Transfert interne": .transfertInterne
-    ]
-    
+ 
     enum ConversionError: LocalizedError {
             case emptyArray
             case network
@@ -56,39 +33,35 @@ class AddTransactionViewModel {
                 }
             }
         }
-    
+    //Modifier
     func categoryType(element: String) -> String {
-        if element == "Salaire" || element == "Revenu" || element == "Dépôt" || element == "Virement reçu" {
-            return "+"
-        }else {
-            return "-"
-        }
+        let positives = ["Salaire","Revenu","Dépôt","Virement reçu"]
+        return positives.contains(element) ? "+":"-"
     }
-    
+    //
     func selectedCategoryIcone(element: String) -> String {
-        
-        return categoryIconMap[element]?.icon ?? "?"
-        
+        return userProfileService
+            .CurrencySymbols[element,default: CurrencySymbol.EUR].symbol
     }
     
     @MainActor
     func getConversions() async {
         do {
             let result = try await converterManager.showConverter()
-            self.conversion = [result]
+            self.conversion = result
             self.currentError = nil
         } catch {
-            self.currentError = .network
+            self.currentError = .unknown
         }
     }
     
     func exchangeRate(amount:Double, to targetCurrency:String,baseCurrency:String) -> Double {
-        guard let firstConvert = conversion.first else { return 0 }
+        guard let firstConvert = conversion else { return 0 }
         
         let rates = firstConvert.conversionRates
         
         guard let baseRate = rates[baseCurrency],
-              let targetRate = rates[targetCurrency] else { return 5 }
+              let targetRate = rates[targetCurrency] else { return amount }
         
         let amountInBase = amount / baseRate
         let convertedAmount = amountInBase * targetRate
