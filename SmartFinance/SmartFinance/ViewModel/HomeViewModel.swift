@@ -22,7 +22,6 @@ class HomeViewModel {
     }()
  
     func selectedCurrencySymbolse(element: String) -> String {
-        
         return CurrencySymbols[element]?.symbol ?? "?"
         
     }

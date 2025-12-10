@@ -31,6 +31,8 @@ struct TransactionsView: View {
                             category: transaction.category,
                             amount: transaction.amount
                         )
+                        
+                        
                     }
                 }
                 .onDelete(perform: deleteItems)
