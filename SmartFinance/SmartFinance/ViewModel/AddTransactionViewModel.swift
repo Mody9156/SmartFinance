@@ -61,14 +61,11 @@ class AddTransactionViewModel {
     
     func categoryType(element: String) -> String {
         let positives = ["Salaire","Revenu","Dépôt","Virement reçu"]
-        
         return positives.contains(element) ? "+":"-"
     }
     
     func selectedCategoryIcone(element: String) -> String {
-        
         return categoryIconMap[element]?.icon ?? "?"
-        
     }
     
     @MainActor
@@ -88,7 +85,7 @@ class AddTransactionViewModel {
         let rates = firstConvert.conversionRates
         
         guard let baseRate = rates[baseCurrency],
-              let targetRate = rates[targetCurrency] else { return 5 }
+              let targetRate = rates[targetCurrency] else { return amount }
         
         let amountInBase = amount / baseRate
         let convertedAmount = amountInBase * targetRate
