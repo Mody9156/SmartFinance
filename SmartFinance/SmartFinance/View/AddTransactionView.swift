@@ -160,7 +160,7 @@ struct AddTransactionView: View {
 extension AddTransactionView {
     var showconver:  some View  {
         Section(header: Text("Conversion")) {
-            if let firstConvert = addTransactionViewModel.conversion.first {
+            if let firstConvert = addTransactionViewModel.conversion {
                 let codes = Array(firstConvert.conversionRates.keys).sorted()
                 
                 // Picker FROM
