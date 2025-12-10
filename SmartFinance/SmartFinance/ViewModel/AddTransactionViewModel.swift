@@ -17,6 +17,8 @@ class AddTransactionViewModel {
     init(converterManager: ConverterService = ConverterManager()) {
         self.converterManager = converterManager
     }
+    
+    
     let categoryIconMap: [String: CategoryIcon] = [
         // Dépenses
         "Alimentation": .alimentation,
@@ -58,11 +60,9 @@ class AddTransactionViewModel {
         }
     
     func categoryType(element: String) -> String {
-        if element == "Salaire" || element == "Revenu" || element == "Dépôt" || element == "Virement reçu" {
-            return "+"
-        }else {
-            return "-"
-        }
+        let positives = ["Salaire","Revenu","Dépôt","Virement reçu"]
+        
+        return positives.contains(element) ? "+":"-"
     }
     
     func selectedCategoryIcone(element: String) -> String {
