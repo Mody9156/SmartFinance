@@ -12,8 +12,9 @@ struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
     @State var activeNavigationLink: Bool = false
-    let TransactionViewModel: TransactionViewModel
+    let transactionViewModel: TransactionViewModel
     @State var search : String = ""
+    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
         NavigationStack{
@@ -30,7 +31,8 @@ struct TransactionsView: View {
                             systemName: transaction.icon,
                             date: transaction.date,
                             category: transaction.category,
-                            amount: transaction.amount
+                            amount: transaction.amount,
+                            symbole: baseCurrency
                         )
                         
                         
@@ -78,7 +80,7 @@ struct TransactionsView: View {
 }
 
 extension TransactionsView {
-    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String) -> some View {
+    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String, symbole:String) -> some View {
         HStack {
             ZStack {
                 Circle()
@@ -108,8 +110,11 @@ extension TransactionsView {
             Spacer()
             
             let ColorAmount = amount.contains("-")
+            let symbole = transactionViewModel.selectedCurrencySymbolse(
+                element: baseCurrency
+            )
             
-            Text(amount)
+            Text("\(amount)\(symbole)")
                 .foregroundStyle(ColorAmount ? .red : .green)
         }
     }
@@ -118,6 +123,6 @@ extension TransactionsView {
 
 
 #Preview {
-    TransactionsView(TransactionViewModel: TransactionViewModel())
+    TransactionsView(transactionViewModel: TransactionViewModel())
         .modelContainer(for: Transaction.self, inMemory: true)
 }

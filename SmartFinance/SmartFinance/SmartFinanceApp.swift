@@ -32,7 +32,9 @@ struct SmartFinanceApp: App {
                     )
                 }
                 Tab("Transaction", systemImage: "chart.bar.xaxis.ascending") {
-                    TransactionsView()
+                    TransactionsView(
+                        TransactionViewModel: TransactionViewModel()
+                    )
                 }
                 
                 Tab("Paramètre", systemImage: "gearshape.fill") {
@@ -43,3 +45,4 @@ struct SmartFinanceApp: App {
         .modelContainer(sharedModelContainer)
     }
 }
+
