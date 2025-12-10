@@ -13,10 +13,13 @@ class AddTransactionViewModel {
     var converterManager : ConverterService
     var conversion : [Convert] = []
     var currentError : ConversionError? = nil
+    let userProfile: UserProfileService
     
-    init(converterManager: ConverterService = ConverterManager()) {
+    init(converterManager: ConverterService = ConverterManager(), userProfile: UserProfileService = UserProfileService()) {
         self.converterManager = converterManager
+        self.userProfile = userProfile
     }
+    
     let categoryIconMap: [String: CategoryIcon] = [
         // Dépenses
         "Alimentation": .alimentation,
@@ -66,8 +69,7 @@ class AddTransactionViewModel {
     }
     
     func selectedCategoryIcone(element: String) -> String {
-        
-        return categoryIconMap[element]?.icon ?? "?"
+        userProfile.selectedCurrencySymbolse(element: element)
         
     }
     
