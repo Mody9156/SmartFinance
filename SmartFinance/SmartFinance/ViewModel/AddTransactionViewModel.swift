@@ -13,13 +13,10 @@ class AddTransactionViewModel {
     var converterManager : ConverterService
     var conversion : [Convert] = []
     var currentError : ConversionError? = nil
-    let userProfile: UserProfileService
     
-    init(converterManager: ConverterService = ConverterManager(), userProfile: UserProfileService = UserProfileService()) {
+    init(converterManager: ConverterService = ConverterManager()) {
         self.converterManager = converterManager
-        self.userProfile = userProfile
     }
-    
     let categoryIconMap: [String: CategoryIcon] = [
         // Dépenses
         "Alimentation": .alimentation,
@@ -69,7 +66,9 @@ class AddTransactionViewModel {
     }
     
     func selectedCategoryIcone(element: String) -> String {
-         userProfile.selectedCurrencySymbolse(element: element)
+        
+        return categoryIconMap[element]?.icon ?? "?"
+        
     }
     
     @MainActor
@@ -79,7 +78,7 @@ class AddTransactionViewModel {
             self.conversion = [result]
             self.currentError = nil
         } catch {
-            self.currentError = .network
+            self.currentError = error as?  ConversionError ?? .unknown
         }
     }
     

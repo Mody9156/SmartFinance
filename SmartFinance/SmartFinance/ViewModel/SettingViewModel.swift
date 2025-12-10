@@ -12,7 +12,9 @@ import Observation
 class SettingViewModel {
   let userProfile: UserProfileService
     
-    init(userProfile: UserProfileService = UserProfileService()) {
+    init(
+        userProfile: UserProfileService = UserProfileService(converterManager: ConverterManager())
+    ) {
         self.userProfile = userProfile
     }
     
@@ -20,5 +22,7 @@ class SettingViewModel {
          userProfile.selectedCurrencySymbolse(element: element)
     }
     
-    
+    func getConversions() async {
+       try? await userProfile.getConversions()
+    }
 }

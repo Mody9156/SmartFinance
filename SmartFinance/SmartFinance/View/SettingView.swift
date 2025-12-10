@@ -11,7 +11,7 @@ struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "USA"
     @State var selectedCurrency : String = ""
     @State var selectedLinkedAcconts : String = ""
-    var addTransactionViewModel : AddTransactionViewModel
+    var settingViewModel : SettingViewModel
     @State private var activeNotification: Bool = false
     @State private var activeDarkMode: Bool = false
     @State private var modification_of_the_profile: Bool = false
@@ -72,36 +72,36 @@ struct SettingView: View {
                     }
                 }
                 
-                Section(header: Text("Compte")) {
-                   
-                    NavigationLink {
-                        LinkedAccount()
-                    } label: {
-                        Text("compte lié")
-                            .foregroundStyle(.black)
-                    }
-                    
-                    Picker("Devise", selection: $selectedCurrency) {
-                        if let firstCurrency = addTransactionViewModel.conversion.first {
-                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
-                            
-                            ForEach(currencyKeys, id: \.self) { values in
-                                HStack {
-                                    Text(values).tag(values)
-                                        .onChange(of:values){
-                                            baseCurrency = values
-                                        }
-                                        .foregroundStyle(.black)
-                                    
-                                }
-                            }
-                        }
-                        
-                        
-                    }
-                    .pickerStyle(.navigationLink)
-                }
-                .padding()
+//                Section(header: Text("Compte")) {
+//                   
+//                    NavigationLink {
+//                        LinkedAccount()
+//                    } label: {
+//                        Text("compte lié")
+//                            .foregroundStyle(.black)
+//                    }
+//                    
+//                    Picker("Devise", selection: $selectedCurrency) {
+//                        if let firstCurrency = settingViewModel.conversion.first {
+//                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
+//                            
+//                            ForEach(currencyKeys, id: \.self) { values in
+//                                HStack {
+//                                    Text(values).tag(values)
+//                                        .onChange(of:values){
+//                                            baseCurrency = values
+//                                        }
+//                                        .foregroundStyle(.black)
+//                                    
+//                                }
+//                            }
+//                        }
+//                        
+//                        
+//                    }
+//                    .pickerStyle(.navigationLink)
+//                }
+//                .padding()
                 
                 Section(header: Text("Paramètres")) {
                     HStack {
@@ -126,12 +126,12 @@ struct SettingView: View {
                 .padding()
             }
              .task{
-                await addTransactionViewModel.getConversions()
+                await settingViewModel.getConversions()
             }
         }
     }
 }
 #Preview {
-    SettingView(addTransactionViewModel: AddTransactionViewModel())
+    SettingView(settingViewModel: SettingViewModel())
 }
 
