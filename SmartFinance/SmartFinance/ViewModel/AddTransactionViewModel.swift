@@ -69,8 +69,7 @@ class AddTransactionViewModel {
     }
     
     func selectedCategoryIcone(element: String) -> String {
-        userProfile.selectedCurrencySymbolse(element: element)
-        
+         userProfile.selectedCurrencySymbolse(element: element)
     }
     
     @MainActor

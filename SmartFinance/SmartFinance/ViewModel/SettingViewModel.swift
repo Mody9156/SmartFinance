@@ -16,7 +16,9 @@ class SettingViewModel {
         self.userProfile = userProfile
     }
     
-    
+    func selectedCategoryIcone(element: String) -> String {
+         userProfile.selectedCurrencySymbolse(element: element)
+    }
     
     
 }
