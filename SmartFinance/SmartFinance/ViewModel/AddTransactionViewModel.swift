@@ -17,34 +17,16 @@ class AddTransactionViewModel {
     init(converterManager: ConverterService = ConverterManager()) {
         self.converterManager = converterManager
     }
-    
-    
-    let categoryIconMap: [String: CategoryIcon] = [
-        // Dépenses
-        "Alimentation": .alimentation,
-        "Logement": .logement,
-        "Transport": .transport,
-        "Santé": .sante,
-        "Divertissement": .divertissement,
-        "Éducation": .education,
-        "Shopping": .shopping,
-        "Voyages": .voyages,
-        "Services": .services,
-        "Autre": .autre,
-        "Impôts et taxes": .impotsEtTaxes,
-        "Investissements": .investissements,
-        "Épargne": .epargne,
-        "Retrait": .retrait,
-
-        // Revenus / transferts
-        "Salaire": .salaire,
-        "Revenu": .revenu,
-        "Dépôt": .depot,
-        "Virement reçu": .virementRecu,
-        "Virement envoyé": .virementEnvoye,
-        "Transfert interne": .transfertInterne
-    ]
-    
+  
+    var categoryIconMap: [String: CategoryIcon] = {
+        var icone : [String: CategoryIcon] = [:]
+        CategoryIcon.allCases.forEach { element in
+            icone[element.rawValue] = element
+        }
+        return icone
+    }()
+        
+        
     enum ConversionError: LocalizedError {
             case emptyArray
             case network
