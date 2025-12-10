@@ -36,7 +36,7 @@ struct SmartFinanceApp: App {
                 }
                 
                 Tab("Paramètre", systemImage: "gearshape.fill") {
-                    SettingView(addTransactionViewModel: AddTransactionViewModel())
+                    SettingView(settingViewModel: SettingViewModel())
                 }
             }
         }

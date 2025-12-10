@@ -17,6 +17,7 @@ class AddTransactionViewModel {
     init(converterManager: ConverterService = ConverterManager()) {
         self.converterManager = converterManager
     }
+ 
   
     var categoryIconMap: [String: CategoryIcon] = {
         var icone : [String: CategoryIcon] = [:]
