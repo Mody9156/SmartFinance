@@ -11,7 +11,7 @@ import Observation
 @Observable
 class AddTransactionViewModel {
     var converterManager : ConverterService
-    var conversion : [Convert] = []
+    var conversion : Convert? = nil
     var currentError : ConversionError? = nil
     
     init(converterManager: ConverterService = ConverterManager()) {
@@ -72,15 +72,15 @@ class AddTransactionViewModel {
     func getConversions() async {
         do {
             let result = try await converterManager.showConverter()
-            self.conversion = [result]
+            self.conversion = result
             self.currentError = nil
         } catch {
-            self.currentError = error as?  ConversionError ?? .unknown
+            self.currentError = .unknown
         }
     }
     
     func exchangeRate(amount:Double, to targetCurrency:String,baseCurrency:String) -> Double {
-        guard let firstConvert = conversion.first else { return 0 }
+        guard let firstConvert = conversion else { return 0 }
         
         let rates = firstConvert.conversionRates
         
