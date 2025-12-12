@@ -21,7 +21,7 @@ class AddTransactionViewModel {
     }
  
     var icone: [String:CategoryIcon] = {
-        return Dictionary(uniqueKeysWithValues: CategoryIcon.allCases.map{
+         Dictionary(uniqueKeysWithValues: CategoryIcon.allCases.map{
             ($0.rawValue,$0)
         })
     }()
