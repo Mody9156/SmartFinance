@@ -10,6 +10,14 @@ import Observation
 
 @Observable
 class TransactionViewModel {
+    var userProfileService : UserProfileService
+    
+    
+    init(
+        userProfileService: UserProfileService = UserProfileService()
+    ) {
+        self.userProfileService = userProfileService
+    }
     
     var CurrencySymbols: [String : CurrencySymbol] = {
         var dict: [String : CurrencySymbol] = [:]
@@ -20,7 +28,7 @@ class TransactionViewModel {
     }()
  
     func selectedCurrencySymbolse(element: String) -> String {
-        return CurrencySymbols[element]?.symbol ?? "?"
+        userProfileService.selectedCurrencySymbolse(element: element)
         
     }
     
