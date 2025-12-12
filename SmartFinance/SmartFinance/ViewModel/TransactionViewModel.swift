@@ -17,14 +17,6 @@ class TransactionViewModel {
     ) {
         self.userProfileService = userProfileService
     }
-    
-    var CurrencySymbols: [String : CurrencySymbol] = {
-        var dict: [String : CurrencySymbol] = [:]
-        CurrencySymbol.allCases.forEach { currency  in
-            dict[currency.rawValue] = currency
-        }
-        return dict
-    }()
  
     func selectedCurrencySymbolse(element: String) -> String {
         userProfileService.selectedCurrencySymbolse(element: element)

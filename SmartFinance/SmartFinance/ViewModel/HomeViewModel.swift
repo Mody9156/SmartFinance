@@ -24,7 +24,6 @@ class HomeViewModel {
     func selectedCurrencySymbolse(element: String) -> String {
         return userProfileService.selectedCurrencySymbolse(element: element)
     }
-    //
     
     func selectedNumber() -> Double {
         if lastBalance >= newBalance {
