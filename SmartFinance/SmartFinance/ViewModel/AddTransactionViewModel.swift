@@ -21,11 +21,9 @@ class AddTransactionViewModel {
     }
  
     var icone: [String:CategoryIcon] = {
-        var dict : [String:CategoryIcon] = [:]
-        CategoryIcon.allCases.forEach { element in
-            dict[element.rawValue] = element
-        }
-        return dict
+        return Dictionary(uniqueKeysWithValues: CategoryIcon.allCases.map{
+            ($0.rawValue,$0)
+        })
     }()
     
     enum ConversionError: LocalizedError {
@@ -49,6 +47,7 @@ class AddTransactionViewModel {
         return positives.contains(element) ? "+":"-"
     }
     //
+    
     func selectedCategoryIcone(element: String) -> String {
         return userProfileService
             .CurrencySymbols[element,default: CurrencySymbol.EUR].symbol
