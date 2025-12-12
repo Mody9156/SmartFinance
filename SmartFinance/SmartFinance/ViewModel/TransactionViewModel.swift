@@ -12,7 +12,6 @@ import Observation
 class TransactionViewModel {
     var userProfileService : UserProfileService
     
-    
     init(
         userProfileService: UserProfileService = UserProfileService()
     ) {
