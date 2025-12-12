@@ -20,6 +20,12 @@ class AddTransactionViewModel {
         self.userProfileService = userProfileService
     }
  
+    var icone: [String:CategoryIcon] = {
+         Dictionary(uniqueKeysWithValues: CategoryIcon.allCases.map{
+            ($0.rawValue,$0)
+        })
+    }()
+    
     enum ConversionError: LocalizedError {
             case emptyArray
             case network
@@ -33,16 +39,25 @@ class AddTransactionViewModel {
                 }
             }
         }
+    
+    
     //Modifier
     func categoryType(element: String) -> String {
         let positives = ["Salaire","Revenu","Dépôt","Virement reçu"]
         return positives.contains(element) ? "+":"-"
     }
     //
+    
     func selectedCategoryIcone(element: String) -> String {
         return userProfileService
             .CurrencySymbols[element,default: CurrencySymbol.EUR].symbol
     }
+    
+    
+    func iconeType(element:String) -> String {
+        return icone[element,default: CategoryIcon.autre].icon
+    }
+    
     
     @MainActor
     func getConversions() async {

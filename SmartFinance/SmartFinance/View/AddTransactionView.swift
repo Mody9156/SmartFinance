@@ -42,7 +42,6 @@ struct AddTransactionView: View {
         "Retrait",
         "Dépôt"
     ]
-    
     @AppStorage("baseCurrency") var baseCurrency: String = "EUR"
     var addTransactionViewModel : AddTransactionViewModel
     @State var currency : String = ""
@@ -116,13 +115,15 @@ struct AddTransactionView: View {
                 
                 Button(
                     action: {
-                        let icone = addTransactionViewModel.selectedCategoryIcone(
+                        let icone = addTransactionViewModel.iconeType(
                             element: category
                         )
                         
                         let type = addTransactionViewModel.categoryType(
                             element: category
                         )
+                        
+                        print("icone:\(icone)")
                         
                         let newTransaction = Transaction(
                             name: name,

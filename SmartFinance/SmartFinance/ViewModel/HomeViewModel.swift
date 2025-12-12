@@ -12,21 +12,19 @@ import Observation
 class HomeViewModel {
     var lastBalance : Double = 0.0
     var newBalance : Double = 0.0
+    var userProfileService : UserProfileService
     
-    //Modification
-    var CurrencySymbols: [String : CurrencySymbol] = {
-        var dict: [String : CurrencySymbol] = [:]
-        CurrencySymbol.allCases.forEach { currency  in
-            dict[currency.rawValue] = currency
-        }
-        return dict
-    }()
- 
-    func selectedCurrencySymbolse(element: String) -> String {
-        return CurrencySymbols[element,default: CurrencySymbol.EUR].symbol
-        
+    init(
+        userProfileService: UserProfileService = UserProfileService()
+    ) {
+        self.userProfileService = userProfileService
     }
-    //
+    
+    
+    func selectedCurrencySymbolse(element: String) -> String {
+        return userProfileService.selectedCurrencySymbolse(element: element)
+    }
+    
     func selectedNumber() -> Double {
         if lastBalance >= newBalance {
             return lastBalance - newBalance

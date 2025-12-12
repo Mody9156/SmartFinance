@@ -10,7 +10,7 @@ import Observation
 
 @Observable
 class TransactionViewModel {
-    
+    var userProfileService : UserProfileService
     var CurrencySymbols: [String : CurrencySymbol] = {
         var dict: [String : CurrencySymbol] = [:]
         CurrencySymbol.allCases.forEach { currency  in
@@ -18,10 +18,24 @@ class TransactionViewModel {
         }
         return dict
     }()
+    
+    var icon: [String : CategoryIcon] = {
+        Dictionary(
+            uniqueKeysWithValues: CategoryIcon.allCases.map{($0.rawValue,$0)
+            })
+    }()
+    
+    init(
+        userProfileService: UserProfileService = UserProfileService()
+    ) {
+        self.userProfileService = userProfileService
+    }
  
     func selectedCurrencySymbolse(element: String) -> String {
-        return CurrencySymbols[element]?.symbol ?? "?"
+        userProfileService.selectedCurrencySymbolse(element: element)
         
     }
-    
+    func iconeType(element:String) -> String {
+        return icon[element,default: CategoryIcon.autre].icon
+    }
 }
