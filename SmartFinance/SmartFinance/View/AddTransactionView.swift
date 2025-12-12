@@ -115,7 +115,7 @@ struct AddTransactionView: View {
                 
                 Button(
                     action: {
-                        let icone = addTransactionViewModel.selectedCategoryIcone(
+                        let icone = addTransactionViewModel.iconeType(
                             element: category
                         )
                         
