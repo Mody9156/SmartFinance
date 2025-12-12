@@ -20,11 +20,9 @@ class TransactionViewModel {
     }()
     
     var icon: [String : CategoryIcon] = {
-        var dict: [String : CategoryIcon] = [:]
-        CategoryIcon.allCases.forEach { currency  in
-            dict[currency.rawValue] = currency
-        }
-        return dict
+        Dictionary(
+            uniqueKeysWithValues: CategoryIcon.allCases.map{($0.rawValue,$0)
+            })
     }()
     
     init(
