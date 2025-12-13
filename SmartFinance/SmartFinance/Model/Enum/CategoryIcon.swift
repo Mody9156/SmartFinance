@@ -9,7 +9,6 @@ import Foundation
 
 enum CategoryIcon: String, CaseIterable {
     // Dépenses
-    
     case alimentation
     case logement
     case transport
