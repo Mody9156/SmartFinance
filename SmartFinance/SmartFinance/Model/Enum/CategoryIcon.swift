@@ -21,13 +21,13 @@ enum CategoryIcon: String, CaseIterable {
     case Autre
     case ImpotsEtTaxes
     case Investissements
-    case Epargne
+    case Épargne
     case Retrait
 
     // Revenus / transferts
     case Salaire
     case Revenu
-    case Depot
+    case Dépôt
     case virementRecu//
     case virementEnvoye//
     case transfertInterne//
@@ -55,12 +55,12 @@ enum CategoryIcon: String, CaseIterable {
         case .Autre: return "questionmark.circle"
         case .ImpotsEtTaxes: return "building.columns"
         case .Investissements: return "chart.line.uptrend.xyaxis"
-        case .Epargne: return "banknote.fill"
+        case .Épargne: return "banknote.fill"
         case .Retrait: return "creditcard"
 
         case .Salaire: return "dollarsign.circle.fill"
         case .Revenu: return "arrow.up.circle.fill"
-        case .Depot: return "arrow.down.circle.fill"
+        case .Dépôt: return "arrow.down.circle.fill"
         case .virementRecu: return "arrow.left.arrow.right.circle.fill"
         case .virementEnvoye: return "arrow.right.circle.fill"
         case .transfertInterne: return "arrow.left.arrow.right"
