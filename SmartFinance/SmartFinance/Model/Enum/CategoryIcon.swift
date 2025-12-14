@@ -16,7 +16,7 @@ enum CategoryIcon: String, CaseIterable {
     case Divertissement
     case Éducation
     case Shopping
-    case voyages
+    case Voyages
     case Services
     case Autre
     case ImpotsEtTaxes
@@ -50,7 +50,7 @@ enum CategoryIcon: String, CaseIterable {
         case .Divertissement: return "gamecontroller.fill"
         case .Éducation: return "book.fill"
         case .Shopping: return "bag.fill"
-        case .voyages: return "airplane"
+        case .Voyages: return "airplane"
         case .Services: return "wrench.and.screwdriver.fill"
         case .Autre: return "questionmark.circle"
         case .ImpotsEtTaxes: return "building.columns"
