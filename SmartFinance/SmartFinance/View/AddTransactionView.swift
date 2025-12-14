@@ -122,7 +122,7 @@ struct AddTransactionView: View {
                         let type = addTransactionViewModel.categoryType(
                             element: category
                         )
-                        
+                        print("category:\(category)")
                         print("icone:\(icone)")
                         
                         let newTransaction = Transaction(
