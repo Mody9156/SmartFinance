@@ -29,7 +29,7 @@ enum CategoryIcon: String, CaseIterable {
     case Revenu
     case Dépôt
     case virementRecu = "Virement reçu"
-    case virementEnvoye = "Virement envoye"
+    case virementEnvoye = "Virement envoyé"
     case transfertInterne = "Transfert interne"
     
     var icon: String {

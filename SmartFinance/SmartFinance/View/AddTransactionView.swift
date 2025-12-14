@@ -123,10 +123,6 @@ struct AddTransactionView: View {
                             element: category
                         )
                         
-                        
-                        print("category:\(category)")
-                        print("icone:\(icone)")
-                        
                         let newTransaction = Transaction(
                             name: name,
                             amount: "\(type)\(amount)",
