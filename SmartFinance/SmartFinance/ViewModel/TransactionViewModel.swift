@@ -36,6 +36,6 @@ class TransactionViewModel {
         
     }
     func iconeType(element:String) -> String {
-        return icon[element,default: CategoryIcon.autre].icon
+        return icon[element,default: CategoryIcon.Autre].icon
     }
 }

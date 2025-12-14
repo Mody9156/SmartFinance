@@ -54,7 +54,7 @@ class AddTransactionViewModel {
     
     
     func iconeType(element:String) -> String {
-        return iconeByRawValue[element,default: CategoryIcon.autre].icon
+        return iconeByRawValue[element,default: CategoryIcon.Autre].icon
     }
     
     
