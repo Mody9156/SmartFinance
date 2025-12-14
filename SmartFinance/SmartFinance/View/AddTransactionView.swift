@@ -116,7 +116,7 @@ struct AddTransactionView: View {
                 Button(
                     action: {
                         let icone = addTransactionViewModel.iconeType(
-                            element: category.lowercased()
+                            element: category
                         )
                         
                         let type = addTransactionViewModel.categoryType(
@@ -124,7 +124,7 @@ struct AddTransactionView: View {
                         )
                         
                         
-                        print("category:\(category.lowercased())")
+                        print("category:\(category)")
                         print("icone:\(icone)")
                         
                         let newTransaction = Transaction(
