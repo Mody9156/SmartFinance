@@ -19,7 +19,7 @@ enum CategoryIcon: String, CaseIterable {
     case Voyages
     case Services
     case Autre
-    case ImpotsEtTaxes
+    case ImpotsEtTaxes = "Impôts et taxes"
     case Investissements
     case Épargne
     case Retrait
@@ -28,18 +28,9 @@ enum CategoryIcon: String, CaseIterable {
     case Salaire
     case Revenu
     case Dépôt
-    case virementRecu//
-    case virementEnvoye//
-    case transfertInterne//
-
-    enum CodingKeys : String, CodingKey {
-        case ImpotsEtTaxes = "Impôts et taxes"
-        case virementRecu = "Virement reçu"
-        case virementEnvoye = "Virement envoye"
-        case transfertInterne = "Transfert interne"
-    }
-    
-    
+    case virementRecu = "Virement reçu"
+    case virementEnvoye = "Virement envoye"
+    case transfertInterne = "Transfert interne"
     
     var icon: String {
         switch self {
