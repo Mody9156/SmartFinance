@@ -110,7 +110,7 @@ struct HomeView: View {
                                     .foregroundStyle(.white)
                                 
                                 let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
-                                let displayDifference = homeViewModel.displayDifference()
+//                                let displayDifference = homeViewModel.displayDifference()
                                
                                 
                                 Label{
