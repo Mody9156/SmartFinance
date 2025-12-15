@@ -133,11 +133,12 @@ struct AddTransactionView: View {
                         if isFormValid {
                             let newTransaction = Transaction(
                                 name: name,
-                                amount: "\(type)\(amount)",
+                                amount: amount,
                                 date: date,
                                 category: category,
                                 description: note,
-                                icon: icone
+                                icon: icone,
+                                type: type
                             )
                             
                             modelContext.insert(newTransaction)
