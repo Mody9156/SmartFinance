@@ -16,46 +16,13 @@ struct HomeView: View {
     @State var activeNavigation : Bool = false
     @State var iconeSelected: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
-  
-//    var transactions : [Transaction]  = [
-//        Transaction(
-//          name: "Groceries",
-//          amount: 45.50,
-//          date: Date(), // Uses the current date and time
-//          category: "Food",
-//          description: "Weekly shop at local supermarket.",
-//          icon: "cart.fill" // Example SFSymbol name
-//        ),
-//        Transaction(
-//          name: "Bus Fare",
-//          amount: 2.80,
-//          date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, // Uses yesterday's date
-//          category: "Transport",
-//          description: nil, // Optional field, can be set to nil
-//          icon: "bus.fill"
-//        )
-//      ]
-//    
-//    func formatter() -> String {
-//        guard let firstDate = transaction.first?.date else {
-//            return ""
-//        }
-//        let formatDate = DateFormatter()
-//        formatDate.dateFormat = "MM"
-//        let result = formatDate.string(from: firstDate)
-//        print("result \(result)")
-//        return result
-//    }
 
-    
      func cleanedAmounts(transaction : [Transaction]) -> [Double] {
         let result = transaction.map{$0.amount}
         
         return result
 
     }
-
-    
     
     var body: some View {
         
