@@ -55,13 +55,6 @@ struct HomeView: View {
 
     }
 
-    func resultInThemounth(transaction : [Transaction]) -> Double{
-        let amount = transaction.map{$0.amount}.reduce(0, +)
-        print("reuslt:\(amount)")
-        homeViewModel.newBalance = amount
-        homeViewModel.lastBalance = amount
-        return amount
-    }
     
     
     var body: some View {
@@ -193,7 +186,7 @@ struct HomeView: View {
                     }
                 }
                 .onAppear{
-                  _ = resultInThemounth(transaction: transaction )
+                    _ = homeViewModel.UpdateBalance(transaction: transaction )
                 }
                 .padding()
             }
