@@ -49,7 +49,11 @@ struct AddTransactionView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) var dismiss
     
+    
+   
     var body: some View {
+       
+        
         NavigationStack {
             VStack {
                 Form {
@@ -122,18 +126,21 @@ struct AddTransactionView: View {
                         let type = addTransactionViewModel.categoryType(
                             element: category
                         )
-                        
-                        let newTransaction = Transaction(
-                            name: name,
-                            amount: "\(type)\(amount)",
-                            date: date,
-                            category: category,
-                            description: note,
-                            icon: icone
-                        )
-                        
-                        modelContext.insert(newTransaction)
-                        dismiss()
+                        guard name.isEmpty && amount == 0.0 && category.isEmpty  else {
+                            let newTransaction = Transaction(
+                                name: name,
+                                amount: "\(type)\(amount)",
+                                date: date,
+                                category: category,
+                                description: note,
+                                icon: icone
+                            )
+                            
+                            modelContext.insert(newTransaction)
+                            dismiss()
+                            return
+                        }
+                       
                     },
                     label:{
                         VStack(alignment: .center) {
