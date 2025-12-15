@@ -13,7 +13,7 @@ struct HomeView: View {
     @Bindable var homeViewModel : HomeViewModel
     @State var showWeekly: Bool = false
     @Query var transactions : [Transaction]
-    @State var activeNavigation : Bool = false
+    @State var isPresentingAddTransaction : Bool = false
     @State var iconeSelected: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
@@ -84,7 +84,7 @@ struct HomeView: View {
                                 .clipShape(RoundedRectangleLetAndRight(radius: 12))
                             
                             Button(action: {
-                                activeNavigation = true
+                                isPresentingAddTransaction = true
                             }) {
                                 Label{
                                     Text("Nouvelle transaction")
@@ -95,7 +95,7 @@ struct HomeView: View {
                                         .frame(width: 25,height: 25)
                                         .foregroundStyle(.white)
                                 }
-                            }.navigationDestination(isPresented: $activeNavigation) {
+                            }.navigationDestination(isPresented: $isPresentingAddTransaction) {
                                 AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
                             }
                         }
