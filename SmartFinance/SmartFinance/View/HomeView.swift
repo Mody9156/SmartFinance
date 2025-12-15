@@ -11,12 +11,12 @@ import SwiftData
 
 struct HomeView: View {
     @Bindable var homeViewModel : HomeViewModel
-    @State var activeToggle: Bool = false
+    @State var showWeekly: Bool = false
     @Query var transactions : [Transaction]
     @State var activeNavigation : Bool = false
     @State var iconeSelected: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
-
+    
     var body: some View {
         NavigationStack{
             ScrollView {
@@ -56,18 +56,18 @@ struct HomeView: View {
                                 Text(
                                     "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))"
                                 )
-                                    .font(.title)
-                                    .foregroundStyle(.white)
+                                .font(.title)
+                                .foregroundStyle(.white)
                                 
                                 let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
-//                                let displayDifference = homeViewModel.displayDifference()
-                               
+                                //                                let displayDifference = homeViewModel.displayDifference()
+                                
                                 
                                 Label{
                                     Text(
                                         "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency)) ce mois"
                                     )
-                                        .foregroundStyle(Color("textColor"))
+                                    .foregroundStyle(Color("textColor"))
                                     
                                 } icon:{
                                     Image(systemName: updateDifference)
@@ -118,7 +118,7 @@ struct HomeView: View {
                             Text("Finance")
                                 .fontWeight(.bold)
                             
-                            Toggle("Affichage hebdomadaire", isOn: $activeToggle)
+                            Toggle("Affichage hebdomadaire", isOn: $showWeekly)
                         }
                         .padding()
                     }
@@ -136,18 +136,20 @@ struct HomeView: View {
                                             systemName: item.icon,
                                             date: item.date,
                                             category: item.category,
-                                            amount: item.amount
+                                            amount: item.amount,
+                                            homeViewModel: homeViewModel
                                         )
                                     }
                                 }
                             }
-                        
+                            
+                        }
                     }
+                    .onChange(of: transactions){
+                        homeViewModel.UpdateBalance(transaction: transactions)
+                    }
+                    .padding()
                 }
-                .onChange(of: transactions){
-                    homeViewModel.UpdateBalance(transaction: transactions)
-                }
-                .padding()
             }
         }
     }
@@ -160,6 +162,7 @@ struct TransactionRow: View {
     var category:String
     var amount:Double
     @Bindable var homeViewModel : HomeViewModel
+    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
             HStack {
