@@ -21,8 +21,8 @@ class HomeViewModel {
     }
     
     
-    func selectedCurrencySymbolse(element: String) -> String {
-        return userProfileService.selectedCurrencySymbolse(element: element)
+    func currencySymbol(element: String) -> String {
+        return userProfileService.selectedCurrencySymbolse(element: element )
     }
     
     func selectedNumber() -> Double {
@@ -64,6 +64,11 @@ class HomeViewModel {
        return Double (cleaned) ?? 0
     }
     
-    
-    
+    @discardableResult
+    func UpdateBalance(transaction : [Transaction]) -> Double{
+        let amount = transaction.map(\.amount).reduce(0, +)
+        newBalance = amount
+        lastBalance = amount
+        return amount
+    }
 }

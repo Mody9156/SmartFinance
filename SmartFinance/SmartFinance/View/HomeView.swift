@@ -7,76 +7,17 @@
 
 import SwiftUI
 import SwiftUICharts
-import _SwiftData_SwiftUI
+import SwiftData
 
 struct HomeView: View {
     @Bindable var homeViewModel : HomeViewModel
-    @State var activeToggle: Bool = false
-    @Query var transaction : [Transaction]
-    @State var activeNavigation : Bool = false
-    @State var iconeSelected: String = ""
+    @State var showWeekly: Bool = false
+    @Query var transactions : [Transaction]
+    @State var isPresentingAddTransaction : Bool = false
+    @State var selectedIcon: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
-  
-    var transactions : [Transaction]  = [
-        Transaction(
-          name: "Groceries",
-          amount: "+45.50",
-          date: Date(), // Uses the current date and time
-          category: "Food",
-          description: "Weekly shop at local supermarket.",
-          icon: "cart.fill" // Example SFSymbol name
-        ),
-        Transaction(
-          name: "Bus Fare",
-          amount: "+2.80",
-          date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, // Uses yesterday's date
-          category: "Transport",
-          description: nil, // Optional field, can be set to nil
-          icon: "bus.fill"
-        )
-      ]
-//    
-//    func formatter() -> String {
-//        guard let firstDate = transaction.first?.date else {
-//            return ""
-//        }
-//        let formatDate = DateFormatter()
-//        formatDate.dateFormat = "MM"
-//        let result = formatDate.string(from: firstDate)
-//        print("result \(result)")
-//        return result
-//    }
-    
-    
-    func selectedPeriod(date:Date) -> Bool {
-        let dateNow = Date()
-        let dateFromatter = DateFormatter()
-        dateFromatter.dateFormat = "MM"
-        let currentMonth = dateFromatter.string(from: dateNow)
-        let transactionMonth = dateFromatter.string(from: date)
-        return currentMonth == transactionMonth
-    }
-    
-     func cleanedAmounts(transaction : [Transaction]) -> [Double] {
-        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-        
-        return result
-
-    }
-
-    func resultInThemounth(transaction : [Transaction]) -> Double{
-        
-        let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-        let result = amount.reduce(0,+)
-        print("reuslt:\(result)")
-        homeViewModel.newBalance = result
-        homeViewModel.lastBalance = result
-        return result
-    }
-    
     
     var body: some View {
-        
         NavigationStack{
             ScrollView {
                 VStack(alignment: .leading){
@@ -113,20 +54,20 @@ struct HomeView: View {
                                     .foregroundStyle(Color("textColor"))
                                 
                                 Text(
-                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))"
+                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.currencySymbol(element: baseCurrency))"
                                 )
-                                    .font(.title)
-                                    .foregroundStyle(.white)
+                                .font(.title)
+                                .foregroundStyle(.white)
                                 
                                 let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
-                                let displayDifference = homeViewModel.displayDifference()
-                               
+                                //                                let displayDifference = homeViewModel.displayDifference()
+                                
                                 
                                 Label{
                                     Text(
-                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency)) ce mois"
+                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.currencySymbol(element: baseCurrency)) ce mois"
                                     )
-                                        .foregroundStyle(Color("textColor"))
+                                    .foregroundStyle(Color("textColor"))
                                     
                                 } icon:{
                                     Image(systemName: updateDifference)
@@ -143,7 +84,7 @@ struct HomeView: View {
                                 .clipShape(RoundedRectangleLetAndRight(radius: 12))
                             
                             Button(action: {
-                                activeNavigation = true
+                                isPresentingAddTransaction = true
                             }) {
                                 Label{
                                     Text("Nouvelle transaction")
@@ -154,7 +95,7 @@ struct HomeView: View {
                                         .frame(width: 25,height: 25)
                                         .foregroundStyle(.white)
                                 }
-                            }.navigationDestination(isPresented: $activeNavigation) {
+                            }.navigationDestination(isPresented: $isPresentingAddTransaction) {
                                 AddTransactionView(addTransactionViewModel: AddTransactionViewModel())
                             }
                         }
@@ -167,7 +108,7 @@ struct HomeView: View {
                             .shadow(radius: 12)
                         
                         LineView(
-                            data: cleanedAmounts(transaction: transaction),
+                            data: transactions.map(\.amount),
                             title: "",
                             legend: "Totalité des dépenses"
                         )
@@ -177,79 +118,94 @@ struct HomeView: View {
                             Text("Finance")
                                 .fontWeight(.bold)
                             
-                            Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
+                            Toggle("Affichage hebdomadaire", isOn: $showWeekly)
                         }
                         .padding()
                     }
                     
-                    VStack {
+                    LazyVStack {
                         ScrollView {
                             VStack(alignment: .leading) {
                                 Text("Transaction récente")
                                     .foregroundStyle(.secondary)
                                     .padding()
                                 VStack {
-                                    ForEach(transaction.prefix(3)){ item in
-                                        CustomLabel(
+                                    ForEach(transactions.prefix(3)){ item in
+                                        TransactionRow(
                                             name: item.name,
                                             systemName: item.icon,
                                             date: item.date,
                                             category: item.category,
-                                            amount: item.amount
+                                            amount: item.amount,
+                                            homeViewModel: homeViewModel
                                         )
                                     }
                                 }
                             }
+                            
                         }
                     }
+                    .onChange(of: transactions){
+                        homeViewModel.UpdateBalance(transaction: transactions)
+                    }
+                    .padding()
                 }
-                .onAppear{
-                  _ = resultInThemounth(transaction: transaction )
+            }
+        }
+    }
+}
+
+struct TransactionRow: View {
+    var name:String
+    var systemName:String
+    var date:Date
+    var category:String
+    var amount:Double
+    @Bindable var homeViewModel : HomeViewModel
+    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
+    
+    var body: some View {
+            HStack {
+                ZStack {
+                    Circle()
+                        .frame(height: 50)
+                        .foregroundStyle(Color("textColor"))
+                    
+                    Image(systemName: systemName)
+                        .resizable()
+                        .frame(width: 25,height: 25)
+                        .foregroundStyle(Color("titleColor"))
+                }
+                
+                VStack(alignment: .leading) {
+                    Text(name)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    HStack {
+                        Text("\(category) -")
+                            .font(.caption)
+                        
+                        Text(date, format: .dateTime.day().month())
+                            .font(.caption)
+                    }
                 }
                 .padding()
-            }
-        }
-    }
-}
-
-extension HomeView {
-    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String) -> some View {
-        HStack {
-            ZStack {
-                Circle()
-                    .frame(height: 50)
-                    .foregroundStyle(Color("textColor"))
                 
-                Image(systemName: systemName)
-                    .resizable()
-                    .frame(width: 25,height: 25)
-                    .foregroundStyle(Color("titleColor"))
+                Spacer()
+                
+    //            let ColorAmount = amount.contains("-")
+                
+    //            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
+    //
+                Text(
+                    amount,
+                    format: .currency(code: homeViewModel.currencySymbol(element: baseCurrency))
+                
+                )
+                    .foregroundStyle(amount < 0 ? .red : .green)
             }
-            
-            VStack(alignment: .leading) {
-                Text(name)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                HStack {
-                    Text("\(category) -")
-                        .font(.caption)
-                    
-                    Text(date, format: .dateTime.day().month())
-                        .font(.caption)
-                }
-            }
-            .padding()
-            
-            Spacer()
-            
-            let ColorAmount = amount.contains("-")
-            
-            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
-                .foregroundStyle(ColorAmount ? .red : .green)
         }
-    }
 }
-
 
 struct CustomImageSystem:View {
     var image : String

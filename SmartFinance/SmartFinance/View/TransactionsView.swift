@@ -12,7 +12,7 @@ struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var transaction : [Transaction]
     @State var activeNavigationLink: Bool = false
-    let transactionViewModel: TransactionViewModel
+    var transactionViewModel: TransactionViewModel
     @State var search : String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
@@ -64,7 +64,8 @@ struct TransactionsView: View {
             $0.name.localizedCaseInsensitiveContains(search) ||
             $0.category.localizedCaseInsensitiveContains(search) ||
             DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
-            $0.amount.localizedCaseInsensitiveContains(search)
+            $0.amount.isNaN == false && String($0.amount)
+                .localizedCaseInsensitiveContains(search)
         }
         guard !search.isEmpty else { return transaction }
         return transactionsFilter
@@ -80,7 +81,7 @@ struct TransactionsView: View {
 }
 
 extension TransactionsView {
-    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String, symbole:String) -> some View {
+    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:Double, symbole:String) -> some View {
         HStack {
             ZStack {
                 Circle()
@@ -109,13 +110,13 @@ extension TransactionsView {
             
             Spacer()
             
-            let ColorAmount = amount.contains("-")
+//            let ColorAmount = amount.contains("-")
             let symbole = transactionViewModel.selectedCurrencySymbolse(
                 element: baseCurrency
             )
             
             Text("\(amount)\(symbole)")
-                .foregroundStyle(ColorAmount ? .red : .green)
+//                .foregroundStyle(ColorAmount ? .red : .green)
         }
     }
 }
