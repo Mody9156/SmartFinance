@@ -21,8 +21,8 @@ class HomeViewModel {
     }
     
     
-    func selectedCurrencySymbolse(element: String) -> String {
-        return userProfileService.selectedCurrencySymbolse(element: element)
+    func currencySymbol(element: String) -> String {
+        return userProfileService.selectedCurrencySymbolse(element: element )
     }
     
     func selectedNumber() -> Double {

@@ -199,7 +199,7 @@ struct TransactionRow: View {
     //
                 Text(
                     amount,
-                    format: .currency(code: homeViewModel.selectedCurrencySymbolse(element: baseCurrency))
+                    format: .currency(code: homeViewModel.currencySymbol(element: baseCurrency))
                 
                 )
                     .foregroundStyle(amount < 0 ? .red : .green)
