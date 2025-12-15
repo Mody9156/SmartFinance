@@ -17,6 +17,7 @@ final class Transaction: Identifiable, Hashable {
     var category : String
     var note : String?
     var icon: String
+    var type : String
     
     init(
         name: String,
@@ -24,7 +25,8 @@ final class Transaction: Identifiable, Hashable {
         date: Date,
         category: String,
         description: String?,
-        icon: String
+        icon: String,
+        type : String
     ) {
         self.name = name
         self.amount = amount
@@ -32,5 +34,6 @@ final class Transaction: Identifiable, Hashable {
         self.category = category
         self.note = description
         self.icon = icon
+        self.type = type
     }
 }

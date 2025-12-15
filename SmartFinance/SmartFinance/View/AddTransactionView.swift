@@ -128,7 +128,9 @@ struct AddTransactionView: View {
                         let type = addTransactionViewModel.categoryType(
                             element: category
                         )
-                     
+                        
+                        
+                        if isFormValid {
                             let newTransaction = Transaction(
                                 name: name,
                                 amount: "\(type)\(amount)",
@@ -140,7 +142,7 @@ struct AddTransactionView: View {
                             
                             modelContext.insert(newTransaction)
                             dismiss()
-                       
+                        }
                        
                     },
                     label:{
