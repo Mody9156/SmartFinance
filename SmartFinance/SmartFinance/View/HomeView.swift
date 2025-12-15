@@ -107,12 +107,12 @@ struct HomeView: View {
                             .foregroundStyle(.white)
                             .shadow(radius: 12)
                         
-//                        LineView(
-//                            data: transactions.map(\.amount),
-//                            title: "",
-//                            legend: "Totalité des dépenses"
-//                        )
-//                        .padding()
+                        LineView(
+                            data: transactions.map(\.amount),
+                            title: "",
+                            legend: "Totalité des dépenses"
+                        )
+                        .padding()
                         
                         HStack {
                             Text("Finance")
@@ -123,7 +123,7 @@ struct HomeView: View {
                         .padding()
                     }
                     
-                    VStack {
+                    LazyVStack {
                         ScrollView {
                             VStack(alignment: .leading) {
                                 Text("Transaction récente")
@@ -131,7 +131,7 @@ struct HomeView: View {
                                     .padding()
                                 VStack {
                                     ForEach(transactions.prefix(3)){ item in
-                                        CustomLabel(
+                                        TransactionRow(
                                             name: item.name,
                                             systemName: item.icon,
                                             date: item.date,
@@ -141,62 +141,68 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                        }
+                        
                     }
                 }
-//                .onChange(of: transactions){
-//                    homeViewModel.UpdateBalance(transaction: transactions)
-//                }
+                .onChange(of: transactions){
+                    homeViewModel.UpdateBalance(transaction: transactions)
+                }
                 .padding()
             }
         }
     }
 }
 
-extension HomeView {
-    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:Double) -> some View {
-        HStack {
-            ZStack {
-                Circle()
-                    .frame(height: 50)
-                    .foregroundStyle(Color("textColor"))
-                
-                Image(systemName: systemName)
-                    .resizable()
-                    .frame(width: 25,height: 25)
-                    .foregroundStyle(Color("titleColor"))
-            }
-            
-            VStack(alignment: .leading) {
-                Text(name)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                HStack {
-                    Text("\(category) -")
-                        .font(.caption)
+struct TransactionRow: View {
+    var name:String
+    var systemName:String
+    var date:Date
+    var category:String
+    var amount:Double
+    @Bindable var homeViewModel : HomeViewModel
+    
+    var body: some View {
+            HStack {
+                ZStack {
+                    Circle()
+                        .frame(height: 50)
+                        .foregroundStyle(Color("textColor"))
                     
-                    Text(date, format: .dateTime.day().month())
-                        .font(.caption)
+                    Image(systemName: systemName)
+                        .resizable()
+                        .frame(width: 25,height: 25)
+                        .foregroundStyle(Color("titleColor"))
                 }
+                
+                VStack(alignment: .leading) {
+                    Text(name)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    HStack {
+                        Text("\(category) -")
+                            .font(.caption)
+                        
+                        Text(date, format: .dateTime.day().month())
+                            .font(.caption)
+                    }
+                }
+                .padding()
+                
+                Spacer()
+                
+    //            let ColorAmount = amount.contains("-")
+                
+    //            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
+    //
+                Text(
+                    amount,
+                    format: .currency(code: homeViewModel.selectedCurrencySymbolse(element: baseCurrency))
+                
+                )
+                    .foregroundStyle(amount < 0 ? .red : .green)
             }
-            .padding()
-            
-            Spacer()
-            
-//            let ColorAmount = amount.contains("-")
-            
-//            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
-//            
-            Text(
-                amount,
-                format: .currency(code: homeViewModel.selectedCurrencySymbolse(element: baseCurrency))
-            
-            )
-                .foregroundStyle(amount < 0 ? .red : .green)
         }
-    }
 }
-
 
 struct CustomImageSystem:View {
     var image : String
