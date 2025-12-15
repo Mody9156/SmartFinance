@@ -64,7 +64,8 @@ struct TransactionsView: View {
             $0.name.localizedCaseInsensitiveContains(search) ||
             $0.category.localizedCaseInsensitiveContains(search) ||
             DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
-            $0.amount.isNaN == false && String($0.amount).contains(search)
+            $0.amount.isNaN == false && String($0.amount)
+                .localizedCaseInsensitiveContains(search)
         }
         guard !search.isEmpty else { return transaction }
         return transactionsFilter
