@@ -17,15 +17,7 @@ struct HomeView: View {
     @State var iconeSelected: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
 
-     func cleanedAmounts(transaction : [Transaction]) -> [Double] {
-        let result = transaction.map{$0.amount}
-        
-        return result
-
-    }
-    
     var body: some View {
-        
         NavigationStack{
             ScrollView {
                 VStack(alignment: .leading){
@@ -115,12 +107,12 @@ struct HomeView: View {
                             .foregroundStyle(.white)
                             .shadow(radius: 12)
                         
-                        LineView(
-                            data: transactions.map(\.amount),
-                            title: "",
-                            legend: "Totalité des dépenses"
-                        )
-                        .padding()
+//                        LineView(
+//                            data: transactions.map(\.amount),
+//                            title: "",
+//                            legend: "Totalité des dépenses"
+//                        )
+//                        .padding()
                         
                         HStack {
                             Text("Finance")
@@ -152,9 +144,9 @@ struct HomeView: View {
                         }
                     }
                 }
-                .onChange(of: transactions){
-                    homeViewModel.UpdateBalance(transaction: transactions)
-                }
+//                .onChange(of: transactions){
+//                    homeViewModel.UpdateBalance(transaction: transactions)
+//                }
                 .padding()
             }
         }
