@@ -17,24 +17,24 @@ struct HomeView: View {
     @State var iconeSelected: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
   
-    var transactions : [Transaction]  = [
-        Transaction(
-          name: "Groceries",
-          amount: "+45.50",
-          date: Date(), // Uses the current date and time
-          category: "Food",
-          description: "Weekly shop at local supermarket.",
-          icon: "cart.fill" // Example SFSymbol name
-        ),
-        Transaction(
-          name: "Bus Fare",
-          amount: "+2.80",
-          date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, // Uses yesterday's date
-          category: "Transport",
-          description: nil, // Optional field, can be set to nil
-          icon: "bus.fill"
-        )
-      ]
+//    var transactions : [Transaction]  = [
+//        Transaction(
+//          name: "Groceries",
+//          amount: 45.50,
+//          date: Date(), // Uses the current date and time
+//          category: "Food",
+//          description: "Weekly shop at local supermarket.",
+//          icon: "cart.fill" // Example SFSymbol name
+//        ),
+//        Transaction(
+//          name: "Bus Fare",
+//          amount: 2.80,
+//          date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, // Uses yesterday's date
+//          category: "Transport",
+//          description: nil, // Optional field, can be set to nil
+//          icon: "bus.fill"
+//        )
+//      ]
 //    
 //    func formatter() -> String {
 //        guard let firstDate = transaction.first?.date else {
@@ -46,32 +46,23 @@ struct HomeView: View {
 //        print("result \(result)")
 //        return result
 //    }
-    
-    
-    func selectedPeriod(date:Date) -> Bool {
-        let dateNow = Date()
-        let dateFromatter = DateFormatter()
-        dateFromatter.dateFormat = "MM"
-        let currentMonth = dateFromatter.string(from: dateNow)
-        let transactionMonth = dateFromatter.string(from: date)
-        return currentMonth == transactionMonth
-    }
-    
-     func cleanedAmounts(transaction : [Transaction]) -> [Double] {
-        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-        
-        return result
 
-    }
+    
+//     func cleanedAmounts(transaction : [Transaction]) -> [Double] {
+//        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+//        
+//        return result
+//
+//    }
 
-    func resultInThemounth(transaction : [Transaction]) -> Double{
+    func resultInThemounth(transaction : [Transaction]) -> [Double]{
         
-        let amount = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
+        let amount = transaction.map{$0.amount}
         let result = amount.reduce(0,+)
         print("reuslt:\(result)")
         homeViewModel.newBalance = result
         homeViewModel.lastBalance = result
-        return result
+        return [result]
     }
     
     
@@ -167,7 +158,7 @@ struct HomeView: View {
                             .shadow(radius: 12)
                         
                         LineView(
-                            data: cleanedAmounts(transaction: transaction),
+                            data: resultInThemounth(transaction: transaction),
                             title: "",
                             legend: "Totalité des dépenses"
                         )
@@ -213,7 +204,7 @@ struct HomeView: View {
 }
 
 extension HomeView {
-    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:String) -> some View {
+    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:Double) -> some View {
         HStack {
             ZStack {
                 Circle()
@@ -242,10 +233,10 @@ extension HomeView {
             
             Spacer()
             
-            let ColorAmount = amount.contains("-")
+//            let ColorAmount = amount.contains("-")
             
             Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
-                .foregroundStyle(ColorAmount ? .red : .green)
+//                .foregroundStyle(ColorAmount ? .red : .green)
         }
     }
 }
