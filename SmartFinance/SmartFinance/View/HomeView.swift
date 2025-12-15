@@ -48,21 +48,19 @@ struct HomeView: View {
 //    }
 
     
-//     func cleanedAmounts(transaction : [Transaction]) -> [Double] {
-//        let result = transaction.map{homeViewModel.cleanSign(amount:$0.amount)}
-//        
-//        return result
-//
-//    }
-
-    func resultInThemounth(transaction : [Transaction]) -> [Double]{
+     func cleanedAmounts(transaction : [Transaction]) -> [Double] {
+        let result = transaction.map{$0.amount}
         
-        let amount = transaction.map{$0.amount}
-        let result = amount.reduce(0,+)
-        print("reuslt:\(result)")
-        homeViewModel.newBalance = result
-        homeViewModel.lastBalance = result
-        return [result]
+        return result
+
+    }
+
+    func resultInThemounth(transaction : [Transaction]) -> Double{
+        let amount = transaction.map{$0.amount}.reduce(0, +)
+        print("reuslt:\(amount)")
+        homeViewModel.newBalance = amount
+        homeViewModel.lastBalance = amount
+        return amount
     }
     
     
@@ -158,7 +156,7 @@ struct HomeView: View {
                             .shadow(radius: 12)
                         
                         LineView(
-                            data: resultInThemounth(transaction: transaction),
+                            data: cleanedAmounts(transaction: transaction),
                             title: "",
                             legend: "Totalité des dépenses"
                         )
