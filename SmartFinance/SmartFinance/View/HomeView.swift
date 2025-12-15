@@ -54,7 +54,7 @@ struct HomeView: View {
                                     .foregroundStyle(Color("textColor"))
                                 
                                 Text(
-                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))"
+                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.currencySymbol(element: baseCurrency))"
                                 )
                                 .font(.title)
                                 .foregroundStyle(.white)
@@ -65,7 +65,7 @@ struct HomeView: View {
                                 
                                 Label{
                                     Text(
-                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency)) ce mois"
+                                        "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.currencySymbol(element: baseCurrency)) ce mois"
                                     )
                                     .foregroundStyle(Color("textColor"))
                                     
