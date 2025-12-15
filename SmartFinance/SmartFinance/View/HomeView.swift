@@ -149,7 +149,7 @@ struct HomeView: View {
                             .shadow(radius: 12)
                         
                         LineView(
-                            data: cleanedAmounts(transaction: transaction),
+                            data: transaction.map(\.amount),
                             title: "",
                             legend: "Totalité des dépenses"
                         )
@@ -185,8 +185,8 @@ struct HomeView: View {
                         }
                     }
                 }
-                .onAppear{
-                    _ = homeViewModel.UpdateBalance(transaction: transaction )
+                .onChange(of: transaction){
+                    homeViewModel.UpdateBalance(transaction: transaction)
                 }
                 .padding()
             }
@@ -226,7 +226,14 @@ extension HomeView {
             
 //            let ColorAmount = amount.contains("-")
             
-            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
+//            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
+//            
+            Text(
+                amount,
+                format: .currency(code: homeViewModel.selectedCurrencySymbolse(element: baseCurrency))
+            
+            )
+            
 //                .foregroundStyle(ColorAmount ? .red : .green)
         }
     }
