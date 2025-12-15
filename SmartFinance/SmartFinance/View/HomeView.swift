@@ -12,7 +12,7 @@ import _SwiftData_SwiftUI
 struct HomeView: View {
     @Bindable var homeViewModel : HomeViewModel
     @State var activeToggle: Bool = false
-    @Query var transaction : [Transaction]
+    @Query var transactions : [Transaction]
     @State var activeNavigation : Bool = false
     @State var iconeSelected: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
@@ -149,7 +149,7 @@ struct HomeView: View {
                             .shadow(radius: 12)
                         
                         LineView(
-                            data: transaction.map(\.amount),
+                            data: transactions.map(\.amount),
                             title: "",
                             legend: "Totalité des dépenses"
                         )
@@ -159,7 +159,7 @@ struct HomeView: View {
                             Text("Finance")
                                 .fontWeight(.bold)
                             
-                            Toggle(activeToggle ? "Semaine" : "Mois", isOn: $activeToggle)
+                            Toggle("Affichage hebdomadaire", isOn: $activeToggle)
                         }
                         .padding()
                     }
@@ -171,7 +171,7 @@ struct HomeView: View {
                                     .foregroundStyle(.secondary)
                                     .padding()
                                 VStack {
-                                    ForEach(transaction.prefix(3)){ item in
+                                    ForEach(transactions.prefix(3)){ item in
                                         CustomLabel(
                                             name: item.name,
                                             systemName: item.icon,
@@ -185,8 +185,8 @@ struct HomeView: View {
                         }
                     }
                 }
-                .onChange(of: transaction){
-                    homeViewModel.UpdateBalance(transaction: transaction)
+                .onChange(of: transactions){
+                    homeViewModel.UpdateBalance(transaction: transactions)
                 }
                 .padding()
             }
@@ -233,8 +233,7 @@ extension HomeView {
                 format: .currency(code: homeViewModel.selectedCurrencySymbolse(element: baseCurrency))
             
             )
-            
-//                .foregroundStyle(ColorAmount ? .red : .green)
+                .foregroundStyle(amount < 0 ? .red : .green)
         }
     }
 }
