@@ -14,7 +14,7 @@ struct HomeView: View {
     @State var showWeekly: Bool = false
     @Query var transactions : [Transaction]
     @State var isPresentingAddTransaction : Bool = false
-    @State var iconeSelected: String = ""
+    @State var selectedIcon: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
