@@ -64,7 +64,7 @@ class HomeViewModel {
        return Double (cleaned) ?? 0
     }
     
-    
+    @discardableResult
     func UpdateBalance(transaction : [Transaction]) -> Double{
         let amount = transaction.map(\.amount).reduce(0, +)
         newBalance = amount
