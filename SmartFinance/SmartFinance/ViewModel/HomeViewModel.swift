@@ -65,5 +65,10 @@ class HomeViewModel {
     }
     
     
-    
+    func UpdateBalance(transaction : [Transaction]) -> Double{
+        let amount = transaction.map{$0.amount}.reduce(0, +)
+        newBalance = amount
+        lastBalance = amount
+        return amount
+    }
 }
