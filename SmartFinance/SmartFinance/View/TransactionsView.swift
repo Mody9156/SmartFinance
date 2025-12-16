@@ -10,7 +10,7 @@ import SwiftData
 
 struct TransactionsView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query var transaction : [Transaction]
+    @Query var transaction : [Transactions]
     @State var activeNavigationLink: Bool = false
     var transactionViewModel: TransactionViewModel
     @State var search : String = ""
@@ -59,7 +59,7 @@ struct TransactionsView: View {
         }
     }
     
-    var searchable: [Transaction] {
+    var searchable: [Transactions] {
         let transactionsFilter = transaction.filter {
             $0.name.localizedCaseInsensitiveContains(search) ||
             $0.category.localizedCaseInsensitiveContains(search) ||
@@ -115,7 +115,7 @@ extension TransactionsView {
                 element: baseCurrency
             )
             
-            Text("\(amount)\(symbole)")
+            Text(amount,format: .currency(code:symbole))
 //                .foregroundStyle(ColorAmount ? .red : .green)
         }
     }
@@ -125,5 +125,5 @@ extension TransactionsView {
 
 #Preview {
     TransactionsView(transactionViewModel: TransactionViewModel())
-        .modelContainer(for: Transaction.self, inMemory: true)
+        .modelContainer(for: Transactions.self, inMemory: true)
 }

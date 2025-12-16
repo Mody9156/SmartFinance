@@ -10,12 +10,13 @@ import SwiftUICharts
 import SwiftData
 
 struct HomeView: View {
-    @Bindable var homeViewModel : HomeViewModel
+    var homeViewModel : HomeViewModel
     @State var showWeekly: Bool = false
-    @Query var transactions : [Transaction]
+    @Query var transactions : [Transactions]
     @State var isPresentingAddTransaction : Bool = false
     @State var selectedIcon: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
+  
     
     var body: some View {
         NavigationStack{
@@ -150,6 +151,7 @@ struct HomeView: View {
                     }
                     .padding()
                 }
+                .padding()
             }
         }
     }
@@ -161,7 +163,7 @@ struct TransactionRow: View {
     var date:Date
     var category:String
     var amount:Double
-    @Bindable var homeViewModel : HomeViewModel
+    var homeViewModel : HomeViewModel
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {

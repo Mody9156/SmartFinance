@@ -12,9 +12,9 @@ import SwiftData
 struct SmartFinanceApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Transaction.self,
+            Transactions.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
