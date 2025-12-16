@@ -131,7 +131,7 @@ struct AddTransactionView: View {
                         
                         
                         if isFormValid {
-                            let newTransaction = Transaction(
+                            let newTransaction = Transactions(
                                 name: name,
                                 amount: amount,
                                 date: date,

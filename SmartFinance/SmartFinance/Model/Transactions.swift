@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Transaction: Identifiable, Hashable {
+final class Transactions: Identifiable, Hashable {
     var id = UUID()
     var name : String
     var amount : Double
