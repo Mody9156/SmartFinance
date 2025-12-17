@@ -49,7 +49,7 @@ class AddTransactionViewModel {
     
     func selectedCategoryIcone(element: String) -> String {
         return userProfileService
-            .currencySymbols[element,default: CurrencySymbol.EUR].symbol
+            .currencySymbols[element,default: CurrencySymbol.EUR].rawValue
     }
     
     

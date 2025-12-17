@@ -121,7 +121,10 @@ struct CustomLabel : View  {
                 let symbole = transactionViewModel.selectedCurrencySymbolse(
                     element: baseCurrency
                 )
-                Text(amount,format: .currency(code: symbole))
+                Text(
+                    amount,
+                    format: .currency(code: symbole).locale(Locale.current)
+                )
 //                Text("\(amount) \(symbole)")
 //                  .foregroundStyle(amount < 0 ? .red : .green)
             }
