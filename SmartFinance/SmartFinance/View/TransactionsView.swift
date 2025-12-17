@@ -21,9 +21,7 @@ struct TransactionsView: View {
             List {
                 ForEach(searchable) { transaction in
                     NavigationLink {
-                        
                         Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                        
                         
                     } label: {
                         CustomLabel(
@@ -32,10 +30,9 @@ struct TransactionsView: View {
                             date: transaction.date,
                             category: transaction.category,
                             amount: transaction.amount,
-                            symbole: baseCurrency
+                            symbole: baseCurrency,
+                            transactionViewModel: transactionViewModel
                         )
-                        
-                        
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -80,48 +77,58 @@ struct TransactionsView: View {
     }
 }
 
-extension TransactionsView {
-    func CustomLabel(name:String,systemName:String,date:Date, category:String, amount:Double, symbole:String) -> some View {
-        HStack {
-            ZStack {
-                Circle()
-                    .frame(height: 50)
-                    .foregroundStyle(Color("textColor"))
-                
-                Image(systemName: systemName)
-                    .resizable()
-                    .frame(width: 25,height: 25)
-                    .foregroundStyle(Color("titleColor"))
-            }
-            
-            VStack(alignment: .leading) {
-                Text(name)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                HStack {
-                    Text("\(category) -")
-                        .font(.caption)
+
+
+
+struct CustomLabel : View  {
+    var name:String
+    var systemName:String
+    var date:Date
+    var category:String
+    var amount:Double
+    var symbole:String
+    var transactionViewModel: TransactionViewModel
+    
+    var body: some View {
+       
+            HStack {
+                ZStack {
+                    Circle()
+                        .frame(height: 50)
+                        .foregroundStyle(Color("textColor"))
                     
-                    Text(date, format: .dateTime.day().month())
-                        .font(.caption)
+                    Image(systemName: systemName)
+                        .resizable()
+                        .frame(width: 25,height: 25)
+                        .foregroundStyle(Color("titleColor"))
                 }
+                
+                VStack(alignment: .leading) {
+                    Text(name)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    HStack {
+                        Text("\(category) -")
+                            .font(.caption)
+                        
+                        Text(date, format: .dateTime.day().month())
+                            .font(.caption)
+                    }
+                }
+                .padding()
+                
+                Spacer()
+                
+                //            let ColorAmount = amount.contains("-")
+                let symbole = transactionViewModel.selectedCurrencySymbolse(
+                    element: baseCurrency
+                )
+                
+                Text(amount,format: .currency(code:symbole))
+                //                .foregroundStyle(ColorAmount ? .red : .green)
             }
-            .padding()
-            
-            Spacer()
-            
-//            let ColorAmount = amount.contains("-")
-            let symbole = transactionViewModel.selectedCurrencySymbolse(
-                element: baseCurrency
-            )
-            
-            Text(amount,format: .currency(code:symbole))
-//                .foregroundStyle(ColorAmount ? .red : .green)
         }
-    }
 }
-
-
 
 #Preview {
     TransactionsView(transactionViewModel: TransactionViewModel())
