@@ -122,8 +122,8 @@ struct CustomLabel : View  {
                     element: baseCurrency
                 )
                 
-                Text(amount,format:.currency(code: symbole))
-                //                .foregroundStyle(ColorAmount ? .red : .green)
+                Text("\(amount) \(symbole)")
+                  .foregroundStyle(amount < 0 ? .red : .green)
             }
         }
 }
