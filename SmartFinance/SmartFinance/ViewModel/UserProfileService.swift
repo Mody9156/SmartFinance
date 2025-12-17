@@ -29,16 +29,13 @@ class UserProfileService {
             }
         }
     
-    
-    //Modification
-    var CurrencySymbols: [String : CurrencySymbol] = {
-        var dict: [String : CurrencySymbol] = [:]
-        CurrencySymbol.allCases.forEach { currency  in
-            dict[currency.rawValue] = currency
-        }
-        return dict
+        var currencySymbols: [String : CurrencySymbol] = {
+        Dictionary(
+            uniqueKeysWithValues: CurrencySymbol.allCases.map {
+            ($0.rawValue,$0)
+        })
     }()
-    //
+  
     init(
         converterManager: ConverterService = ConverterManager(),
        
@@ -48,7 +45,7 @@ class UserProfileService {
     
     //Modification
     func selectedCurrencySymbolse(element: String) -> String {
-        return CurrencySymbols[element, default: CurrencySymbol.EUR].symbol
+        return currencySymbols[element, default: CurrencySymbol.EUR].symbol
         
     }
     //
