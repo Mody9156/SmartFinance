@@ -199,8 +199,11 @@ struct TransactionRow: View {
                 
     //            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
     //
-                Text("\(amount) \(homeViewModel.currencySymbol(element: baseCurrency))")
-                    .foregroundStyle(amount < 0 ? .red : .green)
+//                Text("\(amount) \(homeViewModel.currencySymbol(element: baseCurrency))")
+//                    .foregroundStyle(amount < 0 ? .red : .green)
+                let symbole = homeViewModel.currencySymbol(element: baseCurrency)
+                
+                Text(amount,format: .currency(code:symbole))
             }
         }
 }
