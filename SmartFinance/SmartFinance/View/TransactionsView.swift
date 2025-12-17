@@ -121,6 +121,10 @@ struct CustomLabel : View  {
                 let symbole = transactionViewModel.selectedCurrencySymbolse(
                     element: baseCurrency
                 )
+               
+                
+                let euroLocale = symbole == "EUR"
+                
                 Text(
                     amount,
                     format:
