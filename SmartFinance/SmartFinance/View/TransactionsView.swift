@@ -123,7 +123,9 @@ struct CustomLabel : View  {
                 )
                 Text(
                     amount,
-                    format: .currency(code: symbole).locale(Locale.current)
+                    format:
+                            .currency(code: symbole)
+                            .locale(Locale.autoupdatingCurrent)
                 )
 //                Text("\(amount) \(symbole)")
 //                  .foregroundStyle(amount < 0 ? .red : .green)

@@ -205,7 +205,9 @@ struct TransactionRow: View {
                 
                 Text(
                     amount,
-                    format: .currency(code:symbole).locale(Locale.current)
+                    format:
+                            .currency(code:symbole)
+                            .locale(Locale.autoupdatingCurrent)
                 )
             }
         }
