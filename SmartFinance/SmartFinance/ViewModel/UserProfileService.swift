@@ -45,7 +45,7 @@ class UserProfileService {
     
     //Modification
     func selectedCurrencySymbolse(element: String) -> String {
-        return currencySymbols[element, default: CurrencySymbol.EUR].symbol
+        return currencySymbols[element, default: CurrencySymbol.EUR].rawValue
         
     }
     //
