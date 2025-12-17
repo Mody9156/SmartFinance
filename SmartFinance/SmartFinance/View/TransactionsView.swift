@@ -77,9 +77,6 @@ struct TransactionsView: View {
     }
 }
 
-
-
-
 struct CustomLabel : View  {
     var name:String
     var systemName:String
@@ -88,6 +85,7 @@ struct CustomLabel : View  {
     var amount:Double
     var symbole:String
     var transactionViewModel: TransactionViewModel
+    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
        
