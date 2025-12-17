@@ -122,7 +122,7 @@ struct CustomLabel : View  {
                     element: baseCurrency
                 )
                 
-                Text(amount,format: .currency(code:symbole))
+                Text("\(amount) \(symbole)")
                 //                .foregroundStyle(ColorAmount ? .red : .green)
             }
         }
