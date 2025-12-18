@@ -195,12 +195,6 @@ struct TransactionRow: View {
                 
                 Spacer()
                 
-    //            let ColorAmount = amount.contains("-")
-                
-    //            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
-    //
-//                Text("\(amount) \(homeViewModel.currencySymbol(element: baseCurrency))")
-//                    .foregroundStyle(amount < 0 ? .red : .green)
                 let symbole = homeViewModel.currencySymbol(element: baseCurrency)
                 
                 Text(
@@ -209,6 +203,7 @@ struct TransactionRow: View {
                             .currency(code:symbole)
                             .locale(Locale.autoupdatingCurrent)
                 )
+                .foregroundStyle(homeViewModel.updateForegroundColor(item: category))
             }
         }
 }
