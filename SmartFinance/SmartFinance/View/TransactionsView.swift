@@ -88,7 +88,6 @@ struct CustomLabel : View  {
     var symbole:String
     var type: String
     var transactionViewModel: TransactionViewModel
-    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
        
