@@ -16,7 +16,7 @@ struct HomeView: View {
     @State var isPresentingAddTransaction : Bool = false
     @State var selectedIcon: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
-  
+    
     
     var body: some View {
         NavigationStack{
@@ -55,15 +55,14 @@ struct HomeView: View {
                                     .foregroundStyle(Color("textColor"))
                                 
                                 Text(
-                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.currencySymbol(element: baseCurrency))"
+                                    homeViewModel.lastBalance,
+                                    format:.currency(code: baseCurrency)
                                 )
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 
                                 let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
-                                //                                let displayDifference = homeViewModel.displayDifference()
-                                
-                                
+                             
                                 Label{
                                     Text(
                                         "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.currencySymbol(element: baseCurrency)) ce mois"
@@ -143,7 +142,6 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            
                         }
                     }
                     .onChange(of: transactions){
@@ -167,45 +165,45 @@ struct TransactionRow: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
-            HStack {
-                ZStack {
-                    Circle()
-                        .frame(height: 50)
-                        .foregroundStyle(Color("textColor"))
-                    
-                    Image(systemName: systemName)
-                        .resizable()
-                        .frame(width: 25,height: 25)
-                        .foregroundStyle(Color("titleColor"))
-                }
+        HStack {
+            ZStack {
+                Circle()
+                    .frame(height: 50)
+                    .foregroundStyle(Color("textColor"))
                 
-                VStack(alignment: .leading) {
-                    Text(name)
-                        .font(.title3)
-                        .fontWeight(.bold)
-                    HStack {
-                        Text("\(category) -")
-                            .font(.caption)
-                        
-                        Text(date, format: .dateTime.day().month())
-                            .font(.caption)
-                    }
-                }
-                .padding()
-                
-                Spacer()
-                
-                let symbole = homeViewModel.currencySymbol(element: baseCurrency)
-                
-                Text(
-                    amount,
-                    format:
-                            .currency(code:symbole)
-                            .locale(Locale.autoupdatingCurrent)
-                )
-                .foregroundStyle(homeViewModel.updateForegroundColor(item: category))
+                Image(systemName: systemName)
+                    .resizable()
+                    .frame(width: 25,height: 25)
+                    .foregroundStyle(Color("titleColor"))
             }
+            
+            VStack(alignment: .leading) {
+                Text(name)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                HStack {
+                    Text("\(category) -")
+                        .font(.caption)
+                    
+                    Text(date, format: .dateTime.day().month())
+                        .font(.caption)
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            let symbole = homeViewModel.currencySymbol(element: baseCurrency)
+            
+            Text(
+                amount,
+                format:
+                        .currency(code:symbole)
+                        .locale(Locale.autoupdatingCurrent)
+            )
+            .foregroundStyle(homeViewModel.updateForegroundColor(item: category))
         }
+    }
 }
 
 struct CustomImageSystem:View {
