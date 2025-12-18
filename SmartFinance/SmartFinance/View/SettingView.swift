@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 struct SettingView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "USA"
     @State var selectedCurrency : String = ""
@@ -15,6 +15,7 @@ struct SettingView: View {
     @State private var activeNotification: Bool = false
     @State private var activeDarkMode: Bool = false
     @State private var modification_of_the_profile: Bool = false
+    @State var selectedItem: PhotosPickerItem
     
     var body: some View {
         NavigationStack {
@@ -41,6 +42,9 @@ struct SettingView: View {
                                     .frame(width: 72, height: 72)
                                     .clipShape(Circle())
                                     .shadow(radius: 4, y: 2)
+                                
+                                
+                                
                             }
                             
                             Button(action:{
