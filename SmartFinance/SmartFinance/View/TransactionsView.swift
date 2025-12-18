@@ -116,20 +116,30 @@ struct CustomLabel : View  {
                 .padding()
                 
                 Spacer()
-                
+               
+                let dysplayDifference = transactionViewModel.updateForegroundColor(item: category) == .red
+                let amountWithDifference = dysplayDifference ? "+" : "-"
                 let symbole = transactionViewModel.selectedCurrencySymbolse(
                     element: baseCurrency
                 )
                
-                Text(
-                    amount,
-                    format:
-                            .currency(code: symbole)
-                            .locale(Locale.autoupdatingCurrent)
-                )
-                .foregroundStyle(
-                    transactionViewModel.updateForegroundColor(item: category)
-                )
+                HStack{
+                    Text(amountWithDifference)
+                        .foregroundStyle(
+                            transactionViewModel.updateForegroundColor(item: category)
+                        )
+
+                    Text(
+                        amount,
+                        format:
+                                .currency(code: symbole)
+                                .locale(Locale.autoupdatingCurrent)
+                    )
+                    .foregroundStyle(
+                        transactionViewModel.updateForegroundColor(item: category)
+                    )
+                }
+                
             }
         }
 }
