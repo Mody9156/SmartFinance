@@ -17,13 +17,8 @@ struct TransactionsView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
-        NavigationStack{
             List {
                 ForEach(searchable) { transaction in
-                    NavigationLink {
-                       
-                        TransactionDetailView(transaction: transaction)
-                    } label: {
                         CustomLabel(
                             name: transaction.name,
                             systemName: transaction.icon,
@@ -34,7 +29,7 @@ struct TransactionsView: View {
                             type: transaction.type,
                             transactionViewModel: transactionViewModel
                         )
-                    }
+                    
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -54,7 +49,6 @@ struct TransactionsView: View {
                     }
                 }
             }
-        }
     }
     
     var searchable: [Transactions] {
