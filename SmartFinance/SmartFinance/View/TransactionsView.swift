@@ -21,8 +21,7 @@ struct TransactionsView: View {
             List {
                 ForEach(searchable) { transaction in
                     NavigationLink {
-                        Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                        
+                        TransactionDetailView(transaction: transaction)
                     } label: {
                         CustomLabel(
                             name: transaction.name,
