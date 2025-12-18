@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftUICharts
 import SwiftData
-
+import Charts
 struct HomeView: View {
     var homeViewModel : HomeViewModel
     @State var showWeekly: Bool = false
@@ -24,9 +24,7 @@ struct HomeView: View {
                 VStack(alignment: .leading){
                     HStack {
                         CustomImageSystem(image: "person.crop.circle.fill")
-                        
                         Spacer()
-                        
                         CustomImageSystem(image: "gearshape")
                     }
                     Text("Tableau de bord")
@@ -106,21 +104,10 @@ struct HomeView: View {
                             .frame(height: 400)
                             .foregroundStyle(.white)
                             .shadow(radius: 12)
-                        
-                        LineView(
-                            data: transactions.map(\.amount),
-                            title: "",
-                            legend: "Totalité des dépenses"
-                        )
-                        .padding()
-                        
-                        HStack {
-                            Text("Finance")
-                                .fontWeight(.bold)
-                            
-                            Toggle("Affichage hebdomadaire", isOn: $showWeekly)
-                        }
-                        .padding()
+
+                        LineView(data: transactions.map(\.amount), title: "Totalité des dépenses", legend: "")
+                            .padding()
+                       
                     }
                     
                     LazyVStack {

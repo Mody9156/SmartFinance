@@ -102,7 +102,6 @@ struct SettingView: View {
 //                    .pickerStyle(.navigationLink)
 //                }
 //                .padding()
-                
                 Section(header: Text("Paramètres")) {
                     HStack {
                         Image(systemName: activeNotification ? "bell.fill" : "bell")
@@ -121,7 +120,6 @@ struct SettingView: View {
                             isOn: $activeDarkMode
                         )
                     }
-                    
                 }
                 .padding()
             }

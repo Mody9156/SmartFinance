@@ -90,7 +90,6 @@ struct CustomLabel : View  {
     var transactionViewModel: TransactionViewModel
     
     var body: some View {
-       
             HStack {
                 ZStack {
                     Circle()
@@ -117,7 +116,7 @@ struct CustomLabel : View  {
                 }
                 
                 Spacer()
-               
+                
                 HStack{
                     Text(type)
                         .foregroundStyle(
@@ -134,7 +133,6 @@ struct CustomLabel : View  {
                         transactionViewModel.updateForegroundColor(item: category)
                     )
                 }
-                
             }
         }
 }
