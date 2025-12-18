@@ -128,7 +128,9 @@ struct CustomLabel : View  {
                             .currency(code: symbole)
                             .locale(Locale.autoupdatingCurrent)
                 )
-                .foregroundStyle(amount > 0 ? .red : .green)
+                .foregroundStyle(
+                    transactionViewModel.updateForegroundColor(item:category)
+                )
             }
         }
 }
