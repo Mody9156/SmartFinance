@@ -67,10 +67,26 @@ class HomeViewModel {
     
     @discardableResult
     func UpdateBalance(transaction : [Transactions]) -> Double{
-        let amount = transaction.map(\.amount).reduce(0, +)
-        newBalance = amount
-        lastBalance = amount
-        return amount
+        let transactions = [
+            "Salaire",
+            "Revenu",
+            "Dépôt",
+            "Virement reçu",
+            "Virement envoyé",
+            "Transfert interne"
+        ]
+       
+        let amount = transaction.filter{
+            !transactions.contains($0.category)}.map(\.amount).reduce(
+            0,
+            +
+        )
+                
+                newBalance = amount
+                lastBalance = amount
+                return amount
+        
+     
     }
     
     func updateForegroundColor (item:String) -> Color {
