@@ -22,7 +22,7 @@ struct TransactionsView: View {
                 ForEach(searchable) { transaction in
                     NavigationLink {
                        
-                        TransactionDetailView(transaction: [transaction])
+                        TransactionDetailView(transaction: transaction)
                     } label: {
                         CustomLabel(
                             name: transaction.name,
