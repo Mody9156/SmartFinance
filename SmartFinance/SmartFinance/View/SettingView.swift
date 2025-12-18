@@ -15,7 +15,7 @@ struct SettingView: View {
     @State private var activeNotification: Bool = false
     @State private var activeDarkMode: Bool = false
     @State private var modification_of_the_profile: Bool = false
-    @State var selectedItem: PhotosPickerItem
+    @State var selectedItems: [PhotosPickerItem] = []
     
     var body: some View {
         NavigationStack {
@@ -43,7 +43,10 @@ struct SettingView: View {
                                     .clipShape(Circle())
                                     .shadow(radius: 4, y: 2)
                                 
-                                
+                                PhotosPicker(selection: $selectedItems,
+                                                    matching: .images) {
+                                           Text("Select Multiple Photos")
+                                       }
                                 
                             }
                             
