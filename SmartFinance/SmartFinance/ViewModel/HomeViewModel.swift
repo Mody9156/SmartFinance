@@ -62,7 +62,7 @@ class HomeViewModel {
         let cleaned = amount.trimmingCharacters(
             in: CharacterSet(charactersIn: "-+")
         )
-       return Double (cleaned) ?? 0
+        return Double (cleaned) ?? 0
     }
     
     @discardableResult
@@ -75,21 +75,21 @@ class HomeViewModel {
             "Virement envoyé",
             "Transfert interne"
         ]
-       
-        let amount = transaction.filter{
-            !transactions.contains($0.category)}.map(\.amount).reduce(
-            0,
-            +
-        )
-                
-                newBalance = amount
-                lastBalance = amount
-                return amount
         
-     
+        let amount = transaction.filter{
+            !transactions.contains($0.category)}
+            .map(\.amount)
+            .reduce(
+                0,
+                +
+            )
+        
+        newBalance = amount
+        lastBalance = amount
+        return amount
     }
     
     func updateForegroundColor (item:String) -> Color {
-       return userProfileService.updateForegroundColor(item: item)
+        return userProfileService.updateForegroundColor(item: item)
     }
 }
