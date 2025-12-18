@@ -22,7 +22,7 @@ struct TransactionsView: View {
                 ForEach(searchable) { transaction in
                     NavigationLink {
                        
-                        TransactionDetailView(transaction: transaction)
+                        TransactionDetailView(transaction: [transaction])
                     } label: {
                         CustomLabel(
                             name: transaction.name,
@@ -31,6 +31,7 @@ struct TransactionsView: View {
                             category: transaction.category,
                             amount: transaction.amount,
                             symbole: baseCurrency,
+                            type: transaction.type,
                             transactionViewModel: transactionViewModel
                         )
                     }
@@ -84,6 +85,7 @@ struct CustomLabel : View  {
     var category:String
     var amount:Double
     var symbole:String
+    var type: String
     var transactionViewModel: TransactionViewModel
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
@@ -117,13 +119,9 @@ struct CustomLabel : View  {
                 Spacer()
                
                 let dysplayDifference = transactionViewModel.updateForegroundColor(item: category) == .red
-                let amountWithDifference = dysplayDifference ? "-" : "+"
-                let symbole = transactionViewModel.selectedCurrencySymbolse(
-                    element: baseCurrency
-                )
                
                 HStack{
-                    Text(amountWithDifference)
+                    Text(type)
                         .foregroundStyle(
                             transactionViewModel.updateForegroundColor(item: category)
                         )

@@ -195,7 +195,6 @@ struct TransactionRow: View {
             Spacer()
             
             let symbole = homeViewModel.currencySymbol(element: baseCurrency)
-           
             
             HStack {
                 Text(type)

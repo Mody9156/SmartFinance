@@ -9,7 +9,7 @@ import SwiftUI
 import _SwiftData_SwiftUI
 
 struct TransactionDetailView: View {
-    var transaction : [Transactions]
+    let transaction : [Transactions] 
     
     var body: some View {
         Text("Hello, World!")
