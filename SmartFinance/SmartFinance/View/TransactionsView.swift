@@ -58,23 +58,29 @@ struct TransactionsView: View {
     }
     
     var searchable: [Transactions] {
-        let transactionsFilter = transaction.filter {
+        guard !search.isEmpty else { return transaction }
+
+        return transaction.filter {
             $0.name.localizedCaseInsensitiveContains(search) ||
             $0.category.localizedCaseInsensitiveContains(search) ||
-            DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
-            $0.amount.isNaN == false && String($0.amount)
-                .localizedCaseInsensitiveContains(search)
+            String($0.amount).localizedCaseInsensitiveContains(search) ||
+            DateFormatter.localizedString(
+                from: $0.date,
+                dateStyle: .short,
+                timeStyle: .none
+            ).contains(search)
         }
-        guard !search.isEmpty else { return transaction }
-        return transactionsFilter
     }
+
     
+    //Toujours supprimer ce qui est affiché, pas la source brute.
     private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(transaction[index])
+            withAnimation {
+                for index in offsets {
+                    let item = searchable[index]
+                    modelContext.delete(item)
+                }
             }
-        }
     }
 }
 
@@ -117,8 +123,6 @@ struct CustomLabel : View  {
                 }
                 
                 Spacer()
-               
-                let dysplayDifference = transactionViewModel.updateForegroundColor(item: category) == .red
                
                 HStack{
                     Text(type)
