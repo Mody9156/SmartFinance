@@ -21,6 +21,7 @@ struct TransactionsView: View {
             List {
                 ForEach(searchable) { transaction in
                     NavigationLink {
+                       
                         TransactionDetailView(transaction: transaction)
                     } label: {
                         CustomLabel(

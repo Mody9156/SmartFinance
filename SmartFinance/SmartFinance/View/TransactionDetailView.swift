@@ -9,7 +9,7 @@ import SwiftUI
 import _SwiftData_SwiftUI
 
 struct TransactionDetailView: View {
-    @Query var transaction : [Transactions]
+    var transaction : [Transactions]
     
     var body: some View {
         Text("Hello, World!")
@@ -17,5 +17,7 @@ struct TransactionDetailView: View {
 }
 
 #Preview {
-    TransactionDetailView()
+    TransactionDetailView(
+        transaction: [Transactions(name: "Adidas", amount: 10.55, date: Date(), category: "Shop", description: "Cadeau", icon: "$", type: "+")]
+    )
 }

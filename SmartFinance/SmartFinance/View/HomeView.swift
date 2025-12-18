@@ -137,6 +137,7 @@ struct HomeView: View {
                                             date: item.date,
                                             category: item.category,
                                             amount: item.amount,
+                                            type: item.type,
                                             homeViewModel: homeViewModel
                                         )
                                     }
@@ -161,6 +162,7 @@ struct TransactionRow: View {
     var date:Date
     var category:String
     var amount:Double
+    var type : String
     var homeViewModel : HomeViewModel
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
@@ -193,11 +195,10 @@ struct TransactionRow: View {
             Spacer()
             
             let symbole = homeViewModel.currencySymbol(element: baseCurrency)
-            let dysplayDifference = homeViewModel.updateForegroundColor(item: category) == .red
-            let amountWithDifference = dysplayDifference ? "-" : "+"
+           
             
             HStack {
-                Text(amountWithDifference)
+                Text(type)
                     .foregroundStyle(homeViewModel.updateForegroundColor(item: category))
                 
                 Text(
