@@ -199,6 +199,8 @@ struct TransactionRow: View {
             
             HStack {
                 Text(amountWithDifference)
+                    .foregroundStyle(homeViewModel.updateForegroundColor(item: category))
+                
                 Text(
                     amount,
                     format:
