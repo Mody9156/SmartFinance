@@ -71,7 +71,6 @@ struct TransactionsView: View {
             ).contains(search)
         }
     }
-
     
     //Toujours supprimer ce qui est affiché, pas la source brute.
     private func deleteItems(offsets: IndexSet) {
