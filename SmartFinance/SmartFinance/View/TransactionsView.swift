@@ -17,6 +17,7 @@ struct TransactionsView: View {
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
+        NavigationStack{
             List {
                 ForEach(searchable) { transaction in
                         CustomLabel(
@@ -49,6 +50,7 @@ struct TransactionsView: View {
                     }
                 }
             }
+        }
     }
     
     var searchable: [Transactions] {
