@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftUICharts
 import SwiftData
-
+import Charts
 struct HomeView: View {
     var homeViewModel : HomeViewModel
     @State var showWeekly: Bool = false
@@ -16,7 +16,7 @@ struct HomeView: View {
     @State var isPresentingAddTransaction : Bool = false
     @State var selectedIcon: String = ""
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
-  
+    
     
     var body: some View {
         NavigationStack{
@@ -24,9 +24,7 @@ struct HomeView: View {
                 VStack(alignment: .leading){
                     HStack {
                         CustomImageSystem(image: "person.crop.circle.fill")
-                        
                         Spacer()
-                        
                         CustomImageSystem(image: "gearshape")
                     }
                     Text("Tableau de bord")
@@ -55,15 +53,14 @@ struct HomeView: View {
                                     .foregroundStyle(Color("textColor"))
                                 
                                 Text(
-                                    "\(String(format: "%.2f",homeViewModel.lastBalance)) \( homeViewModel.currencySymbol(element: baseCurrency))"
+                                    homeViewModel.lastBalance,
+                                    format:.currency(code: baseCurrency)
                                 )
                                 .font(.title)
                                 .foregroundStyle(.white)
                                 
                                 let updateDifference = homeViewModel.updateDifferenceWithLastMonth()
-                                //                                let displayDifference = homeViewModel.displayDifference()
-                                
-                                
+                             
                                 Label{
                                     Text(
                                         "\(String(format: "%.2f",homeViewModel.newBalance)) \( homeViewModel.currencySymbol(element: baseCurrency)) ce mois"
@@ -107,21 +104,10 @@ struct HomeView: View {
                             .frame(height: 400)
                             .foregroundStyle(.white)
                             .shadow(radius: 12)
-                        
-                        LineView(
-                            data: transactions.map(\.amount),
-                            title: "",
-                            legend: "Totalité des dépenses"
-                        )
-                        .padding()
-                        
-                        HStack {
-                            Text("Finance")
-                                .fontWeight(.bold)
-                            
-                            Toggle("Affichage hebdomadaire", isOn: $showWeekly)
-                        }
-                        .padding()
+
+                        LineView(data: transactions.map(\.amount), title: "Totalité des dépenses", legend: "")
+                            .padding()
+                       
                     }
                     
                     LazyVStack {
@@ -138,12 +124,12 @@ struct HomeView: View {
                                             date: item.date,
                                             category: item.category,
                                             amount: item.amount,
+                                            type: item.type,
                                             homeViewModel: homeViewModel
                                         )
                                     }
                                 }
                             }
-                            
                         }
                     }
                     .onChange(of: transactions){
@@ -163,45 +149,43 @@ struct TransactionRow: View {
     var date:Date
     var category:String
     var amount:Double
+    var type : String
     var homeViewModel : HomeViewModel
     @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
-            HStack {
-                ZStack {
-                    Circle()
-                        .frame(height: 50)
-                        .foregroundStyle(Color("textColor"))
+        HStack {
+            ZStack {
+                Circle()
+                    .frame(height: 50)
+                    .foregroundStyle(Color("textColor"))
+                
+                Image(systemName: systemName)
+                    .resizable()
+                    .frame(width: 25,height: 25)
+                    .foregroundStyle(Color("titleColor"))
+            }
+            
+            VStack(alignment: .leading) {
+                Text(name)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                HStack {
+                    Text("\(category) -")
+                        .font(.caption)
                     
-                    Image(systemName: systemName)
-                        .resizable()
-                        .frame(width: 25,height: 25)
-                        .foregroundStyle(Color("titleColor"))
+                    Text(date, format: .dateTime.day().month())
+                        .font(.caption)
                 }
-                
-                VStack(alignment: .leading) {
-                    Text(name)
-                        .font(.title3)
-                        .fontWeight(.bold)
-                    HStack {
-                        Text("\(category) -")
-                            .font(.caption)
-                        
-                        Text(date, format: .dateTime.day().month())
-                            .font(.caption)
-                    }
-                }
-                .padding()
-                
-                Spacer()
-                
-    //            let ColorAmount = amount.contains("-")
-                
-    //            Text("\(amount) \( homeViewModel.selectedCurrencySymbolse(element: baseCurrency))")
-    //
-//                Text("\(amount) \(homeViewModel.currencySymbol(element: baseCurrency))")
-//                    .foregroundStyle(amount < 0 ? .red : .green)
-                let symbole = homeViewModel.currencySymbol(element: baseCurrency)
+            }
+            
+            Spacer()
+            
+            let symbole = homeViewModel.currencySymbol(element: baseCurrency)
+            
+            HStack {
+                Text(type)
+                    .foregroundStyle(homeViewModel.updateForegroundColor(item: category))
                 
                 Text(
                     amount,
@@ -209,8 +193,11 @@ struct TransactionRow: View {
                             .currency(code:symbole)
                             .locale(Locale.autoupdatingCurrent)
                 )
+                .foregroundStyle(homeViewModel.updateForegroundColor(item: category))
             }
+            
         }
+    }
 }
 
 struct CustomImageSystem:View {

@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 class HomeViewModel {
@@ -61,14 +62,34 @@ class HomeViewModel {
         let cleaned = amount.trimmingCharacters(
             in: CharacterSet(charactersIn: "-+")
         )
-       return Double (cleaned) ?? 0
+        return Double (cleaned) ?? 0
     }
     
     @discardableResult
     func UpdateBalance(transaction : [Transactions]) -> Double{
-        let amount = transaction.map(\.amount).reduce(0, +)
+        let transactions = [
+            "Salaire",
+            "Revenu",
+            "Dépôt",
+            "Virement reçu",
+            "Virement envoyé",
+            "Transfert interne"
+        ]
+        
+        let amount = transaction.filter{
+            !transactions.contains($0.category)}
+            .map(\.amount)
+            .reduce(
+                0,
+                +
+            )
+        
         newBalance = amount
         lastBalance = amount
         return amount
+    }
+    
+    func updateForegroundColor (item:String) -> Color {
+        return userProfileService.updateForegroundColor(item: item)
     }
 }

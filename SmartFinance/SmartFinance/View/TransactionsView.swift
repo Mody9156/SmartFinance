@@ -20,10 +20,6 @@ struct TransactionsView: View {
         NavigationStack{
             List {
                 ForEach(searchable) { transaction in
-                    NavigationLink {
-                        Text("Item at \(transaction.date, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                        
-                    } label: {
                         CustomLabel(
                             name: transaction.name,
                             systemName: transaction.icon,
@@ -31,9 +27,10 @@ struct TransactionsView: View {
                             category: transaction.category,
                             amount: transaction.amount,
                             symbole: baseCurrency,
+                            type: transaction.type,
                             transactionViewModel: transactionViewModel
                         )
-                    }
+                    
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -57,23 +54,28 @@ struct TransactionsView: View {
     }
     
     var searchable: [Transactions] {
-        let transactionsFilter = transaction.filter {
+        guard !search.isEmpty else { return transaction }
+
+        return transaction.filter {
             $0.name.localizedCaseInsensitiveContains(search) ||
             $0.category.localizedCaseInsensitiveContains(search) ||
-            DateFormatter.localizedString(from: $0.date, dateStyle: .short, timeStyle: .none).contains(search) ||
-            $0.amount.isNaN == false && String($0.amount)
-                .localizedCaseInsensitiveContains(search)
+            String($0.amount).localizedCaseInsensitiveContains(search) ||
+            DateFormatter.localizedString(
+                from: $0.date,
+                dateStyle: .short,
+                timeStyle: .none
+            ).contains(search)
         }
-        guard !search.isEmpty else { return transaction }
-        return transactionsFilter
     }
     
+    //Toujours supprimer ce qui est affiché, pas la source brute.
     private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(transaction[index])
+            withAnimation {
+                for index in offsets {
+                    let item = searchable[index]
+                    modelContext.delete(item)
+                }
             }
-        }
     }
 }
 
@@ -84,11 +86,10 @@ struct CustomLabel : View  {
     var category:String
     var amount:Double
     var symbole:String
+    var type: String
     var transactionViewModel: TransactionViewModel
-    @AppStorage("baseCurrency") var baseCurrency : String = "EUR"
     
     var body: some View {
-       
             HStack {
                 ZStack {
                     Circle()
@@ -113,26 +114,25 @@ struct CustomLabel : View  {
                             .font(.caption)
                     }
                 }
-                .padding()
                 
                 Spacer()
                 
-                //            let ColorAmount = amount.contains("-")
-                let symbole = transactionViewModel.selectedCurrencySymbolse(
-                    element: baseCurrency
-                )
-               
-                
-                let euroLocale = symbole == "EUR"
-                
-                Text(
-                    amount,
-                    format:
-                            .currency(code: symbole)
-                            .locale(Locale.autoupdatingCurrent)
-                )
-//                Text("\(amount) \(symbole)")
-//                  .foregroundStyle(amount < 0 ? .red : .green)
+                HStack{
+                    Text(type)
+                        .foregroundStyle(
+                            transactionViewModel.updateForegroundColor(item: category)
+                        )
+
+                    Text(
+                        amount,
+                        format:
+                                .currency(code: symbole)
+                                .locale(Locale.autoupdatingCurrent)
+                    )
+                    .foregroundStyle(
+                        transactionViewModel.updateForegroundColor(item: category)
+                    )
+                }
             }
         }
 }

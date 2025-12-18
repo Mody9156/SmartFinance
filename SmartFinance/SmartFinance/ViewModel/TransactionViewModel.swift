@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 class TransactionViewModel {
@@ -37,5 +38,9 @@ class TransactionViewModel {
     }
     func iconeType(element:String) -> String {
         return icon[element,default: CategoryIcon.Autre].icon
+    }
+    
+    func updateForegroundColor (item:String) -> Color {
+       return userProfileService.updateForegroundColor(item: item)
     }
 }
