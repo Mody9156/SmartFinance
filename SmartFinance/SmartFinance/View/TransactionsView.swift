@@ -117,7 +117,6 @@ struct CustomLabel : View  {
                 
                 Spacer()
                 
-                //            let ColorAmount = amount.contains("-")
                 let symbole = transactionViewModel.selectedCurrencySymbolse(
                     element: baseCurrency
                 )
@@ -129,7 +128,7 @@ struct CustomLabel : View  {
                             .locale(Locale.autoupdatingCurrent)
                 )
                 .foregroundStyle(
-                    transactionViewModel.updateForegroundColor(item:category)
+                    transactionViewModel.updateForegroundColor(item: category)
                 )
             }
         }
