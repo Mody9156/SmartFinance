@@ -189,7 +189,6 @@ struct TransactionRow: View {
                         .font(.caption)
                 }
             }
-            .padding()
             
             Spacer()
             
