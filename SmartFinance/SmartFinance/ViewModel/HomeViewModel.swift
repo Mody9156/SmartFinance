@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 class HomeViewModel {
@@ -70,5 +71,9 @@ class HomeViewModel {
         newBalance = amount
         lastBalance = amount
         return amount
+    }
+    
+    func updateForegroundColor (item:String) -> Color {
+       return userProfileService.updateForegroundColor(item: item)
     }
 }
