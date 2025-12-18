@@ -15,7 +15,8 @@ struct SettingView: View {
     @State private var activeNotification: Bool = false
     @State private var activeDarkMode: Bool = false
     @State private var modification_of_the_profile: Bool = false
-    @State var selectedItems: [PhotosPickerItem] = []
+    @State var selectedItems: PhotosPickerItem? = nil
+    @State private var image: Image?
     
     var body: some View {
         NavigationStack {
@@ -36,23 +37,19 @@ struct SettingView: View {
                                     )
                                     .shadow(color: .green.opacity(0.18), radius: 10, x: 0, y: 3)
                                 
-                                Image("User")
+                                Image( "User")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 72, height: 72)
                                     .clipShape(Circle())
                                     .shadow(radius: 4, y: 2)
                                 
-                                PhotosPicker(selection: $selectedItems,
-                                                    matching: .images) {
-                                           Text("Select Multiple Photos")
-                                       }
+                                
                                 
                             }
                             
-                            Button(action:{
-                                
-                            }) {
+                            PhotosPicker(selection: $selectedItems,
+                                         matching: .images) {
                                 ZStack {
                                     Circle()
                                         .foregroundStyle(.white)
@@ -64,6 +61,7 @@ struct SettingView: View {
                                         .frame(width: 25,height: 25)
                                 }
                             }
+                   
                         }
                         
                         VStack {
@@ -71,44 +69,44 @@ struct SettingView: View {
                                 .foregroundStyle(.white)
                                 .font(.largeTitle)
                             
-                                Text("emailexemple.com")
+                            Text("emailexemple.com")
                                 .foregroundStyle(.white)
                             
-
+                            
                         }
                     }
                 }
                 
-//                Section(header: Text("Compte")) {
-//                   
-//                    NavigationLink {
-//                        LinkedAccount()
-//                    } label: {
-//                        Text("compte lié")
-//                            .foregroundStyle(.black)
-//                    }
-//                    
-//                    Picker("Devise", selection: $selectedCurrency) {
-//                        if let firstCurrency = settingViewModel.conversion.first {
-//                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
-//                            
-//                            ForEach(currencyKeys, id: \.self) { values in
-//                                HStack {
-//                                    Text(values).tag(values)
-//                                        .onChange(of:values){
-//                                            baseCurrency = values
-//                                        }
-//                                        .foregroundStyle(.black)
-//                                    
-//                                }
-//                            }
-//                        }
-//                        
-//                        
-//                    }
-//                    .pickerStyle(.navigationLink)
-//                }
-//                .padding()
+                //                Section(header: Text("Compte")) {
+                //
+                //                    NavigationLink {
+                //                        LinkedAccount()
+                //                    } label: {
+                //                        Text("compte lié")
+                //                            .foregroundStyle(.black)
+                //                    }
+                //
+                //                    Picker("Devise", selection: $selectedCurrency) {
+                //                        if let firstCurrency = settingViewModel.conversion.first {
+                //                            let currencyKeys = firstCurrency.conversionRates.keys.sorted()
+                //
+                //                            ForEach(currencyKeys, id: \.self) { values in
+                //                                HStack {
+                //                                    Text(values).tag(values)
+                //                                        .onChange(of:values){
+                //                                            baseCurrency = values
+                //                                        }
+                //                                        .foregroundStyle(.black)
+                //
+                //                                }
+                //                            }
+                //                        }
+                //
+                //
+                //                    }
+                //                    .pickerStyle(.navigationLink)
+                //                }
+                //                .padding()
                 Section(header: Text("Paramètres")) {
                     HStack {
                         Image(systemName: activeNotification ? "bell.fill" : "bell")
@@ -130,7 +128,7 @@ struct SettingView: View {
                 }
                 .padding()
             }
-             .task{
+            .task{
                 await settingViewModel.getConversions()
             }
         }
