@@ -195,7 +195,7 @@ struct TransactionRow: View {
             
             let symbole = homeViewModel.currencySymbol(element: baseCurrency)
             let dysplayDifference = homeViewModel.updateForegroundColor(item: category) == .red
-            let amountWithDifference = dysplayDifference ? "+" : "-"
+            let amountWithDifference = dysplayDifference ? "-" : "+"
             
             HStack {
                 Text(amountWithDifference)

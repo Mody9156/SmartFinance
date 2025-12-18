@@ -113,12 +113,11 @@ struct CustomLabel : View  {
                             .font(.caption)
                     }
                 }
-                .padding()
                 
                 Spacer()
                
                 let dysplayDifference = transactionViewModel.updateForegroundColor(item: category) == .red
-                let amountWithDifference = dysplayDifference ? "+" : "-"
+                let amountWithDifference = dysplayDifference ? "-" : "+"
                 let symbole = transactionViewModel.selectedCurrencySymbolse(
                     element: baseCurrency
                 )
