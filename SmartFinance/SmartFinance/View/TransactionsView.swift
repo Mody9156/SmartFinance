@@ -122,17 +122,13 @@ struct CustomLabel : View  {
                     element: baseCurrency
                 )
                
-                
-                let euroLocale = symbole == "EUR"
-                
                 Text(
                     amount,
                     format:
                             .currency(code: symbole)
                             .locale(Locale.autoupdatingCurrent)
                 )
-//                Text("\(amount) \(symbole)")
-//                  .foregroundStyle(amount < 0 ? .red : .green)
+                .foregroundStyle(amount > 0 ? .red : .green)
             }
         }
 }

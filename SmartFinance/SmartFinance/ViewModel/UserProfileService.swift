@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 class UserProfileService {
@@ -16,29 +17,29 @@ class UserProfileService {
     
     
     enum ConversionError: LocalizedError {
-            case emptyArray
-            case network
-            case unknown
-            
-            var errorDescription: String? {
-                switch self {
-                case .emptyArray: return "Aucune conversion disponible."
-                case .network: return "Problème de connexion."
-                case .unknown: return "Une erreur inconnue est survenue."
-                }
+        case emptyArray
+        case network
+        case unknown
+        
+        var errorDescription: String? {
+            switch self {
+            case .emptyArray: return "Aucune conversion disponible."
+            case .network: return "Problème de connexion."
+            case .unknown: return "Une erreur inconnue est survenue."
             }
         }
+    }
     
-        var currencySymbols: [String : CurrencySymbol] = {
+    var currencySymbols: [String : CurrencySymbol] = {
         Dictionary(
             uniqueKeysWithValues: CurrencySymbol.allCases.map {
-            ($0.rawValue,$0)
-        })
+                ($0.rawValue,$0)
+            })
     }()
-  
+    
     init(
         converterManager: ConverterService = ConverterManager(),
-       
+        
     ) {
         self.converterManager = converterManager
     }
@@ -48,8 +49,23 @@ class UserProfileService {
         return currencySymbols[element, default: CurrencySymbol.EUR].rawValue
         
     }
-    //
-   
+    
+    func updateForegroundColor(item:String) -> Color {
+        let transactions = [
+            "Salaire",
+            "Revenu",
+            "Dépôt",
+            "Virement reçu",
+            "Virement envoyé",
+            "Transfert interne"
+        ]
+        
+        if transactions.contains(item){
+            return Color.green
+        }else {
+            return   Color.red
+        }
+    }
     
     func getConversions() async throws {
         do {
